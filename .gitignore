@@ -1,0 +1,5 @@
+*.root
+analysis_output/*.root
+plots/*
+cal_runs/*
+*.png
