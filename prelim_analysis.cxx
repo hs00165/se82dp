@@ -629,6 +629,17 @@ void prelim_analysis()
     TH2D* SX3_en_vs_z_hist = new TH2D("SX3_en_vs_z_hist", "SX3_en_vs_z_hist", 400, -10, 10, 500, 0, 20000);
 
 
+    // Timestamp and TDC histograms
+    TH2D* delta_timestamp_vs_Run_hist = new TH2D("delta_timestamp_vs_Run_hist", "delta_timestamp_vs_Run_hist", 120, 0, 120, 500, -100, 400);
+    TH2D* tdcGRETINA_vs_Run_hist = new TH2D("tdcGRETINA_vs_Run_hist", "tdcGRETINA_vs_Run_hist", 120, 0, 120, 4096, 0, 4096);
+
+    TH2D* si_ic_vs_Run_hist = new TH2D("si_ic_vs_Run_hist", "si_ic_vs_Run_hist", 120, 0, 120, 2000, 0, 2000);
+    TH2D* Energy_vs_si_ic_hist = new TH2D("Energy_vs_si_ic_hist", "Energy_vs_si_ic_hist", 1000, 0, 2000, 2000, 0, 20000);
+    TH2D* Energy_vs_delta_timestamp_hist = new TH2D("Energy_vs_delta_timestamp_hist", "Energy_vs_delta_timestamp_hist", 500, -100, 400, 2000, 0, 20000);
+
+
+
+
     //=============Constructing the bins for the Angular Distribution=============
     //============================================================================
 
@@ -657,20 +668,8 @@ void prelim_analysis()
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    string runNumber_str;
+    int runNumber;
 
     
 	//Getting the number of entries to loop through
@@ -683,6 +682,9 @@ void prelim_analysis()
     {
     	Chain->GetEntry(i);
 
+        runNumber_str = Chain->GetFile()->GetName();
+        runNumber = stoi(runNumber_str.substr(31,3));
+
         // ===========================================================================
         // ===========================================================================
         // ==                                                                       ==
@@ -693,12 +695,20 @@ void prelim_analysis()
 
         if(tdcSilicon != 0) siliconTDC_hist->Fill(tdcSilicon);
         if(tdcIC != 0) icTDC_hist->Fill(tdcIC);
-        if(tdcGRETINA != 0) grertinaTDC_hist->Fill(tdcGRETINA);
+        if(tdcGRETINA != 0) 
+        {
+            grertinaTDC_hist->Fill(tdcGRETINA);
+            tdcGRETINA_vs_Run_hist->Fill(runNumber, tdcGRETINA);
+        }
 
+        
 
+        si_ic_vs_Run_hist->Fill(runNumber, tdcSilicon - tdcIC);
 
-
-
+        if(xtalsMul >= 1 )
+        {
+            delta_timestamp_vs_Run_hist->Fill(runNumber, timeStamp - xtals_timestamp[0]);
+        }
 
 
 
@@ -718,7 +728,7 @@ void prelim_analysis()
         {
             for(int j=0; j<SX3Mul; j++)
             {
-                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcSilicon >= 900 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
+                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3)// && tdcSilicon >= 900 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
                 //if(SX3Det[j] <= 11 && SX3Strip[j] <= 3) //No weird events with wrong channels make it through
                 {
                     //Calibrating SX3 Position
@@ -763,6 +773,18 @@ void prelim_analysis()
                     // {
                     //     hit_position_spectrum->Fill(hit_pos.at(0), hit_pos.at(2), hit_pos.at(1));
                     // }
+
+                    if( SX3Upstream[j]==1 )
+                    {
+                        Energy_vs_si_ic_hist->Fill(tdcSilicon - tdcIC, initial_energy*1000.0);
+                        
+
+                        if(tdcGRETINA != 0) Energy_vs_delta_timestamp_hist->Fill(tdcIC - tdcGRETINA, initial_energy*1000.0 );
+                    }
+
+
+
+
 
 
 
@@ -851,6 +873,7 @@ void prelim_analysis()
                             {
                                 gamma_belowSn->Fill(xtals_edop[k]);
                             }
+
 
 
 
@@ -1052,6 +1075,11 @@ void prelim_analysis()
     siliconTDC_hist->Write();
     icTDC_hist->Write();
     grertinaTDC_hist->Write();
+    delta_timestamp_vs_Run_hist->Write();
+    tdcGRETINA_vs_Run_hist->Write();
+    si_ic_vs_Run_hist->Write();
+    Energy_vs_si_ic_hist->Write();
+    Energy_vs_delta_timestamp_hist->Write();
 
 
     // for (int j=1; j<=number_of_SX3_bins; j++)

@@ -115,9 +115,20 @@ void angular_distribution_analyzer()
         }
 
     }
-
-
     config_file.close();
+
+
+    // Normalizing to the beam current and target thickness
+    // From the results of beam_rate_analysis.cxx I have deduced that 
+    // each elastic scattering particle corresponds to
+    // NbNt of 5.9784x10^24
+    // therefore for the entire experiment, NbNt = 9.81605x10^29
+
+    double NbNt = 9.81605*pow(10,29);
+    // double NbNt = 4.2402*pow(10,29);
+
+
+
     // ==========================================================
     // =======================   SX3s   =========================
     // ==========================================================
@@ -197,8 +208,8 @@ void angular_distribution_analyzer()
     double SX3_ang_dist_err_COPY[number_of_SX3_bins];
 	for(int i=0; i< number_of_SX3_bins; i++)
     {
-    	SX3_ang_dist[i] = SX3_bin_counts[i]/SX3_bin_SA[i];
-    	SX3_ang_dist_err[i] = SX3_ang_dist[i] * (SX3_bin_counts_err[i]/SX3_bin_counts[i]);
+    	SX3_ang_dist[i] = (SX3_bin_counts[i]/SX3_bin_SA[i]) * ( pow(10,27) / NbNt );
+    	SX3_ang_dist_err[i] = (SX3_ang_dist[i] * (SX3_bin_counts_err[i]/SX3_bin_counts[i]));
         SX3_ang_dist_err_COPY[i] = SX3_ang_dist_err[i];
 
 	}
@@ -299,11 +310,15 @@ void angular_distribution_analyzer()
     double QQQ5_ang_dist_err[number_of_QQQ5_bins];
     for(int i=0; i< number_of_QQQ5_bins; i++)
     {
-        QQQ5_ang_dist[i] = QQQ5_bin_counts[i]/QQQ5_SA[i];
-        QQQ5_ang_dist_err[i] = QQQ5_ang_dist[i] * (QQQ5_bin_counts_err[i]/QQQ5_bin_counts[i]);
+        QQQ5_ang_dist[i] = (QQQ5_bin_counts[i]/QQQ5_SA[i]) * ( pow(10,27) / NbNt );
+        QQQ5_ang_dist_err[i] = (QQQ5_ang_dist[i] * (QQQ5_bin_counts_err[i]/QQQ5_bin_counts[i]));
     }
 
     TGraphErrors* Angular_Distribution_QQQ5 = new TGraphErrors(number_of_QQQ5_bins, QQQ5_bin_center_angle, QQQ5_ang_dist, 0, QQQ5_ang_dist_err);
+
+
+    
+
 
 
 

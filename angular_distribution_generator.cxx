@@ -729,7 +729,7 @@ void angular_distribution_generator()
         {
             for(int j=0; j<SX3Mul; j++)
             {
-                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && Se82_locus_IC->IsInside(icE, icdE) && tdcSilicon >= 1000 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
+                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcSilicon >= 900 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
                 {
                     //Calibrating SX3 Position
                     rawPos = (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] - SX3StripLeftADC[j]) / (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] + SX3StripLeftADC[j]);
@@ -866,7 +866,7 @@ void angular_distribution_generator()
         {
             for(int j=0; j<QQQ5Mul; j++)
             {
-                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && Se82_locus_IC->IsInside(icE, icdE) && tdcSilicon >= 1000 && tdcSilicon <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
+                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcSilicon >= 900 && tdcSilicon <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
                 {
 
                     //Calculating the event Q value
