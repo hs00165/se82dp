@@ -29,7 +29,8 @@
 Double_t peak_fit_function ( Double_t *x, Double_t *par )
 {
     return ( par[0] * TMath::Exp ( -0.5 * ( pow ( x[0] - (par[1]), 2 ) / pow ( par[2], 2 ) ) ) )
-    + par[3] + (par[4]*x[0]);
+    + ( par[3] * TMath::Exp ( -0.5 * ( pow ( x[0] - (par[4]), 2 ) / pow ( par[5], 2 ) ) ) );
+
 }
 
 Double_t normalizing_function ( Double_t *x, Double_t *par )
@@ -43,7 +44,7 @@ Double_t fit2D(Double_t *x, Double_t *par)
 }
 
 
-void angular_distribution_analyzer()
+void angular_distribution_analyzer_back_sub()
 {
 
     // Fit with Minuit2
@@ -62,6 +63,9 @@ void angular_distribution_analyzer()
 
 
 	TFile *f = new TFile("analysis_output/angular_distribution_histograms.root");
+    TFile *file2 = new TFile("analysis_output/CH2_angular_distribution_histograms.root");
+
+
 
 	ifstream config_file ( "analysis_output/angular_distribution_config.dat" );
 
@@ -143,8 +147,10 @@ void angular_distribution_analyzer()
 
 
     TH1D * Ex_AngularBin_SX3[number_of_SX3_bins];
+    TH1D * CH2_Ex_AngularBin_SX3[number_of_SX3_bins];
 
     char angular_bin_name[number_of_SX3_bins];
+    char angular_bin_name_CH2[number_of_SX3_bins];
 
     // cout << "number of SX3 bins:  " << number_of_SX3_bins << endl;
 
@@ -154,8 +160,26 @@ void angular_distribution_analyzer()
         // cout << "debug?  " << endl;
         sprintf(angular_bin_name,"SX3_Angular_bin_%d",i);
 
+        
+
         Ex_AngularBin_SX3[i] = (TH1D*)f->Get(angular_bin_name);
+        CH2_Ex_AngularBin_SX3[i] = (TH1D*)file2->Get(angular_bin_name);
+        // CH2_Ex_AngularBin_SX3[i]->Scale(5.5197);
+
+        
+
+
+        // Performing background subtraction
+        for(int j=0; j<Ex_AngularBin_SX3[i]->GetNbinsX(); j++ )
+        {
+            Ex_AngularBin_SX3[i]->SetBinContent(j, Ex_AngularBin_SX3[i]->GetBinContent(j) - (CH2_Ex_AngularBin_SX3[i]->GetBinContent(j)*5.5197));
+        }
+
     }
+
+
+
+
 
     TF1* peak_fit[number_of_SX3_bins];
     char peak_fit_name[number_of_SX3_bins];
@@ -168,22 +192,23 @@ void angular_distribution_analyzer()
 
     	// cout << "test" << i << endl;
     	sprintf(peak_fit_name,"peak_fit_%d",i);
-    	peak_fit[i] = new TF1 ( peak_fit_name,"peak_fit_function",-500, 1800, 5 );
+    	peak_fit[i] = new TF1 ( peak_fit_name,"peak_fit_function",-500, 1200, 6 );
 
-    	peak_fit[i]->SetParameters ( 15, 600, 135, 2., 0.0005 );
-    	peak_fit[i]->SetParLimits(2,130., 140.);
+    	peak_fit[i]->SetParameters ( 15, 600, 140, 5, 1100, 140 );
+
+        peak_fit[i]->SetParLimits(1,460, 660);
+        peak_fit[i]->SetParLimits(4,1000, 1200);
+
+    	peak_fit[i]->SetParLimits(2,120, 160);
+        peak_fit[i]->SetParLimits(5,120, 160);
 
         Ex_AngularBin_SX3[i]->Fit ( peak_fit_name, "rq" );
-
-        background_area = ( ( ( peak_fit[i]->GetParameter(1) + peak_fit[i]->GetParameter(2) ) * peak_fit[i]->GetParameter(4) + peak_fit[i]->GetParameter(3) )
-                            + ( ( peak_fit[i]->GetParameter(1) - peak_fit[i]->GetParameter(2) ) * peak_fit[i]->GetParameter(4) + peak_fit[i]->GetParameter(3) ) )
-                                *peak_fit[i]->GetParameter(2);
-
+    
         //Extracting number of counts in each bin
 	    SX3_bin_counts[i-1] = sqrt ( 2 * 3.14159 ) * peak_fit[i]->GetParameter(2) * ( peak_fit[i]->GetParameter(0) / ex_bin_width );
     
         //calculating the (square-root) uncertainty
-        SX3_bin_counts_err[i-1] =   sqrt( SX3_bin_counts[i-1] + background_area  );
+        SX3_bin_counts_err[i-1] =   sqrt( SX3_bin_counts[i-1] );
     }
 
 
@@ -199,7 +224,9 @@ void angular_distribution_analyzer()
     for(int i=0; i< number_of_SX3_bins; i++)
     {
     	SX3_bin_SA[i] =  get_solid_angle("Upstream_SX3", SX3_bin_center[i], SX3_bin_width, -1.0);
-	}
+	    cout << "SX3 bin info: " << i << "   " << "  SA: " << SX3_bin_SA[i] << "  bin center=  " << SX3_bin_center[i] << endl;
+
+    }
 
 
 	//Calculating the RELATIVE angular distribution
@@ -225,6 +252,7 @@ void angular_distribution_analyzer()
 
 
     TH1D * Ex_AngularBin_QQQ5[number_of_QQQ5_bins];
+    TH1D * CH2_Ex_AngularBin_QQQ5[number_of_QQQ5_bins];
 
     char angular_bin_name_QQQ5[number_of_QQQ5_bins];
 
@@ -237,6 +265,13 @@ void angular_distribution_analyzer()
         sprintf(angular_bin_name_QQQ5,"QQQ5_Angular_bin_%d",i);
 
         Ex_AngularBin_QQQ5[i] = (TH1D*)f->Get(angular_bin_name_QQQ5);
+        CH2_Ex_AngularBin_QQQ5[i] = (TH1D*)file2->Get(angular_bin_name_QQQ5);
+
+        // Performing background subtraction
+        for(int j=0; j<Ex_AngularBin_QQQ5[i]->GetNbinsX(); j++ )
+        {
+            Ex_AngularBin_QQQ5[i]->SetBinContent(j, Ex_AngularBin_QQQ5[i]->GetBinContent(j) - (CH2_Ex_AngularBin_QQQ5[i]->GetBinContent(j)*5.5197) );
+        }
     }
 
     TF1* peak_fit_QQQ5[number_of_QQQ5_bins];
@@ -249,10 +284,19 @@ void angular_distribution_analyzer()
 
         // cout << "test" << i << endl;
         sprintf(peak_fit_name_QQQ5,"peak_fit_%d",i);
-        peak_fit_QQQ5[i] = new TF1 ( peak_fit_name_QQQ5,"peak_fit_function",-500, 1800, 5 );
+        peak_fit_QQQ5[i] = new TF1 ( peak_fit_name_QQQ5,"peak_fit_function",-500, 1200, 6 );
 
-        peak_fit_QQQ5[i]->SetParameters ( 15, 580, 150, 2., 0.0005 );
+        peak_fit_QQQ5[i]->SetParameters ( 15, 580, 140, 5, 1100, 140 );
         peak_fit_QQQ5[i]->SetParLimits ( 0, 0, 10000);
+
+        peak_fit_QQQ5[i]->SetParLimits(1,460, 660);
+        peak_fit_QQQ5[i]->SetParLimits(4,1000, 1200);
+
+        peak_fit_QQQ5[i]->SetParLimits(2,100, 150);
+        peak_fit_QQQ5[i]->SetParLimits(5,100, 150);
+
+
+
         //peak_fit_QQQ5[i]->FixParameter(2,135.);
 
         Ex_AngularBin_QQQ5[i]->Fit ( peak_fit_name_QQQ5, "rq" );
@@ -260,12 +304,8 @@ void angular_distribution_analyzer()
         //Extracting number of counts in each bin
         QQQ5_bin_counts[i-1] = sqrt ( 2 * 3.14159 ) * peak_fit_QQQ5[i]->GetParameter(2) * ( peak_fit_QQQ5[i]->GetParameter(0) / ex_bin_width );
     
-        background_area = ( ( ( peak_fit_QQQ5[i]->GetParameter(1) + peak_fit_QQQ5[i]->GetParameter(2) ) * peak_fit_QQQ5[i]->GetParameter(4) + peak_fit_QQQ5[i]->GetParameter(3) )
-                            + ( ( peak_fit_QQQ5[i]->GetParameter(1) - peak_fit_QQQ5[i]->GetParameter(2) ) * peak_fit_QQQ5[i]->GetParameter(4) + peak_fit_QQQ5[i]->GetParameter(3) ) )
-                                *peak_fit_QQQ5[i]->GetParameter(2);
-
         //calculating the (square-root) uncertainty
-        QQQ5_bin_counts_err[i-1] =   sqrt( QQQ5_bin_counts[i-1] + background_area  );
+        QQQ5_bin_counts_err[i-1] =   sqrt( QQQ5_bin_counts[i-1]  );
 
         // cout << QQQ5_bin_counts[i-1] << " +/- " << QQQ5_bin_counts_err[i-1] << endl;
 
@@ -301,7 +341,7 @@ void angular_distribution_analyzer()
     for(int i=0; i< number_of_QQQ5_bins; i++)
     {
         QQQ5_SA[i] =  get_solid_angle("Upstream_QQQ5", QQQ5_bin_start[i], QQQ5_bin_width, QQQ5_z_offset);
-        cout << "TEST  bin: " << i << "   " << QQQ5_bin_start[i] << "  SA: " << QQQ5_SA[i] << "  bin center=  " << QQQ5_bin_center_angle[i] << endl;
+        cout << "QQQ5 bin info: " << i << "   " << QQQ5_bin_start[i] << "  SA: " << QQQ5_SA[i] << "  bin center=  " << QQQ5_bin_center_angle[i] << endl;
     }
 
 
@@ -320,31 +360,61 @@ void angular_distribution_analyzer()
     
 
 
-
+    vector<int> ignored_bins{ 2, 13, 14};
+    // vector<int> ignored_bins{};
 
     int total_number_of_bins = number_of_SX3_bins + number_of_QQQ5_bins;
-    double total_ang_dist[total_number_of_bins];
-    double total_ang_dist_err[total_number_of_bins];
-    double total_angles[total_number_of_bins];
+
+    int ignore_bin_flag = 0;
+
+    vector<double> total_ang_dist_temp;
+    vector<double> total_ang_dist_err_temp;
+    vector<double> total_angles_temp;
+
+    
 
     // Combining the SX3 and QQQ5 angular distribution into one
     for(int i=0; i<total_number_of_bins; i++)
     {
-        if(i < number_of_SX3_bins)
-        {
-            total_ang_dist[i] = SX3_ang_dist[i];
-            total_ang_dist_err[i] = SX3_ang_dist_err[i];
 
-            total_angles[i] = SX3_bin_center[i];
+        // Removing bins to be ignored
+        ignore_bin_flag=0;
+        for(int k=0; k<ignored_bins.size(); k++)
+        {
+            if(ignored_bins.at(k) == i) ignore_bin_flag=1;
         }
-        else
-        {
-            total_ang_dist[i] = QQQ5_ang_dist[i-number_of_SX3_bins];
-            total_ang_dist_err[i] = QQQ5_ang_dist_err[i-number_of_SX3_bins];
 
-            total_angles[i] = QQQ5_bin_center_angle[i-number_of_SX3_bins];
+        if(i < number_of_SX3_bins && ignore_bin_flag==0)
+        {
+            total_ang_dist_temp.push_back(SX3_ang_dist[i]);
+            total_ang_dist_err_temp.push_back(SX3_ang_dist_err[i]);
+
+            total_angles_temp.push_back(SX3_bin_center[i]);
+        }
+        if(i >= number_of_SX3_bins && ignore_bin_flag==0)
+        {
+            total_ang_dist_temp.push_back(QQQ5_ang_dist[i-number_of_SX3_bins]);
+            total_ang_dist_err_temp.push_back(QQQ5_ang_dist_err[i-number_of_SX3_bins]);
+
+            total_angles_temp.push_back(QQQ5_bin_center_angle[i-number_of_SX3_bins]);
         }
     }
+
+    // Turning the temporary vectors into arrays for plotting and normalizing
+    double total_ang_dist[total_ang_dist_temp.size()];
+    double total_ang_dist_err[total_ang_dist_temp.size()];
+    double total_angles[total_ang_dist_temp.size()];
+    for(int i=0; i<total_ang_dist_temp.size(); i++)
+    {
+        total_ang_dist[i] = total_ang_dist_temp.at(i);
+        total_ang_dist_err[i] = total_ang_dist_err_temp.at(i);
+        total_angles[i] = total_angles_temp.at(i);
+    }
+
+
+
+
+    TGraphErrors* total_ang_dist_plot = new TGraphErrors(total_number_of_bins, total_angles, total_ang_dist, 0, total_ang_dist_err);
 
 
     // Normalizing the Theoretical cross sections to the observed
@@ -386,7 +456,7 @@ void angular_distribution_analyzer()
 
     TF1 *linFit_3s1h = new TF1("linFit_3s1h", "normalizing_function", 0, 10, 1);
     linFit_3s1h->SetParLimits(0, 0., 400.);
-    norm_3s1h->Fit("linFit_3s1h", "r");
+    norm_3s1h->Fit("linFit_3s1h", "rq");
 
     cout << "3s1h normalizing parameter:   " << linFit_3s1h->GetParameter(0) << endl;
     double S_3s1h = linFit_3s1h->GetParameter(0);
@@ -445,7 +515,7 @@ void angular_distribution_analyzer()
     TF1 *linFit_2d5h = new TF1("linFit_2d5h", "normalizing_function", 1, 7, 1);
     linFit_2d5h->SetParLimits(0, 0., 400.);
     linFit_2d5h->SetParameter(0, 200);
-    norm_2d5h->Fit("linFit_2d5h", "r");
+    norm_2d5h->Fit("linFit_2d5h", "rq");
 
     cout << "2d5h normalizing parameter:   " << linFit_2d5h->GetParameter(0) << endl;
     double S_2d5h = linFit_2d5h->GetParameter(0);
@@ -479,6 +549,9 @@ void angular_distribution_analyzer()
 
     TGraph2DErrors *comb_fit_2D = new TGraph2DErrors(total_number_of_bins, DWBA_3s1h_xsection, DWBA_2d5h_xsection, total_ang_dist, 0, 0, total_ang_dist_err);
     TF2 *f2 = new TF2("f2",fit2D,0,50,0,50, 2);
+    f2->SetParameters(0.5, 0.5);
+    f2->SetParLimits(0, 0.0, 100);
+    f2->SetParLimits(1, 0, 100);
 
     comb_fit_2D->Fit("f2");
     cout << "====================================================================" << endl;
@@ -653,12 +726,11 @@ void angular_distribution_analyzer()
     LinCom_2d5h->SetLineWidth(2);
 
     c5->cd();
-    observed_anglular_distributions_LinCom->Add(Angular_Distribution_SX3, "p");
-    observed_anglular_distributions_LinCom->Add(Angular_Distribution_QQQ5, "p");
+    observed_anglular_distributions_LinCom->Add(total_ang_dist_plot, "p");
     observed_anglular_distributions_LinCom->Add(LinCom_3s1h, "l");
     observed_anglular_distributions_LinCom->Add(LinCom_2d5h, "l");
     observed_anglular_distributions_LinCom->Add(Total_LinCom, "l");
-    ang_dist_leg_LinCom->AddEntry(Angular_Distribution_SX3, "This measurement");
+    ang_dist_leg_LinCom->AddEntry(total_ang_dist_plot, "This measurement");
     //ang_dist_leg_LinCom->AddEntry(Angular_Distribution_QQQ5, "QQQ5's");
     ang_dist_leg_LinCom->AddEntry(normalized_3s1h, "3s1h");
     ang_dist_leg_LinCom->AddEntry(normalized_2d5h, "2d5h");

@@ -57,6 +57,8 @@ void singles_back_sub()
 
     cout << CD2_integral << "   " << CH2_integral << endl;
 
+    cout << "Scale factor:  " << CD2_integral / CH2_integral << endl;
+
     CH2_excitation->Scale(CD2_integral / CH2_integral);
 
 

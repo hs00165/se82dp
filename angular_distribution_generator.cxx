@@ -209,35 +209,35 @@ void angular_distribution_generator()
 
     //================== CH2 Runs ====================
     //================================================
-    /*
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run068_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run069_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run070_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run071_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run072_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run073_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run074_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run075_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run076_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run077_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run078_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run079_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run080_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run081_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run082_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run083_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run084_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run085_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run086_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run087_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run088_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run089_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run090_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run091_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run092_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run093_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_data/Run094_combined.root");
-    */
+    
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run068_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run069_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_data/Run070_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run071_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run072_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run073_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run074_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run075_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run076_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run077_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run078_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run079_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run080_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run081_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run082_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run083_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run084_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run085_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run086_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run087_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run088_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run089_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run090_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run091_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run092_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run093_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run094_combined.root");
+    
 
 
 
@@ -457,28 +457,29 @@ void angular_distribution_generator()
 	float icPositionWeightedY = 0;
 	//
 	// === TDC ===
-	int   tdcIC = 0;
+	int   tdcSilicon = 0;
 	int   tdcGRETINA = 0;
 	int   tdcRF = 0;
-	int   tdcSilicon = 0;
+	int   tdcIC = 0;
 	unsigned long long timeStamp = 0;
 	unsigned long long GRETINATimeStamp = 0;
 	//
 	// === GRETINA ===
-	bool  foundGRETINA = 0;
-	int   xtalsMul = 0;
-    float xtals_xlab[10] = {0};
-	float xtals_ylab[10] = {0};
-	float xtals_zlab[10] = {0};
-	float xtals_cc[10] = {0};
-	float xtals_edop[10] = {0};
-	float xtals_edopMaxInt[10] = {0};
-	float xtals_edopSeg[10] = {0};
-	float xtals_edopXtal[10] = {0};
-	int   xtals_crystalNum[10] = {0};
-	int   xtals_quadNum[10] = {0};
-	float xtals_t0[10] = {0};
-	long long  xtals_timestamp[10] = {0};
+	const Int_t NMAX = 44;
+    bool  foundGRETINA = 0;
+    int   xtalsMul = 0;
+    float xtals_xlab[NMAX] = {0};
+    float xtals_ylab[NMAX] = {0};
+    float xtals_zlab[NMAX] = {0};
+    float xtals_cc[NMAX] = {0};
+    float xtals_edop[NMAX] = {0};
+    float xtals_edopMaxInt[NMAX] = {0};
+    float xtals_edopSeg[NMAX] = {0};
+    float xtals_edopXtal[NMAX] = {0};
+    int   xtals_crystalNum[NMAX] = {0};
+    int   xtals_quadNum[NMAX] = {0};
+    float xtals_t0[NMAX] = {0};
+    long long  xtals_timestamp[NMAX] = {0};
     //
     // === Analysis parameters ===
     double qValue = 0.0;
@@ -571,10 +572,10 @@ void angular_distribution_generator()
 
 
     // =================== TDC Branch Address ==================
-    Chain->SetBranchAddress("tdcIC",&tdcIC);
+    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
     Chain->SetBranchAddress("tdcGRETINA",&tdcGRETINA);
     Chain->SetBranchAddress("tdcRF",&tdcRF);
-    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
+    Chain->SetBranchAddress("tdcIC",&tdcIC);
     Chain->SetBranchAddress("timeStamp",&timeStamp);
     Chain->SetBranchAddress("GRETINATimeStamp",&GRETINATimeStamp);
 
@@ -647,17 +648,130 @@ void angular_distribution_generator()
     //         ===========================================================
     //
     ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-    double SX3_bin_width = 5.; //degrees
-    int number_of_SX3_bins = 7;
-    double ang_bin_center_SX3[7] = {97.5, 102.5, 107.5, 112.5, 117.5, 122.5, 127.5}; //degrees
+    // double SX3_bin_width = 5.; //degrees
+    // int number_of_SX3_bins = 7;
+    // double ang_bin_center_SX3[7] = {97.5, 102.5, 107.5, 112.5, 117.5, 122.5, 127.5}; //degrees
     ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 
 
     ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-    double QQQ5_bin_width = 4.; //degrees
-    int number_of_QQQ5_bins = 8;
-    int QQQ5_strip_start[8] = {0,4,8,12,16,20,24,28}; //degrees
+    // double QQQ5_bin_width = 4.; //degrees
+    // int number_of_QQQ5_bins = 8;
+    // int QQQ5_strip_start[8] = {0,4,8,12,16,20,24,28}; //degrees
     ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+
+    
+
+
+
+
+
+
+    // //Writing config file for angular_distribution_analyzer.cxx
+    // ofstream angular_distribution_config;
+    // angular_distribution_config.open ( "analysis_output/angular_distribution_config.dat" );
+
+
+    // angular_distribution_config << "Number_of_SX3_bins" << setw(10) << number_of_SX3_bins << endl;
+    // angular_distribution_config << "Number_of_QQQ5_bins" << setw(10) << number_of_QQQ5_bins << endl;
+    // angular_distribution_config << "SX3_bin_width" << setw(10) << SX3_bin_width << endl;
+    // angular_distribution_config << "QQQ5_bin_width" << setw(10) << QQQ5_bin_width << endl;
+    // angular_distribution_config << "Excitation_bin_width" << setw(10) << 1.0*((1.0*exStop)-(1.0*exStart)) / (1.0*exNumBins) << endl;
+    // angular_distribution_config << "QQQ5_z_offset" << setw(10) << QQQ5_zOffset << endl;
+    // for(int i=0; i<number_of_QQQ5_bins; i++)
+    // {
+    //     angular_distribution_config << "QQQ5_bin_start=" << setw(10) << QQQ5_strip_start[i] << endl;
+    // }
+    // for(int i=0; i<number_of_SX3_bins; i++)
+    // {
+    //     angular_distribution_config << "SX3_bin_center=" << setw(10) << ang_bin_center_SX3[i] << endl;
+    // }
+    // angular_distribution_config.close();
+
+
+
+    double SX3_bin_width, QQQ5_bin_width, temp_double;
+    vector<double> SX3_bin_center_vect;
+    vector<double> QQQ5_bin_start_vect;
+    int number_of_SX3_bins, number_of_QQQ5_bins;
+    double ex_bin_width;
+    double QQQ5_z_offset;
+    int bin_location_flag = 0;
+
+
+    ifstream config_file ( "analysis_output/angular_distribution_config.dat" );
+
+    string temp_string;
+    //=====================READING IN THE CALIBRATION FILE=========================
+    while ( getline ( config_file,line ) )
+    {
+        istringstream in ( line );
+
+        if(line.find("Number_of_SX3_bins") != std::string::npos)
+        {
+            in >> temp_string >> number_of_SX3_bins;
+
+        }
+        if(line.find("Number_of_QQQ5_bins") != std::string::npos)
+        {
+            in >> temp_string >> number_of_QQQ5_bins;
+
+        }
+        if(line.find("SX3_bin_width") != std::string::npos)
+        {
+            in >> temp_string >> SX3_bin_width;
+        }
+        if(line.find("QQQ5_bin_width") != std::string::npos)
+        {
+            in >> temp_string >> QQQ5_bin_width;
+        }
+
+        if(line.find("Excitation_bin_width") != std::string::npos)
+        {
+            in >> temp_string >> ex_bin_width;
+        }
+
+        if(line.find("QQQ5_z_offset") != std::string::npos)
+        {
+            in >> temp_string >> QQQ5_z_offset;
+        }
+
+        if(line.find("QQQ5_bin_start=") != std::string::npos)
+        {
+            temp_double = 0.;
+            in >> temp_string >> temp_double;
+            QQQ5_bin_start_vect.push_back(temp_double);   
+        }
+
+        if(line.find("SX3_bin_center=") != std::string::npos)
+        {
+            temp_double = 0.;
+            in >> temp_string >> temp_double;
+            SX3_bin_center_vect.push_back(temp_double);         
+        }
+
+    }
+    config_file.close();
+
+
+    double ang_bin_center_SX3[number_of_SX3_bins];
+    for(int i=0; i<number_of_SX3_bins; i++)
+    {
+        ang_bin_center_SX3[i] = SX3_bin_center_vect.at(i);
+    }
+
+
+    int QQQ5_strip_start[number_of_QQQ5_bins];
+    double QQQ5_bin_center_angle[number_of_QQQ5_bins];
+
+    for(int i=0; i<number_of_QQQ5_bins; i++)
+    {
+        QQQ5_strip_start[i] = QQQ5_bin_start_vect.at(i);
+    }
+
+
+
 
 
     TH1D* Excitation_AngularBin_SX3[number_of_SX3_bins];
@@ -686,26 +800,6 @@ void angular_distribution_generator()
 
 
 
-    //Writing config file for angular_distribution_analyzer.cxx
-    ofstream angular_distribution_config;
-    angular_distribution_config.open ( "analysis_output/angular_distribution_config.dat" );
-
-
-    angular_distribution_config << "Number_of_SX3_bins" << setw(10) << number_of_SX3_bins << endl;
-    angular_distribution_config << "Number_of_QQQ5_bins" << setw(10) << number_of_QQQ5_bins << endl;
-    angular_distribution_config << "SX3_bin_width" << setw(10) << SX3_bin_width << endl;
-    angular_distribution_config << "QQQ5_bin_width" << setw(10) << QQQ5_bin_width << endl;
-    angular_distribution_config << "Excitation_bin_width" << setw(10) << 1.0*((1.0*exStop)-(1.0*exStart)) / (1.0*exNumBins) << endl;
-    angular_distribution_config << "QQQ5_z_offset" << setw(10) << QQQ5_zOffset << endl;
-    for(int i=0; i<number_of_QQQ5_bins; i++)
-    {
-        angular_distribution_config << "QQQ5_bin_start=" << setw(10) << QQQ5_strip_start[i] << endl;
-    }
-    for(int i=0; i<number_of_SX3_bins; i++)
-    {
-        angular_distribution_config << "SX3_bin_center=" << setw(10) << ang_bin_center_SX3[i] << endl;
-    }
-    angular_distribution_config.close();
 
     
 	//Getting the number of entries to loop through
@@ -725,11 +819,11 @@ void angular_distribution_generator()
         // ==                                                                       ==
         // ===========================================================================
         // ===========================================================================
-        if(SX3Mul == 1)
+        if(SX3Mul >= 1)
         {
             for(int j=0; j<SX3Mul; j++)
             {
-                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcSilicon >= 900 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
+                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcIC >= 900 && tdcIC <= 1300) //No weird events with wrong channels make it through
                 {
                     //Calibrating SX3 Position
                     rawPos = (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] - SX3StripLeftADC[j]) / (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] + SX3StripLeftADC[j]);
@@ -759,9 +853,9 @@ void angular_distribution_generator()
                     Ex_SX3->Fill(3593.0 - qValue);
 
                     // Figuring out the TDC stuff
-                    SX3_Si_TDC->Fill(tdcSilicon);
                     SX3_IC_TDC->Fill(tdcIC);
-
+                    SX3_Si_TDC->Fill(tdcSilicon);
+                    
 
                     // Filling angular bins
                     for(int l=1; l<=number_of_SX3_bins; l++)
@@ -866,7 +960,7 @@ void angular_distribution_generator()
         {
             for(int j=0; j<QQQ5Mul; j++)
             {
-                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcSilicon >= 900 && tdcSilicon <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
+                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcIC >= 900 && tdcIC <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
                 {
 
                     //Calculating the event Q value
@@ -888,8 +982,8 @@ void angular_distribution_generator()
                     Excitation_spec->Fill(3593.0 - qValue);
                     Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (QQQ5_angle[QQQ5Ring[j]], initial_energy*1000.0));
 
-                    QQQ5_Si_TDC->Fill(tdcSilicon);
-                    QQQ5_IC_TDC->Fill(tdcIC);
+                    QQQ5_Si_TDC->Fill(tdcIC);
+                    QQQ5_IC_TDC->Fill(tdcSilicon);
 
 
 

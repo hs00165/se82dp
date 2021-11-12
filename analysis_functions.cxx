@@ -43,6 +43,47 @@ double rel_q_value ( double psi, double T3 )
 }
 
 
+double integrate_func (vector<double> xValue, vector<double> yValue, double xStart, double xStop)
+{
+    int found_start_flag = 0;
+    int nStart, nStop;
+
+    // Finding index of start of function
+    for(int i=0; i<xValue.size(); i++)
+    {
+        if(xValue.at(i)>=xStart && found_start_flag==0){
+            nStart = i;
+            found_start_flag = 1;
+        }
+        if(xValue.at(i)<=xStop){
+            nStop = i;
+        }
+    }
+
+    double nPoints = nStop-nStart;
+    double coefficient, sum;
+    int loop_number = 0;
+
+    for(int n = nStart; n <= nStop; n++){
+
+        if( loop_number % 2 == 0) coefficient = 2;
+        if( loop_number % 2 != 0) coefficient = 4;
+        if(loop_number == 0 || loop_number == nPoints) coefficient = 1.;
+
+        sum = sum + ( coefficient*yValue.at(n) );
+
+        loop_number++;
+    }
+
+    double integral = ( ( (1.0*(xStop - xStart) ) / (1.0*nPoints) ) / 3. ) * sum;
+
+    return integral;
+}
+
+
+
+
+
 double getSX3Angle ( int upstream, double pos )
 {
     double angle;
@@ -218,6 +259,122 @@ vector<double>  hit_position_3D(string SX3_or_QQQ5, int upstream, int det, int s
 }
 
 
+
+
+
+vector<double>  hit_position_r_theta_phi(string SX3_or_QQQ5, int upstream, int det, int strip, double pos_or_segment)
+{
+    vector<double> hit_pos;
+    double x, y, z;
+
+
+    if(SX3_or_QQQ5 == "SX3")
+    {
+        //correcting the weird detector numbering
+        //Now it SHOULD be like a clock
+        if (det != 0) det = det + 1;
+        if (det == 0) det = 12;
+
+        double rDetCenterD = 98.0;
+
+        //How far from the center of the detector was the hit? (in the x-y plane)
+        double strip_adj_mag = -( ( strip * 10.0 ) - 15.0 ); //mm
+
+        //Angle from the 12 oclock detector to the hit detector
+        double det_angle = 0.524 * det; //rads
+
+        //angle the FACE of the detector makes in the x-y plane
+        double perp_det_angle = det_angle + 3.14159/2.0; //rads
+
+        //x-y position of the center of the hit detector
+        double xDetCenter = rDetCenterD * sin ( det_angle );
+        double yDetCenter = rDetCenterD * cos ( det_angle );
+
+        //Adjusting the x-y position to match the strip
+        double xAdj = strip_adj_mag * sin ( perp_det_angle );
+        double yAdj = strip_adj_mag * cos ( perp_det_angle );
+
+        //constructing the final x-y of the hit
+        x = xDetCenter + xAdj;
+        y = yDetCenter + yAdj;
+
+
+        //now need to add z from the other function
+        if(upstream == 1)
+        {
+            z = -(8.2 + pos_or_segment*75.);
+        }
+        if(upstream == 0)
+        {
+            z = (pos_or_segment*75.0 -3.0);
+        }
+
+        // cout << "SX3:  " << x << "  " << y << "  " << z << endl;
+
+        // Converting to spherical polar coordinates
+        double r, theta, phi;
+        r = sqrt( pow(x,2) + pow(y,2) + pow(z,2) );
+        phi = atan(-y/x);
+        theta = acos(  z / sqrt( pow(x,2) + pow(y,2) + pow(z,2) ));
+
+        // cout << r << "  " << theta << "  " << phi << endl;
+
+
+
+        //fill hit_pos vector mm
+        hit_pos.push_back ( r );
+        hit_pos.push_back ( theta );
+        hit_pos.push_back ( phi );
+
+
+        
+
+    }
+
+    if(SX3_or_QQQ5 == "QQQ5")
+    {
+        double radius[32] = {2.6475,2.9,3.1475,3.39,3.6275,3.86,4.0875,4.31,
+        4.5275,4.74,4.9475,5.15,5.3475,5.54,5.7275,5.919,6.0875,6.26,6.4275,
+        6.59,6.7475,6.9,7.0475,7.19,7.3275,7.46,7.5875,7.71,7.8275,7.94,8.0475,8.15};
+
+        double theta_detCenter = 45. + (90. * det);
+        double theta_segmentCenter = (theta_detCenter - 30.) + (pos_or_segment*20.);
+
+        x = sin(theta_segmentCenter*(3.14159/180.))*radius[strip]*10.;
+        y = cos(theta_segmentCenter*(3.14159/180.))*radius[strip]*10.;
+
+        if(upstream==1)
+        {
+            z = -86.;
+        }
+        if(upstream==0)
+        {
+            z = 75.;
+        }
+
+        // cout << "QQQ5:  " << x << "  " << y << "  " << z << endl;
+
+        //fill hit_pos vector
+        hit_pos.push_back ( x );
+        hit_pos.push_back ( y );
+        hit_pos.push_back ( z );
+
+
+    }
+    
+    return hit_pos;
+
+
+}
+
+
+
+
+
+
+
+
+
 double proton_distance_through_target(vector<double> hit_pos)
 {
 
@@ -313,11 +470,6 @@ double get_solid_angle(string det_group, double bin_center, double bin_width, do
 
 
 
-
-
-
-
-
     double bin_begin = bin_center - (bin_width/2.);
     double bin_end = bin_center + (bin_width/2.);
 
@@ -382,6 +534,90 @@ double get_solid_angle(string det_group, double bin_center, double bin_width, do
 
             solid_angle = solid_angle + strip_SA;
         }
+
+    }
+
+
+    return solid_angle;
+
+
+}
+
+
+
+double get_solid_angle_per_det(string det_group, double bin_center, double bin_width, double QQQ5_z_offset)
+{
+    double liveStripsInner, liveStripsOuter;
+    double Ephi;
+    double solid_angle;
+
+
+
+    double bin_begin = bin_center - (bin_width/2.);
+    double bin_end = bin_center + (bin_width/2.);
+
+    //For a radius of 98.8mm, inner strips have a phi coverage of 5.779 degrees
+    //and outer strips have a phi coverage of 5.665 degrees.
+
+    if (det_group == "Upstream_SX3")
+    {
+        liveStripsInner = 2;
+        liveStripsOuter = 2;
+
+        Ephi = ((liveStripsInner*5.779) + (liveStripsOuter*5.665)) / 360.;
+
+        solid_angle = Ephi * 2 * 3.14159 * (cos(bin_begin*(3.14159/180.)) - cos(bin_end*(3.14159/180.)) );
+    }
+    if (det_group == "Downstream_SX3")
+    {
+        liveStripsInner = 2;
+        liveStripsOuter = 2;
+
+        Ephi = ((liveStripsInner*5.779) + (liveStripsOuter*5.665)) / 360.;
+
+        solid_angle = Ephi * 2 * 3.14159 * (cos(bin_begin*(3.14159/180.)) - cos(bin_end*(3.14159/180.)) );
+    }
+
+    
+    if (det_group == "Upstream_QQQ5")
+    {
+            double ring_radius[32] = {2.6475,2.9,3.1475,3.39,3.6275,3.86,
+                4.0875,4.31,4.5275,4.74,4.9475,5.15,5.3475,5.54,5.7275,5.919,
+                6.0875,6.26,6.4275,6.59,6.7475,6.9,7.0475,7.19,7.3275,7.46,
+                7.5875,7.71,7.8275,7.94,8.0475,8.15}; //cm
+            double ring_inner_radius[32] = {2.53, 2.78, 3.03, 3.28, 3.52, 3.75, 3.98,
+                4.21, 4.43, 4.64, 4.85, 5.06, 5.26, 5.45, 5.64, 5.83, 6.01, 6.18, 6.35, 
+                6.52, 6.68, 6.83, 6.98, 7.13, 7.27, 7.40, 7.53, 7.66, 7.78, 7.89, 8.00, 8.11}; //cm
+            double ring_outer_radius[32] = {2.77, 3.02, 3.27, 3.51, 3.74, 3.97, 4.20, 4.42, 4.63,
+                4.84, 5.05, 5.25, 5.44, 5.63, 5.82, 6.00, 6.17, 6.34, 6.51, 6.67, 6.82, 6.97, 7.12, 7.26, 7.39, 7.52, 
+                7.65, 7.77, 7.88, 7.99, 8.10, 8.20}; //cm
+            double QQQ5_Ephi[32] = {0.749,0.771,0.789,0.805,0.818,0.829,0.838,0.847,0.854,
+                0.861,0.866,0.872,0.877,0.881,0.885,0.888,0.892,0.895,0.897,0.9,0.902,0.904,0.906,0.908,
+                0.91,0.912,0.913,0.914,0.916,0.917,0.918,0.919};
+            double angleStart, angleStop;
+            double strip_SA;
+
+
+        //NOTE!!!! For QQQ5's, the bin_center variable actually represents the starting strip
+        // and bin_width represents the number of strips in the bin.
+        int start_strip = round(bin_center);
+        int number_of_strips = round(bin_width);
+
+
+        for(int strip = start_strip; strip< start_strip+number_of_strips; strip++)
+        {
+
+
+            angleStart = 180.0 - (atan(ring_inner_radius[strip]/QQQ5_z_offset))*(180./3.14159); //degrees
+            angleStop = 180.0 - (atan(ring_outer_radius[strip]/QQQ5_z_offset))*(180./3.14159); //degrees
+
+
+
+            strip_SA = QQQ5_Ephi[strip] * 2 * 3.14159 * (cos(angleStop*(3.14159/180.)) - cos(angleStart*(3.14159/180.)) );
+
+            solid_angle = solid_angle + strip_SA;
+        }
+        solid_angle = solid_angle/4.;
 
     }
 

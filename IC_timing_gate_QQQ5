@@ -1,0 +1,23 @@
+{
+//========= Macro generated from object: CUTG/Graph
+//========= by ROOT version6.16/00
+   
+   cutg = new TCutG("CUTG",12);
+   cutg->SetVarX("Energy_vs_ic_si_hist_QQQ5");
+   cutg->SetVarY("");
+   cutg->SetTitle("Graph");
+   cutg->SetFillStyle(1000);
+   cutg->SetPoint(0,110.242,3713.23);
+   cutg->SetPoint(1,101.451,1795.14);
+   cutg->SetPoint(2,73.978,1254.14);
+   cutg->SetPoint(3,38.8132,762.318);
+   cutg->SetPoint(4,24.5275,245.909);
+   cutg->SetPoint(5,281.67,319.682);
+   cutg->SetPoint(6,264.088,909.864);
+   cutg->SetPoint(7,224.527,909.864);
+   cutg->SetPoint(8,187.165,1475.45);
+   cutg->SetPoint(9,200.352,5262.45);
+   cutg->SetPoint(10,132.22,5188.68);
+   cutg->SetPoint(11,110.242,3713.23);
+   cutg->Draw("");
+}

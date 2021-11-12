@@ -411,20 +411,21 @@ int BeamEnergy_gammaGen()
 	unsigned long long GRETINATimeStamp = 0;
 	//
 	// === GRETINA ===
-	bool  foundGRETINA = 0;
-	int   xtalsMul = 0;
-    float xtals_xlab[10] = {0};
-	float xtals_ylab[10] = {0};
-	float xtals_zlab[10] = {0};
-	float xtals_cc[10] = {0};
-	float xtals_edop[10] = {0};
-	float xtals_edopMaxInt[10] = {0};
-	float xtals_edopSeg[10] = {0};
-	float xtals_edopXtal[10] = {0};
-	int   xtals_crystalNum[10] = {0};
-	int   xtals_quadNum[10] = {0};
-	float xtals_t0[10] = {0};
-	long long  xtals_timestamp[10] = {0};
+	const Int_t NMAX = 44;
+    bool  foundGRETINA = 0;
+    int   xtalsMul = 0;
+    float xtals_xlab[NMAX] = {0};
+    float xtals_ylab[NMAX] = {0};
+    float xtals_zlab[NMAX] = {0};
+    float xtals_cc[NMAX] = {0};
+    float xtals_edop[NMAX] = {0};
+    float xtals_edopMaxInt[NMAX] = {0};
+    float xtals_edopSeg[NMAX] = {0};
+    float xtals_edopXtal[NMAX] = {0};
+    int   xtals_crystalNum[NMAX] = {0};
+    int   xtals_quadNum[NMAX] = {0};
+    float xtals_t0[NMAX] = {0};
+    long long  xtals_timestamp[NMAX] = {0};
     //
     // === Analysis parameters ===
     double qValue = 0;

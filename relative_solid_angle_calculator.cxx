@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
@@ -29,12 +28,14 @@
 
 
 
-void en_vs_z_generator()
+
+
+void relative_solid_angle_calculator()
 {
 
     TCanvas *c1 = new TCanvas("c1", "c1", 700, 700);
     TCanvas *c2 = new TCanvas("c2", "c2", 700, 700);
-    c1->Divide(1,2);
+
 
     //TCUTS:
     //IC_Se82 locus
@@ -105,126 +106,144 @@ void en_vs_z_generator()
     //================== CD2 Runs ====================
     //================================================
 
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run001_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run002_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run003_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run004_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run005_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run006_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run007_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run008_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run009_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run010_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run011_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run012_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run013_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run014_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run015_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run016_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run017_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run018_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run019_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run020_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run021_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run001_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run002_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run003_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run004_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run005_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run006_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run007_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run008_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run009_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run010_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run011_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run012_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run013_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run014_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run015_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run016_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run017_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run018_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run019_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run020_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run021_combined.root");
     
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run022_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run022_combined.root");
     
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run023_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run023_combined.root");
     
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run024_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run025_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run026_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run027_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run028_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run029_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run030_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run031_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run032_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run033_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run034_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run035_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run036_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run037_combined.root");
-	Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run038_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run039_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run040_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run041_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run042_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run043_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run044_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run045_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run046_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run047_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run048_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run049_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run024_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run025_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run026_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run027_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run028_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run029_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run030_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run031_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run032_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run033_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run034_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run035_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run036_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run037_combined.root");
+	// Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run038_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run039_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run040_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run041_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run042_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run043_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run044_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run045_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run046_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run047_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run048_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run049_combined.root");
     
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run050_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run051_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run052_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run053_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run054_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run055_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run056_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run057_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run058_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run059_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run060_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run061_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run062_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run063_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run064_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run065_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run066_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run067_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run050_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run051_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run052_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run053_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run054_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run055_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run056_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run057_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run058_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run059_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run060_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run061_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run062_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run063_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run064_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run065_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run066_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run067_combined.root");
 
 
 
 
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run095_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run096_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run097_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run098_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run099_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run100_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run101_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run102_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run103_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run104_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run105_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run095_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run096_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run097_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run098_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run099_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run100_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run101_combined.root");
+    
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run102_combined.root");
+    
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run103_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run104_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run105_combined.root");
 
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run106_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run107_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run108_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run109_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run110_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run111_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run112_combined.root");
+
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run106_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run107_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run108_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run109_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run110_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run111_combined.root");
+ //    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run112_combined.root");
+
+    
 
 
     //================== CH2 Runs ====================
     //================================================
-   /*
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run073_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run074_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run075_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run077_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run078_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run079_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run081_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run082_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run083_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run087_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run089_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run090_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run093_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run094_combined.root");
-    */
+    
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run068_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run069_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_data/Run070_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run071_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run072_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run073_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run074_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run075_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run076_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run077_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run078_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run079_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run080_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run081_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run082_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run083_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run084_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run085_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run086_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run087_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run088_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run089_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run090_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run091_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run092_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run093_combined.root");
+    // Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run094_combined.root");
+    
 
 
 
     //============== Calibration Runs ================
     //================================================
-    //Chain->Add("/mnt/se82dp_2/cal_merged/calibrated_calibration_runs/Run201.root");     //alpha_Ecal_0deg03.ldf         --Good for upstream QQQ5's
+    Chain->Add("/mnt/se82dp_2/cal_merged/calibrated_calibration_runs/Run201.root");     //alpha_Ecal_0deg03.ldf         --Good for upstream QQQ5's
     //Chain->Add("/mnt/se82dp_2/cal_merged/Run202.root");     //alpha_Ecal_60deg01.ldf
     //Chain->Add("/mnt/se82dp_2/cal_merged/Run203.root");     //alpha_Ecal_120deg01.ldf
     //Chain->Add("/mnt/se82dp_2/cal_merged/Run204.root");     //alpha_Ecal_180deg02.ldf
@@ -438,10 +457,10 @@ void en_vs_z_generator()
 	float icPositionWeightedY = 0;
 	//
 	// === TDC ===
-	int   tdcIC = 0;
+	int   tdcSilicon = 0;
 	int   tdcGRETINA = 0;
 	int   tdcRF = 0;
-	int   tdcSilicon = 0;
+	int   tdcIC = 0;
 	unsigned long long timeStamp = 0;
 	unsigned long long GRETINATimeStamp = 0;
 	//
@@ -470,18 +489,14 @@ void en_vs_z_generator()
     double prog_pos;
     double bar_width = 70.0;
     double thetaGamma = 0;
-    double thetaGamma_test = 0;
     double beta = 0.1329615;
     double gamma_correction;
-    double gamma_correction_test;
     vector<double> hit_pos;
     double initial_energy;
     double corrected_excitation;
     int BB10_counter = 0;
     double rawPos, calPos;
-    double angle_IC_corrected = 0;
 
-    double isomer_z_offset = 142.5;
 
 
     //QQQ5 Angle calculations
@@ -557,39 +572,24 @@ void en_vs_z_generator()
 
 
     // =================== TDC Branch Address ==================
-    Chain->SetBranchAddress("tdcIC",&tdcIC);
+    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
     Chain->SetBranchAddress("tdcGRETINA",&tdcGRETINA);
     Chain->SetBranchAddress("tdcRF",&tdcRF);
-    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
+    Chain->SetBranchAddress("tdcIC",&tdcIC);
     Chain->SetBranchAddress("timeStamp",&timeStamp);
-    Chain->SetBranchAddress("GRETINATimeStamp",&GRETINATimeStamp);
 
 
 
-    // ================= GRETINA Branch Address ================
-    Chain->SetBranchAddress("foundGRETINA",&foundGRETINA);
-    Chain->SetBranchAddress("xtalsMul",&xtalsMul);
-    Chain->SetBranchAddress("xtals_xlab",xtals_xlab);
-    Chain->SetBranchAddress("xtals_ylab",xtals_ylab);
-    Chain->SetBranchAddress("xtals_zlab",xtals_zlab);
-    Chain->SetBranchAddress("xtals_cc",xtals_cc);
-    Chain->SetBranchAddress("xtals_edop",xtals_edop);
-    Chain->SetBranchAddress("xtals_edopMaxInt",xtals_edopMaxInt);
-    Chain->SetBranchAddress("xtals_edopSeg",xtals_edopSeg);
-    Chain->SetBranchAddress("xtals_edopXtal",xtals_edopXtal);
-    Chain->SetBranchAddress("xtals_crystalNum",xtals_crystalNum);
-    Chain->SetBranchAddress("xtals_quadNum",xtals_quadNum);
-    Chain->SetBranchAddress("xtals_t0",xtals_t0);
-    Chain->SetBranchAddress("xtals_timestamp",xtals_timestamp);
 
-
+    //Output root file for histograms
+    TFile write("analysis_output/solid_angle_from_alphas.root", "recreate");
 
 	// ================ Histograms and Canvases ==================
     TH2D* DS_PID = new TH2D("DS_PID", "DS_PID", 1000, 0, 18000, 1000, 0, 3500 );
     TH2D* kinematics_eloss_corrected = new TH2D("kinematics_eloss_corrected", "kinematics_eloss_corrected", 360, 0, 180, 500, 0, 20000);
     TH2D* kinematics = new TH2D("kinematics", "kinematics", 360, 0, 180, 500, 0, 20000);
-    TH1D* Excitation_spec_eloss_corrected = new TH1D("Excitation_spec_eloss_corrected", "Excitation_spec_eloss_corrected", 2500,-10000,15000);
-    TH1D* Excitation_spec = new TH1D("Excitation_spec", "Excitation_spec", 2500,-10000,15000);
+    TH1D* Excitation_spec_eloss_corrected = new TH1D("Excitation_spec_eloss_corrected", "Excitation_spec_eloss_corrected", 2000,-5000,15000);
+    TH1D* Excitation_spec = new TH1D("Excitation_spec", "Excitation_spec", 2000,-5000,15000);
     TH2D* qValue_vs_angle = new TH2D("qValue_vs_angle", "qValue_vs_angle", 360,0,180, 500, -10000, 10000);
     TH2D* Excitation_vs_angle = new TH2D("Excitation_vs_angle", "Excitation_vs_angle", 360,0,180,800,-5000,15000);
     TH2D* gamEn_vs_gamAngle = new TH2D("gamEn_vs_gamAngle", "gamEn_vs_gamAngle", 360, 0, 360, 8000, 0, 10000);
@@ -616,13 +616,12 @@ void en_vs_z_generator()
 
     TH3D* hit_position_spectrum = new TH3D("hit_position_spectrum", "hit_position_spectrum", 400, -200, 200, 400, -200, 200, 400, -200, 200);
 
+    TH2D* back_vs_front_strip_SX3 = new TH2D("back_vs_front_strip_SX3", "back_vs_front_strip_SX3", 100, 0, 100, 100, 0, 100 );
+    TH2D* pos_vs_strip_SX3 = new TH2D("pos_vs_strip_SX3", "pos_vs_strip_SX3", 100, 0, 100, 200, -1, 2 );
+    TH2D* angle_vs_strip = new TH2D("angle_vs_strip", "angle_vs_strip", 100, 0, 100, 180, 90, 180 );
 
-    TH1D* gamma_z_offset = new TH1D("gamma_z_offset", "gamma_z_offset", 8000, 0, 10000);
-    TH1D* gamma_no_offset = new TH1D("gamma_no_offset", "gamma_no_offset", 8000, 0, 10000);
 
-    TH1D* siliconTDC_hist = new TH1D("siliconTDC_hist", "siliconTDC_hist", 4048, 0, 4048);
-    TH1D* icTDC_hist = new TH1D("icTDC_hist", "icTDC_hist", 4048, 0, 4048);
-    TH1D* grertinaTDC_hist = new TH1D("grertinaTDC_hist", "grertinaTDC_hist", 4048, 0, 4048);
+
 
     //=============Constructing the bins for the Angular Distribution=============
     //============================================================================
@@ -630,42 +629,53 @@ void en_vs_z_generator()
 
     //======= SX3 ==========
 
+
+
+
+    //         ===========================================================
+    //              ADJUST NUMBER OF ANGULAR DISTRIBUTION BINS HERE
+    //         ===========================================================
+    //
+    ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
     double SX3_bin_width = 5.; //degrees
     int number_of_SX3_bins = 7;
-
-    double bin1_center = 97.5;
-    double bin2_center = 102.5;
-    double bin3_center = 107.5;
-    double bin4_center = 112.5;
-    double bin5_center = 117.5;
-    double bin6_center = 122.5;
-    double bin7_center = 127.5;
+    double ang_bin_center_SX3[7] = {97.5, 102.5, 107.5, 112.5, 117.5, 122.5, 127.5}; //degrees
+    int SX3_peak_counts[10] = {0,0,0,0,0,0,0,0,0,0};
+    ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
 
 
-    TH1D* Excitation_AngularBin[number_of_SX3_bins];
-    char angular_bin_name[number_of_SX3_bins];
+    ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+    double QQQ5_bin_width = 4.; //degrees
+    int number_of_QQQ5_bins = 8;
+    int QQQ5_strip_start[8] = {0,4,8,12,16,20,24,28}; //degrees
+    int QQQ5_peak_counts[10] = {0,0,0,0,0,0,0,0,0,0};
+    ///\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+
+
+    TH1D* Excitation_AngularBin_SX3[number_of_SX3_bins];
+    char angular_bin_name_SX3[number_of_SX3_bins];
+    
+
+
+    int exStart=-5000, exStop=15000, exNumBins = 400;
 
     for(int i=1; i<=number_of_SX3_bins; i++)
     {
-        sprintf(angular_bin_name,"Angular_bin_%d",i);
-        Excitation_AngularBin[i] = new TH1D(angular_bin_name,angular_bin_name,400,-5000,15000);
-
+        sprintf(angular_bin_name_SX3,"SX3_Angular_bin_%d",i);
+        Excitation_AngularBin_SX3[i] = new TH1D(angular_bin_name_SX3,angular_bin_name_SX3,exNumBins,exStart,exStop);
     }
 
 
-    ofstream en_vs_z_file;
-    en_vs_z_file.open("en_vs_z_SX3.dat");
+    TH1D* Excitation_AngularBin_QQQ5[number_of_QQQ5_bins];
+    char angular_bin_name_QQQ5[number_of_QQQ5_bins];
+    
 
 
-
-
-
-
-
-
-
-
-
+    for(int i=1; i<=number_of_QQQ5_bins; i++)
+    {
+        sprintf(angular_bin_name_QQQ5,"QQQ5_Angular_bin_%d",i);
+        Excitation_AngularBin_QQQ5[i] = new TH1D(angular_bin_name_QQQ5,angular_bin_name_QQQ5,exNumBins,exStart,exStop);
+    }
 
 
     
@@ -675,33 +685,9 @@ void en_vs_z_generator()
 
 
 	//Looping through each event:
-	for ( unsigned long long int i=0; i<nEntries/2.; i++ )
+	for ( unsigned long long int i=0; i<nEntries; i++ )
     {
     	Chain->GetEntry(i);
-
-        // ===========================================================================
-        // ===========================================================================
-        // ==                                                                       ==
-        // ==                               TDC processing                          ==
-        // ==                                                                       ==
-        // ===========================================================================
-        // ===========================================================================
-
-        if(tdcSilicon != 0) siliconTDC_hist->Fill(tdcSilicon);
-        if(tdcIC != 0) icTDC_hist->Fill(tdcIC);
-        if(tdcGRETINA != 0) grertinaTDC_hist->Fill(tdcGRETINA);
-
-
-
-
-
-
-
-
-
-
-
-
 
         // ===========================================================================
         // ===========================================================================
@@ -710,12 +696,11 @@ void en_vs_z_generator()
         // ==                                                                       ==
         // ===========================================================================
         // ===========================================================================
-        if(SX3Mul == 1)
+        if(SX3Mul >= 1)
         {
             for(int j=0; j<SX3Mul; j++)
             {
-                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcSilicon >= 900 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
-                //if(SX3Det[j] <= 11 && SX3Strip[j] <= 3) //No weird events with wrong channels make it through
+                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3) //No weird events with wrong channels make it through
                 {
                     //Calibrating SX3 Position
                     rawPos = (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] - SX3StripLeftADC[j]) / (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] + SX3StripLeftADC[j]);
@@ -730,79 +715,44 @@ void en_vs_z_generator()
 
                     //Calculating the event Q value
                     angle = getSX3Angle(SX3Upstream[j], calPos);
-
-                    angle_IC_corrected = IC_corrected_angle(hit_pos.at(0),hit_pos.at(1),hit_pos.at(2), icPositionX, icPositionY);
-
-                    //cout << "ANGLE:  " << angle << "  " << angle_IC_corrected << endl;
-
-                    if( calPos >= 0 && calPos <= 10. && SX3Upstream[j]==1 ) en_vs_z_file << initial_energy << setw(10) << calPos << endl;
-
-                    qValue = rel_q_value (angle_IC_corrected, BSX3_En);
+                    qValue = rel_q_value (angle, BSX3_En);
                     excitation = 3593.0 - qValue;
-                    corrected_excitation = 3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000);
+                    corrected_excitation = 3593.0 - rel_q_value (angle, initial_energy*1000);
 
                     //Filling histograms
-                    kinematics->Fill(angle_IC_corrected, BSX3_En);
-                    kinematics_eloss_corrected->Fill(angle_IC_corrected, initial_energy*1000.0);
-                    qValue_vs_angle->Fill(angle_IC_corrected, qValue);
-                    Excitation_vs_angle->Fill(angle_IC_corrected, corrected_excitation);
+                    kinematics->Fill(angle, BSX3_En);
+                    kinematics_eloss_corrected->Fill(angle, initial_energy*1000.0);
+                    qValue_vs_angle->Fill(angle, qValue);
+                    Excitation_vs_angle->Fill(angle, corrected_excitation);
                     if(SX3Upstream[j]==1) Excitation_spec->Fill(excitation);
-                    if(SX3Upstream[j]==1) Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000));
+                    if(SX3Upstream[j]==1) Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle, initial_energy*1000));
+
+                    if(SX3Upstream[j] == 1) 
+                    {
+                        back_vs_front_strip_SX3->Fill((6*SX3Det[j]+4) - SX3Strip[j], SX3Sector[j]);
+                        pos_vs_strip_SX3->Fill((6*SX3Det[j]+4) - SX3Strip[j], calPos);
+                        angle_vs_strip->Fill((6*SX3Det[j]+4) - SX3Strip[j], angle);
+                    }
 
                     Ex_SX3->Fill(3593.0 - qValue);
 
                     // Figuring out the TDC stuff
-                    SX3_Si_TDC->Fill(tdcSilicon);
                     SX3_IC_TDC->Fill(tdcIC);
-
-                    // if(angle > 1) 
-                    // {
-                    //     hit_position_spectrum->Fill(hit_pos.at(0), hit_pos.at(2), hit_pos.at(1));
-                    // }
-
-
+                    SX3_Si_TDC->Fill(tdcSilicon);
+                    
 
                     // Filling angular bins
-                    //====================    BIN 1   ====================
-                    if(angle >= bin1_center-2.5 && angle < bin1_center+2.5)
+                    for(int l=1; l<=number_of_SX3_bins; l++)
                     {
-                        Excitation_AngularBin[1]->Fill(corrected_excitation);
+                        if(angle >= ang_bin_center_SX3[l-1]-2.5 && angle < ang_bin_center_SX3[l-1]+2.5)
+                        {
+                            if(initial_energy*1000.0 >= 8500 && initial_energy*1000.0 <= 9000 )
+                            {
+                                Excitation_AngularBin_SX3[l]->Fill(initial_energy*1000.0);
+                                SX3_peak_counts[l]++;
+                            }
+                        }
                     }
-                    //====================    BIN 2   ====================
-                    if(angle >= bin2_center-2.5 && angle < bin2_center+2.5)
-                    {
-                        Excitation_AngularBin[2]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 3   ====================
-                    if(angle >= bin3_center-2.5 && angle < bin3_center+2.5)
-                    {
-                        Excitation_AngularBin[3]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 4   ====================
-                    if(angle >= bin4_center-2.5 && angle < bin4_center+2.5)
-                    {
-                        Excitation_AngularBin[4]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 5   ====================
-                    if(angle >= bin5_center-2.5 && angle < bin5_center+2.5)
-                    {
-                        Excitation_AngularBin[5]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 6   ====================
-                    if(angle >= bin6_center-2.5 && angle < bin6_center+2.5)
-                    {
-                        Excitation_AngularBin[6]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 7   ====================
-                    if(angle >= bin7_center-2.5 && angle < bin7_center+2.5)
-                    {
-                        Excitation_AngularBin[7]->Fill(corrected_excitation);
-                    }
-
-
-
-
-
 
 
 
@@ -825,73 +775,6 @@ void en_vs_z_generator()
 
 
 
-
-                    if(xtalsMul >= 1 && xtalsMul <= 3 && SX3Upstream[j]==1)
-                    {
-                        for(int k=0; k<xtalsMul; k++)
-                        {
-                            if(xtals_zlab[k] >= 0) thetaGamma = (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/xtals_zlab[k]);
-                            if(xtals_zlab[k] < 0) thetaGamma = 180. + (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/xtals_zlab[k]);
-
-                            gamma_correction = (1. - beta*cos(thetaGamma*(3.14159/180.))) / (sqrt( 1. - pow(beta,2) ));
-
-                            if(SX3Upstream[j] == 1) gamEn_vs_gamAngle->Fill(thetaGamma, xtals_edop[k]);
-                            if(SX3Upstream[j] == 1) gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
-                            if(SX3Upstream[j] == 1) gammaEx_matrixSX3->Fill(corrected_excitation, xtals_edop[k]);
-
-                            if(excitation >= 5818.0 && excitation <= 6818.0)
-                            {
-                                gamma_aboveSn->Fill(xtals_edop[k]);
-                            }
-                            if(excitation <= 5818.0 && excitation >= 4818.0)
-                            {
-                                gamma_belowSn->Fill(xtals_edop[k]);
-                            }
-
-
-
-
-
-
-                            if(xtals_zlab[k] + isomer_z_offset >= 0) thetaGamma_test = (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] + isomer_z_offset));
-                            if(xtals_zlab[k] + isomer_z_offset < 0) thetaGamma_test = 180. + (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] + isomer_z_offset));
-
-                            gamma_correction_test = (1. - beta*cos(thetaGamma_test*(3.14159/180.))) / (sqrt( 1. - pow(beta,2) ));
-
-                            gamma_no_offset->Fill(gamma_correction*xtals_cc[k]);
-                            gamma_z_offset->Fill(gamma_correction_test*xtals_cc[k]);
-
-
-
-                        }
-                    }
-
-                    if(BB10Mul >= 1)
-                    {
-                        for(int l=0; l<BB10Mul; l++)
-                        {
-
-                            BB10_En = (BB10ADC[l] * BB10_Encal[BB10Det[l]][BB10Strip[l]][1]) + BB10_Encal[BB10Det[l]][BB10Strip[l]][0];
-
-
-                            DS_PID->Fill(BSX3_En, BB10_En);
-
-                            if(DS_deuterons->IsInside(BSX3_En, BB10_En))
-                            {
-                                kinematics_deuteron_PID->Fill(angle, BSX3_En+BB10_En);
-                            }
-
-                            if(DS_protons->IsInside(BSX3_En, BB10_En))
-                            {
-                                kinematics_proton_PID->Fill(angle, BSX3_En+BB10_En);
-                            }
-
-
-
-
-
-                        }
-                    }
                 }
             }
         }
@@ -908,65 +791,45 @@ void en_vs_z_generator()
         {
             for(int j=0; j<QQQ5Mul; j++)
             {
-                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcSilicon >= 900 && tdcSilicon <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
-                //if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31) //Se82_locus_IC->IsInside(icE, icdE)
+                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31) //Se82_locus_IC->IsInside(icE, icdE)
                 {
-                    hit_pos = hit_position_3D("QQQ5", QQQ5Upstream[j], QQQ5Det[j], QQQ5Ring[j], QQQ5Sector[j]);
-                    
-                    angle_IC_corrected = IC_corrected_angle(hit_pos.at(0),hit_pos.at(1),hit_pos.at(2), icPositionX, icPositionY);
 
                     //Calculating the event Q value
-                    qValue = rel_q_value (angle_IC_corrected, QQQ5RingEnergy[j]);
+                    qValue = rel_q_value (QQQ5_angle[QQQ5Ring[j]], QQQ5RingEnergy[j]);
                     excitation = 3593.0 - qValue;
 
+                    hit_pos = hit_position_3D("QQQ5", QQQ5Upstream[j], QQQ5Det[j], QQQ5Ring[j], QQQ5Sector[j]);
                     initial_energy = initial_proton_energy((QQQ5RingEnergy[j]/1000.0), proton_distance_through_target(hit_pos));
-                    corrected_excitation = 3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0);
+                    corrected_excitation = 3593.0 - rel_q_value (QQQ5_angle[QQQ5Ring[j]], initial_energy*1000.0);
 
                     //Filling histograms
-                    kinematics->Fill(angle_IC_corrected, QQQ5RingEnergy[j]);
-                    kinematics_eloss_corrected->Fill(angle_IC_corrected, initial_energy*1000.0);
-                    qValue_vs_angle->Fill(angle_IC_corrected, qValue);
-                    Excitation_vs_angle->Fill(angle_IC_corrected, corrected_excitation);
+                    kinematics->Fill(QQQ5_angle[QQQ5Ring[j]], QQQ5RingEnergy[j]);
+                    kinematics_eloss_corrected->Fill(QQQ5_angle[QQQ5Ring[j]], initial_energy*1000.0);
+                    qValue_vs_angle->Fill(QQQ5_angle[QQQ5Ring[j]], qValue);
+                    Excitation_vs_angle->Fill(QQQ5_angle[QQQ5Ring[j]], corrected_excitation);
 
                     Ex_QQQ5->Fill(3593.0 - qValue);
 
                     Excitation_spec->Fill(3593.0 - qValue);
-                    Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0));
+                    Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (QQQ5_angle[QQQ5Ring[j]], initial_energy*1000.0));
 
-                    QQQ5_Si_TDC->Fill(tdcSilicon);
-                    QQQ5_IC_TDC->Fill(tdcIC);
-
-
+                    QQQ5_Si_TDC->Fill(tdcIC);
+                    QQQ5_IC_TDC->Fill(tdcSilicon);
 
 
-                    //Filling the 3-D hit spectrum
-                    // hit_position_spectrum->Fill(hit_pos.at(0), hit_pos.at(2), hit_pos.at(1));
 
-                    //cout << QQQ5_angle[QQQ5Ring[j]] << "   " << proton_distance_through_target(hit_pos) << endl;
 
-                    //cout << "QQQ5    " << hit_pos.at(0) << "  " <<hit_pos.at(1) << "  " <<hit_pos.at(2) << endl;
-
-                    if(xtalsMul >= 1 && xtalsMul <= 3 && QQQ5Upstream[j] == 1)
+                    // Filling angular bins
+                    for(int l=1; l<=number_of_QQQ5_bins; l++)
                     {
-                        for(int k=0; k<xtalsMul; k++)
+                        // cout << QQQ5_angle[QQQ5_strip_start[l-1]] << "   " << QQQ5_angle[QQQ5_strip_start[l-1]+(int)QQQ5_bin_width] << endl;
+                        if(QQQ5_angle[QQQ5Ring[j]] <= QQQ5_angle[QQQ5_strip_start[l-1]] && QQQ5_angle[QQQ5Ring[j]] > QQQ5_angle[QQQ5_strip_start[l-1]+(int)QQQ5_bin_width])
                         {
-                            if(QQQ5Upstream[j] == 1) gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
-                            if(QQQ5Upstream[j] == 1) gammaEx_matrixQQQ5->Fill(corrected_excitation, xtals_edop[k]);
-
-
-
-
-                            if(excitation >= 5818.0 && excitation <= 6818.0)
+                            if(initial_energy*1000.0 >= 8500 && initial_energy*1000.0 <= 9000 )
                             {
-                                gamma_aboveSn->Fill(xtals_edop[k]);
+                                Excitation_AngularBin_QQQ5[l]->Fill(initial_energy*1000.0);
+                                QQQ5_peak_counts[l]++;
                             }
-                            if(excitation <= 5818.0 && excitation >= 4818.0)
-                            {
-                                gamma_belowSn->Fill(xtals_edop[k]);
-                            }
-
-
-
                         }
                     }
 
@@ -974,30 +837,6 @@ void en_vs_z_generator()
                 }
             }
         }
-
-
-        // ===========================================================================
-        // ===========================================================================
-        // ==                                                                       ==
-        // ==                               IC processing                           ==
-        // ==                                                                       ==
-        // ===========================================================================
-        // ===========================================================================
-        if(icE >= 0. && icdE >= 0.)
-        {
-
-            ic_dE_E->Fill(icE, icdE);
-
-
-
-        }
-
-
-
-
-
-
-
 
 
 
@@ -1020,24 +859,78 @@ void en_vs_z_generator()
 
     }
 
-    en_vs_z_file.close();
+
+    // Comparing the anlaytically calculated and measured-from-alphas solid 
+    // angle of each bin
+
+    TGraph *alpha_SA_plot = new TGraph(number_of_QQQ5_bins + number_of_SX3_bins);
+    TGraph *calc_SA_plot = new TGraph(number_of_QQQ5_bins + number_of_SX3_bins);
+
+    double QQQ5_SA[number_of_QQQ5_bins];
+    double QQQ5_bin_center_angle[number_of_QQQ5_bins];
+    double angles_SA[number_of_QQQ5_bins + number_of_SX3_bins];
+    double values_SA[number_of_QQQ5_bins + number_of_SX3_bins];
+
+    double calc_norm = get_solid_angle("Upstream_QQQ5", QQQ5_strip_start[0], QQQ5_bin_width, QQQ5_zOffset);
+    double alpha_norm = QQQ5_peak_counts[0];
+
+    double SX3_bin_SA[number_of_SX3_bins];
+    for(int i=0; i< number_of_SX3_bins; i++)
+    {
+        SX3_bin_SA[i] =  get_solid_angle("Upstream_SX3", ang_bin_center_SX3[i], SX3_bin_width, -1.0);
+        cout << "SX3 bin info: " << i << "   " << "  SA: " << SX3_bin_SA[i] << "  bin center=  " << ang_bin_center_SX3[i] << endl;
+
+        values_SA[i] = SX3_bin_SA[i+number_of_QQQ5_bins];
+        angles_SA[i] = ang_bin_center_SX3[i+number_of_QQQ5_bins];
+
+        calc_SA_plot->SetPoint(number_of_QQQ5_bins+i, ang_bin_center_SX3[i], (1.0*SX3_bin_SA[i])/(0.159));
+        alpha_SA_plot->SetPoint(number_of_QQQ5_bins+i, ang_bin_center_SX3[i], (1.0*SX3_peak_counts[i])/(56540.0)  );
+    }
+
+
+
+    for(int i=0; i< number_of_QQQ5_bins; i++)
+    {
+        QQQ5_bin_center_angle[i] = QQQ5_angle[(int)(QQQ5_strip_start[i]+(QQQ5_bin_width/2))];
+        QQQ5_SA[i] = get_solid_angle("Upstream_QQQ5", QQQ5_strip_start[i], QQQ5_bin_width, QQQ5_zOffset);
+        cout << "QQQ5 bin info: " << i << "   " << QQQ5_strip_start[i] << "  SA: " << QQQ5_SA[i] << "  bin center=  " << QQQ5_bin_center_angle[i] << endl;
+        
+        values_SA[i] = QQQ5_SA[i];
+        angles_SA[i] = QQQ5_bin_center_angle[i];
+
+        calc_SA_plot->SetPoint(i, QQQ5_bin_center_angle[i], (1.0*QQQ5_SA[i])/(0.159)  );
+        alpha_SA_plot->SetPoint(i, QQQ5_bin_center_angle[i], (1.0*QQQ5_peak_counts[i])/(56540.0)  );
+    }
+
+
+    alpha_SA_plot->SetMarkerColor(kRed);
+    calc_SA_plot->SetMarkerColor(kBlue);
+
 
     
+    // TGraphErrors* alpha_solid_angle = new TGaphErrors()
 
-    // for (int j=1; j<=number_of_SX3_bins; j++)
-    // {
-    //     Excitation_AngularBin[j]->Write();
-    // }
+
+    for (int j=1; j<=number_of_SX3_bins; j++)
+    {
+        Excitation_AngularBin_SX3[j]->Write();
+    }
+    for (int j=1; j<=number_of_QQQ5_bins; j++)
+    {
+        Excitation_AngularBin_QQQ5[j]->Write();
+    }
+
     
+    c1->cd();
+    alpha_SA_plot->Draw();
+    calc_SA_plot->Draw("SAME");
+
+    back_vs_front_strip_SX3->Write();
+    pos_vs_strip_SX3->Write();
+    angle_vs_strip->Write();
 
 
 
-    gamma_aboveSn->SetLineColor(kRed);
-    gamma_belowSn->SetLineColor(kBlack);
-
-
-    c2->cd();
-    
 
     std::cout << endl;
     std::cout << "~~fin~~" << endl;

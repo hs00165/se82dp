@@ -29,7 +29,7 @@
 
 
 
-void en_vs_z_generator()
+void solid_angle_calculator()
 {
 
     TCanvas *c1 = new TCanvas("c1", "c1", 700, 700);
@@ -98,6 +98,40 @@ void en_vs_z_generator()
     DS_protons->SetPoint(21,576.087,2157.29);
     DS_protons->SetPoint(22,494.565,2151.9);
 
+    TCutG *IC_timing_gate_SX3 = new TCutG("IC_timing_gate_SX3",15);
+    IC_timing_gate_SX3->SetPoint(0,-31.4004,363.636);
+    IC_timing_gate_SX3->SetPoint(1,36.783,2681.82);
+    IC_timing_gate_SX3->SetPoint(2,62.8166,4954.55);
+    IC_timing_gate_SX3->SetPoint(3,70.2548,9090.91);
+    IC_timing_gate_SX3->SetPoint(4,60.3372,13681.8);
+    IC_timing_gate_SX3->SetPoint(5,72.7342,14818.2);
+    IC_timing_gate_SX3->SetPoint(6,149.595,14954.5);
+    IC_timing_gate_SX3->SetPoint(7,174.389,12045.5);
+    IC_timing_gate_SX3->SetPoint(8,178.109,8727.27);
+    IC_timing_gate_SX3->SetPoint(9,184.307,5272.73);
+    IC_timing_gate_SX3->SetPoint(10,219.019,3545.45);
+    IC_timing_gate_SX3->SetPoint(11,253.73,1272.73);
+    IC_timing_gate_SX3->SetPoint(12,253.73,318.182);
+    IC_timing_gate_SX3->SetPoint(13,-25.2019,181.818);
+    IC_timing_gate_SX3->SetPoint(14,-31.4004,363.636);
+
+    TCutG *IC_timing_gate_QQQ5 = new TCutG("IC_timing_gate_QQQ5",12);
+    IC_timing_gate_QQQ5->SetPoint(0,110.242,3713.23);
+    IC_timing_gate_QQQ5->SetPoint(1,101.451,1795.14);
+    IC_timing_gate_QQQ5->SetPoint(2,73.978,1254.14);
+    IC_timing_gate_QQQ5->SetPoint(3,38.8132,762.318);
+    IC_timing_gate_QQQ5->SetPoint(4,24.5275,245.909);
+    IC_timing_gate_QQQ5->SetPoint(5,281.67,319.682);
+    IC_timing_gate_QQQ5->SetPoint(6,264.088,909.864);
+    IC_timing_gate_QQQ5->SetPoint(7,224.527,909.864);
+    IC_timing_gate_QQQ5->SetPoint(8,187.165,1475.45);
+    IC_timing_gate_QQQ5->SetPoint(9,200.352,5262.45);
+    IC_timing_gate_QQQ5->SetPoint(10,132.22,5188.68);
+    IC_timing_gate_QQQ5->SetPoint(11,110.242,3713.23);
+
+
+
+
 
 	// Creating the Chain of runs to use
 	TChain* Chain = new TChain ( "data" );
@@ -109,11 +143,9 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run002_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run003_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run004_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run005_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run006_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run007_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run008_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run009_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run010_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run011_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run012_combined.root");
@@ -122,15 +154,8 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run015_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run016_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run017_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run018_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run019_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run020_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run021_combined.root");
-    
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run022_combined.root");
-    
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run018_combined.root");    
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run023_combined.root");
-    
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run024_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run025_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run026_combined.root");
@@ -140,15 +165,12 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run030_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run031_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run032_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run033_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run034_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run035_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run036_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run037_combined.root");
 	Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run038_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run039_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run040_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run041_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run042_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run043_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run044_combined.root");
@@ -157,7 +179,6 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run047_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run048_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run049_combined.root");
-    
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run050_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run051_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run052_combined.root");
@@ -173,7 +194,6 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run062_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run063_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run064_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run065_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run066_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run067_combined.root");
 
@@ -438,29 +458,29 @@ void en_vs_z_generator()
 	float icPositionWeightedY = 0;
 	//
 	// === TDC ===
-	int   tdcIC = 0;
+	int   tdcSilicon = 0;
 	int   tdcGRETINA = 0;
 	int   tdcRF = 0;
-	int   tdcSilicon = 0;
+	int   tdcIC = 0;
 	unsigned long long timeStamp = 0;
 	unsigned long long GRETINATimeStamp = 0;
 	//
 	// === GRETINA ===
-	const Int_t NMAX = 44;
-    bool  foundGRETINA = 0;
-    int   xtalsMul = 0;
+    const Int_t NMAX = 44;
+	bool  foundGRETINA = 0;
+	int   xtalsMul = 0;
     float xtals_xlab[NMAX] = {0};
-    float xtals_ylab[NMAX] = {0};
-    float xtals_zlab[NMAX] = {0};
-    float xtals_cc[NMAX] = {0};
-    float xtals_edop[NMAX] = {0};
-    float xtals_edopMaxInt[NMAX] = {0};
-    float xtals_edopSeg[NMAX] = {0};
-    float xtals_edopXtal[NMAX] = {0};
-    int   xtals_crystalNum[NMAX] = {0};
-    int   xtals_quadNum[NMAX] = {0};
-    float xtals_t0[NMAX] = {0};
-    long long  xtals_timestamp[NMAX] = {0};
+	float xtals_ylab[NMAX] = {0};
+	float xtals_zlab[NMAX] = {0};
+	float xtals_cc[NMAX] = {0};
+	float xtals_edop[NMAX] = {0};
+	float xtals_edopMaxInt[NMAX] = {0};
+	float xtals_edopSeg[NMAX] = {0};
+	float xtals_edopXtal[NMAX] = {0};
+	int   xtals_crystalNum[NMAX] = {0};
+	int   xtals_quadNum[NMAX] = {0};
+	float xtals_t0[NMAX] = {0};
+	long long  xtals_timestamp[NMAX] = {0};
     //
     // === Analysis parameters ===
     double qValue = 0.0;
@@ -475,6 +495,7 @@ void en_vs_z_generator()
     double gamma_correction;
     double gamma_correction_test;
     vector<double> hit_pos;
+    vector<double> spherical_polar_coord;
     double initial_energy;
     double corrected_excitation;
     int BB10_counter = 0;
@@ -557,10 +578,10 @@ void en_vs_z_generator()
 
 
     // =================== TDC Branch Address ==================
-    Chain->SetBranchAddress("tdcIC",&tdcIC);
+    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
     Chain->SetBranchAddress("tdcGRETINA",&tdcGRETINA);
     Chain->SetBranchAddress("tdcRF",&tdcRF);
-    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
+    Chain->SetBranchAddress("tdcIC",&tdcIC);
     Chain->SetBranchAddress("timeStamp",&timeStamp);
     Chain->SetBranchAddress("GRETINATimeStamp",&GRETINATimeStamp);
 
@@ -584,6 +605,108 @@ void en_vs_z_generator()
 
 
 
+    // Pulling angular binning information from
+    // analysis_output/angular_distribution_config.dat
+
+    double SX3_bin_width, QQQ5_bin_width, temp_double;
+    vector<double> SX3_bin_center_vect;
+    vector<double> QQQ5_bin_start_vect;
+    int number_of_SX3_bins, number_of_QQQ5_bins;
+    double ex_bin_width;
+    int bin_location_flag = 0;
+
+    ifstream config_file ( "analysis_output/angular_distribution_config.dat" );
+
+    string temp_string;
+    //=====================READING IN THE CALIBRATION FILE=========================
+    while ( getline ( config_file,line ) )
+    {
+        istringstream in ( line );
+
+        if(line.find("Number_of_SX3_bins") != std::string::npos)
+        {
+            in >> temp_string >> number_of_SX3_bins;
+
+        }
+        if(line.find("Number_of_QQQ5_bins") != std::string::npos)
+        {
+            in >> temp_string >> number_of_QQQ5_bins;
+
+        }
+        if(line.find("SX3_bin_width") != std::string::npos)
+        {
+            in >> temp_string >> SX3_bin_width;
+        }
+        if(line.find("QQQ5_bin_width") != std::string::npos)
+        {
+            in >> temp_string >> QQQ5_bin_width;
+        }
+
+        if(line.find("Excitation_bin_width") != std::string::npos)
+        {
+            in >> temp_string >> ex_bin_width;
+        }
+
+        if(line.find("QQQ5_bin_start=") != std::string::npos)
+        {
+            temp_double = 0.;
+            in >> temp_string >> temp_double;
+            QQQ5_bin_start_vect.push_back(temp_double);   
+        }
+
+        if(line.find("SX3_bin_center=") != std::string::npos)
+        {
+            temp_double = 0.;
+            in >> temp_string >> temp_double;
+            SX3_bin_center_vect.push_back(temp_double);         
+        }
+
+    }
+    config_file.close();
+
+    double ang_bin_counts[number_of_SX3_bins];
+    for(int i=0; i<number_of_SX3_bins; i++){
+        ang_bin_counts[i] = 0;
+    }
+
+    double observed_ang_bin_counts[number_of_SX3_bins];
+    for(int i=0; i<number_of_SX3_bins; i++){
+        observed_ang_bin_counts[i] = 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Output root file for histograms
+    TFile write("analysis_output/solid_angle_analysis.root", "recreate");
+
 	// ================ Histograms and Canvases ==================
     TH2D* DS_PID = new TH2D("DS_PID", "DS_PID", 1000, 0, 18000, 1000, 0, 3500 );
     TH2D* kinematics_eloss_corrected = new TH2D("kinematics_eloss_corrected", "kinematics_eloss_corrected", 360, 0, 180, 500, 0, 20000);
@@ -596,6 +719,10 @@ void en_vs_z_generator()
     TH2D* gammaEx_matrix = new TH2D("gammaEx_matrix", "gammaEx_matrix", 500,0,10000, 8000, 0, 10000);
     TH2D* gammaEx_matrixQQQ5 = new TH2D("gammaEx_matrixQQQ5", "gammaEx_matrixQQQ5", 500,0,10000, 8000, 0, 10000);
     TH2D* gammaEx_matrixSX3 = new TH2D("gammaEx_matrixSX3", "gammaEx_matrixSX3", 500,0,10000, 8000, 0, 10000);
+
+    TH2D* gamma_gamma_matrix = new TH2D("gamma_gamma_matrix", "gamma_gamma_matrix", 5000, 0, 10000, 5000, 0, 10000);
+
+
 
     TH2D* ic_dE_E = new TH2D("ic_dE_E", "ic_dE_E", 4000, 0, 4000, 2000, 0, 2000);
 
@@ -624,49 +751,27 @@ void en_vs_z_generator()
     TH1D* icTDC_hist = new TH1D("icTDC_hist", "icTDC_hist", 4048, 0, 4048);
     TH1D* grertinaTDC_hist = new TH1D("grertinaTDC_hist", "grertinaTDC_hist", 4048, 0, 4048);
 
-    //=============Constructing the bins for the Angular Distribution=============
-    //============================================================================
+
+    TH2D* SX3_en_vs_z_hist = new TH2D("SX3_en_vs_z_hist", "SX3_en_vs_z_hist", 400, -10, 10, 500, 0, 20000);
 
 
-    //======= SX3 ==========
+    // Timestamp and TDC histograms
+    TH2D* delta_timestamp_vs_Run_hist = new TH2D("delta_timestamp_vs_Run_hist", "delta_timestamp_vs_Run_hist", 120, 0, 120, 500, -100, 400);
+    TH2D* tdcGRETINA_vs_Run_hist = new TH2D("tdcGRETINA_vs_Run_hist", "tdcGRETINA_vs_Run_hist", 120, 0, 120, 4096, 0, 4096);
 
-    double SX3_bin_width = 5.; //degrees
-    int number_of_SX3_bins = 7;
-
-    double bin1_center = 97.5;
-    double bin2_center = 102.5;
-    double bin3_center = 107.5;
-    double bin4_center = 112.5;
-    double bin5_center = 117.5;
-    double bin6_center = 122.5;
-    double bin7_center = 127.5;
+    TH2D* si_ic_vs_Run_hist = new TH2D("si_ic_vs_Run_hist", "si_ic_vs_Run_hist", 120, 0, 120, 4000, -1000, 3000);
+    TH2D* Energy_vs_ic_si_hist_SX3 = new TH2D("Energy_vs_ic_si_hist_SX3", "Energy_vs_ic_si_hist_SX3", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* Energy_vs_ic_si_hist_QQQ5 = new TH2D("Energy_vs_ic_si_hist_QQQ5", "Energy_vs_ic_si_hist_QQQ5", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* Energy_vs_delta_timestamp_hist = new TH2D("Energy_vs_delta_timestamp_hist", "Energy_vs_delta_timestamp_hist", 500, -100, 400, 2000, 0, 20000);
 
 
-    TH1D* Excitation_AngularBin[number_of_SX3_bins];
-    char angular_bin_name[number_of_SX3_bins];
-
-    for(int i=1; i<=number_of_SX3_bins; i++)
-    {
-        sprintf(angular_bin_name,"Angular_bin_%d",i);
-        Excitation_AngularBin[i] = new TH1D(angular_bin_name,angular_bin_name,400,-5000,15000);
-
-    }
+    TH2D* back_vs_front_strip_SX3 = new TH2D("back_vs_front_strip_SX3", "back_vs_front_strip_SX3", 100, 0, 100, 100, 0, 100 );
+    TH2D* pos_vs_strip_SX3 = new TH2D("pos_vs_strip_SX3", "pos_vs_strip_SX3", 100, 0, 100, 200, -1, 2 );
+    TH2D* angle_vs_strip = new TH2D("angle_vs_strip", "angle_vs_strip", 100, 0, 100, 180, 90, 180 );
 
 
-    ofstream en_vs_z_file;
-    en_vs_z_file.open("en_vs_z_SX3.dat");
-
-
-
-
-
-
-
-
-
-
-
-
+    string runNumber_str;
+    int runNumber;
 
     
 	//Getting the number of entries to loop through
@@ -675,9 +780,12 @@ void en_vs_z_generator()
 
 
 	//Looping through each event:
-	for ( unsigned long long int i=0; i<nEntries/2.; i++ )
+	for ( unsigned long long int i=0; i<nEntries; i++ )
     {
     	Chain->GetEntry(i);
+
+        runNumber_str = Chain->GetFile()->GetName();
+        runNumber = stoi(runNumber_str.substr(31,3));
 
         // ===========================================================================
         // ===========================================================================
@@ -687,14 +795,22 @@ void en_vs_z_generator()
         // ===========================================================================
         // ===========================================================================
 
-        if(tdcSilicon != 0) siliconTDC_hist->Fill(tdcSilicon);
         if(tdcIC != 0) icTDC_hist->Fill(tdcIC);
-        if(tdcGRETINA != 0) grertinaTDC_hist->Fill(tdcGRETINA);
+        if(tdcSilicon != 0) siliconTDC_hist->Fill(tdcSilicon);
+        if(tdcGRETINA != 0) 
+        {
+            grertinaTDC_hist->Fill(tdcGRETINA);
+            tdcGRETINA_vs_Run_hist->Fill(runNumber, tdcGRETINA);
+        }
 
+        
 
+        si_ic_vs_Run_hist->Fill(runNumber, tdcIC - tdcSilicon);
 
-
-
+        if(xtalsMul >= 1 )
+        {
+            delta_timestamp_vs_Run_hist->Fill(runNumber, timeStamp - xtals_timestamp[0]);
+        }
 
 
 
@@ -710,11 +826,11 @@ void en_vs_z_generator()
         // ==                                                                       ==
         // ===========================================================================
         // ===========================================================================
-        if(SX3Mul == 1)
+        if(SX3Mul >= 1 && SX3Mul <= 5)
         {
             for(int j=0; j<SX3Mul; j++)
             {
-                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcSilicon >= 900 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
+                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcIC >= 900 && tdcIC <= 1300) //No weird events with wrong channels make it through
                 //if(SX3Det[j] <= 11 && SX3Strip[j] <= 3) //No weird events with wrong channels make it through
                 {
                     //Calibrating SX3 Position
@@ -735,12 +851,13 @@ void en_vs_z_generator()
 
                     //cout << "ANGLE:  " << angle << "  " << angle_IC_corrected << endl;
 
-                    if( calPos >= 0 && calPos <= 10. && SX3Upstream[j]==1 ) en_vs_z_file << initial_energy << setw(10) << calPos << endl;
+                    if( SX3Upstream[j] == 1 ) SX3_en_vs_z_hist->Fill(calPos, initial_energy*1000.0);
 
                     qValue = rel_q_value (angle_IC_corrected, BSX3_En);
                     excitation = 3593.0 - qValue;
                     corrected_excitation = 3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000);
 
+                    
                     //Filling histograms
                     kinematics->Fill(angle_IC_corrected, BSX3_En);
                     kinematics_eloss_corrected->Fill(angle_IC_corrected, initial_energy*1000.0);
@@ -748,55 +865,48 @@ void en_vs_z_generator()
                     Excitation_vs_angle->Fill(angle_IC_corrected, corrected_excitation);
                     if(SX3Upstream[j]==1) Excitation_spec->Fill(excitation);
                     if(SX3Upstream[j]==1) Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000));
+                
+
+                    if(SX3Upstream[j] == 1) 
+                    {
+                        //Testing function to calculate r, theta, phi
+                        spherical_polar_coord = hit_position_r_theta_phi("SX3", SX3Upstream[j], SX3Det[j], SX3Strip[j], calPos);
+
+                        // cout << spherical_polar_coord.at(0) << "  " <<spherical_polar_coord.at(1)*(180./3.14159) << "  " << spherical_polar_coord.at(2)*(180./3.14159) << endl;
+                        // cout << endl;
+
+                        back_vs_front_strip_SX3->Fill((6*SX3Det[j]+4) - SX3Strip[j], SX3Sector[j]);
+                        pos_vs_strip_SX3->Fill((6*SX3Det[j]+4) - SX3Strip[j], calPos);
+                        angle_vs_strip->Fill((6*SX3Det[j]+4) - SX3Strip[j], angle_IC_corrected);
+                    }
 
                     Ex_SX3->Fill(3593.0 - qValue);
 
                     // Figuring out the TDC stuff
-                    SX3_Si_TDC->Fill(tdcSilicon);
-                    SX3_IC_TDC->Fill(tdcIC);
+                    SX3_Si_TDC->Fill(tdcIC);
+                    SX3_IC_TDC->Fill(tdcSilicon);
 
                     // if(angle > 1) 
                     // {
                     //     hit_position_spectrum->Fill(hit_pos.at(0), hit_pos.at(2), hit_pos.at(1));
                     // }
 
+                    if( SX3Upstream[j]==1 )
+                    {
+                        Energy_vs_ic_si_hist_SX3->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                        
 
+                        if(tdcGRETINA != 0) Energy_vs_delta_timestamp_hist->Fill(tdcSilicon - tdcGRETINA, initial_energy*1000.0 );
+                    }
 
                     // Filling angular bins
-                    //====================    BIN 1   ====================
-                    if(angle >= bin1_center-2.5 && angle < bin1_center+2.5)
+                    for(int l=1; l<=number_of_SX3_bins; l++)
                     {
-                        Excitation_AngularBin[1]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 2   ====================
-                    if(angle >= bin2_center-2.5 && angle < bin2_center+2.5)
-                    {
-                        Excitation_AngularBin[2]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 3   ====================
-                    if(angle >= bin3_center-2.5 && angle < bin3_center+2.5)
-                    {
-                        Excitation_AngularBin[3]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 4   ====================
-                    if(angle >= bin4_center-2.5 && angle < bin4_center+2.5)
-                    {
-                        Excitation_AngularBin[4]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 5   ====================
-                    if(angle >= bin5_center-2.5 && angle < bin5_center+2.5)
-                    {
-                        Excitation_AngularBin[5]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 6   ====================
-                    if(angle >= bin6_center-2.5 && angle < bin6_center+2.5)
-                    {
-                        Excitation_AngularBin[6]->Fill(corrected_excitation);
-                    }
-                    //====================    BIN 7   ====================
-                    if(angle >= bin7_center-2.5 && angle < bin7_center+2.5)
-                    {
-                        Excitation_AngularBin[7]->Fill(corrected_excitation);
+                        if(angle_IC_corrected >= SX3_bin_center_vect.at(l-1)-2.5 && angle_IC_corrected < SX3_bin_center_vect.at(l-1)+2.5)
+                        {
+                            if( SX3Det[j] == 0 || SX3Det[j] == 1 || SX3Det[j] == 9 || SX3Det[j] == 10 || SX3Det[j] == 11 ) ang_bin_counts[l-1]++;
+                            observed_ang_bin_counts[l-1]++;
+                        }
                     }
 
 
@@ -804,29 +914,7 @@ void en_vs_z_generator()
 
 
 
-
-
-
-                    // //Filling the 3-D hit spectrum
-                    // hit_pos = hit_position_3D("SX3", SX3Upstream[j], SX3Det[j], SX3Strip[j], calPos);
-                    // if(angle > 1) 
-                    // {
-                    //     hit_position_spectrum->Fill(hit_pos.at(0), hit_pos.at(1), hit_pos.at(2));
-
-                    //     //cout << "SX3     " << hit_pos.at(0) << "  " <<hit_pos.at(1) << "  " <<hit_pos.at(2) << "  " << calPos << "  " << angle << endl;
-                    // }
-
-                    // initial_energy = initial_proton_energy((BSX3_En/1000.0), proton_distance_through_target(hit_pos));
-
-
-                    // if(SX3Upstream[j]==1) cout << "1       " << angle << "   " << initial_proton_energy((BSX3_En/1000.0), proton_distance_through_target(hit_pos)) << "   " << BSX3_En/1000.0 << endl;
-                    // if(SX3Upstream[j]==1) cout << "2       " << angle << "  " << proton_energy_loss(initial_energy, proton_distance_through_target(hit_pos)) << endl;
-
-
-
-
-
-                    if(xtalsMul >= 1 && xtalsMul <= 3 && SX3Upstream[j]==1)
+                    if(xtalsMul >= 1 && xtalsMul <= 10 && SX3Upstream[j]==1)
                     {
                         for(int k=0; k<xtalsMul; k++)
                         {
@@ -853,8 +941,9 @@ void en_vs_z_generator()
 
 
 
-                            if(xtals_zlab[k] + isomer_z_offset >= 0) thetaGamma_test = (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] + isomer_z_offset));
-                            if(xtals_zlab[k] + isomer_z_offset < 0) thetaGamma_test = 180. + (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] + isomer_z_offset));
+
+                            if(xtals_zlab[k] - isomer_z_offset >= 0) thetaGamma_test = (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] - isomer_z_offset));
+                            if(xtals_zlab[k] - isomer_z_offset < 0) thetaGamma_test = 180. + (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] - isomer_z_offset));
 
                             gamma_correction_test = (1. - beta*cos(thetaGamma_test*(3.14159/180.))) / (sqrt( 1. - pow(beta,2) ));
 
@@ -864,6 +953,29 @@ void en_vs_z_generator()
 
 
                         }
+
+
+                        if(xtalsMul >= 2)
+                        {
+                            for(int a=0; a<xtalsMul-1; a++)
+                            {
+                                for(int b=a+1; b<xtalsMul; b++)
+                                {
+                               
+                                    //Filling gamma-gamma matrix
+                                    gamma_gamma_matrix->Fill(xtals_edop[a], xtals_edop[b]);
+
+
+
+                                }
+                            }
+                        }
+
+
+
+
+
+
                     }
 
                     if(BB10Mul >= 1)
@@ -904,13 +1016,14 @@ void en_vs_z_generator()
         // ==                                                                       ==
         // ===========================================================================
         // ===========================================================================
-        if(QQQ5Mul == 1)
+        if(QQQ5Mul >= 1 && QQQ5Mul<= 5)
         {
             for(int j=0; j<QQQ5Mul; j++)
             {
-                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcSilicon >= 900 && tdcSilicon <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
+                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcIC >= 900 && tdcIC <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
                 //if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31) //Se82_locus_IC->IsInside(icE, icdE)
                 {
+
                     hit_pos = hit_position_3D("QQQ5", QQQ5Upstream[j], QQQ5Det[j], QQQ5Ring[j], QQQ5Sector[j]);
                     
                     angle_IC_corrected = IC_corrected_angle(hit_pos.at(0),hit_pos.at(1),hit_pos.at(2), icPositionX, icPositionY);
@@ -922,20 +1035,25 @@ void en_vs_z_generator()
                     initial_energy = initial_proton_energy((QQQ5RingEnergy[j]/1000.0), proton_distance_through_target(hit_pos));
                     corrected_excitation = 3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0);
 
-                    //Filling histograms
-                    kinematics->Fill(angle_IC_corrected, QQQ5RingEnergy[j]);
-                    kinematics_eloss_corrected->Fill(angle_IC_corrected, initial_energy*1000.0);
-                    qValue_vs_angle->Fill(angle_IC_corrected, qValue);
-                    Excitation_vs_angle->Fill(angle_IC_corrected, corrected_excitation);
+                    // cout << QQQ5Mul << setw(10) << corrected_excitation << endl;
 
-                    Ex_QQQ5->Fill(3593.0 - qValue);
 
-                    Excitation_spec->Fill(3593.0 - qValue);
-                    Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0));
+                    // if(IC_timing_gate_QQQ5->IsInside(tdcIC - tdcSilicon, initial_energy*1000.0))
+                    // {
+                        //Filling histograms
+                        kinematics->Fill(angle_IC_corrected, QQQ5RingEnergy[j]);
+                        kinematics_eloss_corrected->Fill(angle_IC_corrected, initial_energy*1000.0);
+                        qValue_vs_angle->Fill(angle_IC_corrected, qValue);
+                        Excitation_vs_angle->Fill(angle_IC_corrected, corrected_excitation);
+                        Ex_QQQ5->Fill(3593.0 - qValue);
+                        Excitation_spec->Fill(3593.0 - qValue);
+                        Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0));
+                    // }
 
-                    QQQ5_Si_TDC->Fill(tdcSilicon);
-                    QQQ5_IC_TDC->Fill(tdcIC);
+                    QQQ5_Si_TDC->Fill(tdcIC);
+                    QQQ5_IC_TDC->Fill(tdcSilicon);
 
+                    Energy_vs_ic_si_hist_QQQ5->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
 
 
 
@@ -946,12 +1064,12 @@ void en_vs_z_generator()
 
                     //cout << "QQQ5    " << hit_pos.at(0) << "  " <<hit_pos.at(1) << "  " <<hit_pos.at(2) << endl;
 
-                    if(xtalsMul >= 1 && xtalsMul <= 3 && QQQ5Upstream[j] == 1)
+                    if(xtalsMul >= 1 && xtalsMul <= 10 && QQQ5Upstream[j] == 1)
                     {
                         for(int k=0; k<xtalsMul; k++)
                         {
-                            if(QQQ5Upstream[j] == 1) gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
-                            if(QQQ5Upstream[j] == 1) gammaEx_matrixQQQ5->Fill(corrected_excitation, xtals_edop[k]);
+                            gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
+                            gammaEx_matrixQQQ5->Fill(corrected_excitation, xtals_edop[k]);
 
 
 
@@ -968,6 +1086,28 @@ void en_vs_z_generator()
 
 
                         }
+
+
+
+                        if(xtalsMul >= 2)
+                        {
+                            for(int a=0; a<xtalsMul-1; a++)
+                            {
+                                for(int b=a+1; b<xtalsMul; b++)
+                                {
+                               
+                                    //Filling gamma-gamma matrix
+                                    gamma_gamma_matrix->Fill(xtals_edop[a], xtals_edop[b]);
+
+
+
+                                }
+                            }
+                        }
+
+
+
+
                     }
 
 
@@ -983,7 +1123,7 @@ void en_vs_z_generator()
         // ==                                                                       ==
         // ===========================================================================
         // ===========================================================================
-        if(icE >= 0. && icdE >= 0.)
+        if(icE > 0. && icdE > 0.)
         {
 
             ic_dE_E->Fill(icE, icdE);
@@ -1020,15 +1160,123 @@ void en_vs_z_generator()
 
     }
 
-    en_vs_z_file.close();
+
+    //      Solid angle analysis
+    // ===============================
+
+    //Writing out the solid angles for each angular bin
+    ofstream solid_angle_file;
+    solid_angle_file.open ( "analysis_output/angular_distribution_solid_angles.dat" );
+
+
+    //Calculating solid angles of each bin
+    double SX3_bin_SA[number_of_SX3_bins];
+    for(int i=0; i< number_of_SX3_bins; i++)
+    {
+        SX3_bin_SA[i] =  get_solid_angle_per_det("Upstream_SX3", SX3_bin_center_vect.at(i), SX3_bin_width, -1.0);
+    
+        cout << "bin: " << i << "  angle centroid: " << SX3_bin_center_vect.at(i) << "  " << SX3_bin_SA[i]*5. << "   " << ang_bin_counts[i] << "  " << (SX3_bin_SA[i]*5.) / ang_bin_counts[i] << "  " << observed_ang_bin_counts[i] << endl;
+        cout << "     " << "deduced solid angle:  " << observed_ang_bin_counts[i] * ( (SX3_bin_SA[i]*5.) / ang_bin_counts[i] ) << endl;
+    
+        solid_angle_file << "SX3" << setw(12) << i << setw(12) << SX3_bin_center_vect.at(i) << setw(12) << observed_ang_bin_counts[i] * ( (SX3_bin_SA[i]*5.) / ang_bin_counts[i] ) << endl;
+    }
+
+
+
+    double QQQ5_bin_center_angle[number_of_QQQ5_bins];
+
+    for(int i=0; i<number_of_QQQ5_bins; i++)
+    {
+        QQQ5_bin_center_angle[i] = QQQ5_angle[(int)(QQQ5_bin_start_vect.at(i)+(QQQ5_bin_width/2))];
+    }
+
+    double QQQ5_SA[number_of_QQQ5_bins];
+    for(int i=0; i< number_of_QQQ5_bins; i++)
+    {
+        QQQ5_SA[i] =  get_solid_angle("Upstream_QQQ5", QQQ5_bin_start_vect.at(i), QQQ5_bin_width, QQQ5_zOffset);
+        cout << "QQQ5 bin info: " << i << "   " << QQQ5_bin_start_vect.at(i) << "  SA: " << QQQ5_SA[i] << "  bin center=  " << QQQ5_bin_center_angle[i] << endl;
+    
+        solid_angle_file << "QQQ5" << setw(11) << i << setw(12) << QQQ5_bin_start_vect.at(i) << setw(12) << QQQ5_SA[i] << endl;
+    }
+
+    solid_angle_file.close();
 
     
 
-    // for (int j=1; j<=number_of_SX3_bins; j++)
-    // {
-    //     Excitation_AngularBin[j]->Write();
-    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
+    DS_PID->Write();
+    kinematics->Write();
+    kinematics_eloss_corrected->Write();
+    Excitation_spec->Write();
+    Excitation_spec_eloss_corrected->Write();
+    ic_dE_E->Write();
+    qValue_vs_angle->Write();
+    Excitation_vs_angle->Write();
+    gamEn_vs_gamAngle->Write();
+    gammaEx_matrix->Write();
+    gammaEx_matrixSX3->Write();
+    gammaEx_matrixQQQ5->Write();
+    gamma_gamma_matrix->Write();
+    gamma_no_offset->Write();
+    gamma_z_offset->Write();
+    kinematics_deuteron_PID->Write();
+    kinematics_proton_PID->Write();
+    SX3_en_vs_z_hist->Write();
+    back_vs_front_strip_SX3->Write();
+    pos_vs_strip_SX3->Write();
+    angle_vs_strip->Write();
+
+    QQQ5_Si_TDC->Write();
+    QQQ5_IC_TDC->Write();
+    SX3_Si_TDC->Write();
+    SX3_IC_TDC->Write();
+    gamma_aboveSn->Write();
+    gamma_belowSn->Write();
+    //hit_position_spectrum->Write();
+
+    siliconTDC_hist->Write();
+    icTDC_hist->Write();
+    grertinaTDC_hist->Write();
+    delta_timestamp_vs_Run_hist->Write();
+    tdcGRETINA_vs_Run_hist->Write();
+    si_ic_vs_Run_hist->Write();
+    Energy_vs_ic_si_hist_SX3->Write();
+    Energy_vs_ic_si_hist_QQQ5->Write();
+    Energy_vs_delta_timestamp_hist->Write();
+
 
 
 

@@ -29,7 +29,7 @@
 
 
 
-void en_vs_z_generator()
+void timing_structure_investigation()
 {
 
     TCanvas *c1 = new TCanvas("c1", "c1", 700, 700);
@@ -99,6 +99,111 @@ void en_vs_z_generator()
     DS_protons->SetPoint(22,494.565,2151.9);
 
 
+
+   TCutG *TIMING_QQQ5_alpha = new TCutG("TIMING_QQQ5_alpha",6);
+   TIMING_QQQ5_alpha->SetPoint(0,135.769,7089.62);
+   TIMING_QQQ5_alpha->SetPoint(1,135.887,6493.32);
+   TIMING_QQQ5_alpha->SetPoint(2,163.323,6589.49);
+   TIMING_QQQ5_alpha->SetPoint(3,163.323,7166.56);
+   TIMING_QQQ5_alpha->SetPoint(4,136.24,7051.15);
+   TIMING_QQQ5_alpha->SetPoint(5,135.769,7089.62);
+
+   TCutG *TIMING_QQQ5_kinematics = new TCutG("TIMING_QQQ5_kinematics",14);
+   TIMING_QQQ5_kinematics->SetPoint(0,135.887,3723.4);
+   TIMING_QQQ5_kinematics->SetPoint(1,135.769,3165.57);
+   TIMING_QQQ5_kinematics->SetPoint(2,143.07,2857.81);
+   TIMING_QQQ5_kinematics->SetPoint(3,150.783,2569.27);
+   TIMING_QQQ5_kinematics->SetPoint(4,155.257,2453.86);
+   TIMING_QQQ5_kinematics->SetPoint(5,161.263,2338.45);
+   TIMING_QQQ5_kinematics->SetPoint(6,164.03,2338.45);
+   TIMING_QQQ5_kinematics->SetPoint(7,163.912,2684.69);
+   TIMING_QQQ5_kinematics->SetPoint(8,159.85,2742.39);
+   TIMING_QQQ5_kinematics->SetPoint(9,154.139,2838.57);
+   TIMING_QQQ5_kinematics->SetPoint(10,147.78,3088.63);
+   TIMING_QQQ5_kinematics->SetPoint(11,140.832,3396.4);
+   TIMING_QQQ5_kinematics->SetPoint(12,136.417,3665.7);
+   TIMING_QQQ5_kinematics->SetPoint(13,135.887,3723.4);
+
+   TCutG *TIMING_QQQ5_lic_HE = new TCutG("TIMING_QQQ5_lic_HE",6);
+   TIMING_QQQ5_lic_HE->SetPoint(0,135.828,6493.32);
+   TIMING_QQQ5_lic_HE->SetPoint(1,135.946,5897.02);
+   TIMING_QQQ5_lic_HE->SetPoint(2,146.72,5935.49);
+   TIMING_QQQ5_lic_HE->SetPoint(3,144.483,6300.96);
+   TIMING_QQQ5_lic_HE->SetPoint(4,136.299,6454.85);
+   TIMING_QQQ5_lic_HE->SetPoint(5,135.828,6493.32);
+
+   TCutG *TIMING_QQQ5_lic_LE = new TCutG("TIMING_QQQ5_lic_LE",12);
+   TIMING_QQQ5_lic_LE->SetPoint(0,135.71,1511.32);
+   TIMING_QQQ5_lic_LE->SetPoint(1,135.769,1011.2);
+   TIMING_QQQ5_lic_LE->SetPoint(2,142.952,991.96);
+   TIMING_QQQ5_lic_LE->SetPoint(3,149.311,953.489);
+   TIMING_QQQ5_lic_LE->SetPoint(4,154.021,915.018);
+   TIMING_QQQ5_lic_LE->SetPoint(5,163.736,915.018);
+   TIMING_QQQ5_lic_LE->SetPoint(6,163.677,1030.43);
+   TIMING_QQQ5_lic_LE->SetPoint(7,158.554,1049.67);
+   TIMING_QQQ5_lic_LE->SetPoint(8,150.959,1107.37);
+   TIMING_QQQ5_lic_LE->SetPoint(9,144.601,1222.79);
+   TIMING_QQQ5_lic_LE->SetPoint(10,136.181,1299.73);
+   TIMING_QQQ5_lic_LE->SetPoint(11,135.71,1511.32);
+
+   TCutG *TIMING_SX3_alpha = new TCutG("TIMING_SX3_alpha",6);
+   TIMING_SX3_alpha->SetPoint(0,129.94,7051.15);
+   TIMING_SX3_alpha->SetPoint(1,129.94,6589.49);
+   TIMING_SX3_alpha->SetPoint(2,114.514,6704.91);
+   TIMING_SX3_alpha->SetPoint(3,111.806,6935.73);
+   TIMING_SX3_alpha->SetPoint(4,129.234,6954.97);
+   TIMING_SX3_alpha->SetPoint(5,129.94,7051.15);
+
+
+   TCutG *TIMING_SX3_kinematics = new TCutG("TIMING_SX3_kinematics",21);
+   TIMING_SX3_kinematics->SetPoint(0,93.0833,10128.8);
+   TIMING_SX3_kinematics->SetPoint(1,93.3777,9109.35);
+   TIMING_SX3_kinematics->SetPoint(2,103.681,6993.44);
+   TIMING_SX3_kinematics->SetPoint(3,107.626,6474.08);
+   TIMING_SX3_kinematics->SetPoint(4,109.981,5993.19);
+   TIMING_SX3_kinematics->SetPoint(5,117.399,4916);
+   TIMING_SX3_kinematics->SetPoint(6,121.05,4550.53);
+   TIMING_SX3_kinematics->SetPoint(7,124.995,4165.82);
+   TIMING_SX3_kinematics->SetPoint(8,128.645,3838.82);
+   TIMING_SX3_kinematics->SetPoint(9,130.293,3781.11);
+   TIMING_SX3_kinematics->SetPoint(10,130.058,4011.94);
+   TIMING_SX3_kinematics->SetPoint(11,124.7,4454.35);
+   TIMING_SX3_kinematics->SetPoint(12,120.049,4916);
+   TIMING_SX3_kinematics->SetPoint(13,116.222,5396.89);
+   TIMING_SX3_kinematics->SetPoint(14,111.865,6031.66);
+   TIMING_SX3_kinematics->SetPoint(15,108.391,6512.55);
+   TIMING_SX3_kinematics->SetPoint(16,106.213,7051.15);
+   TIMING_SX3_kinematics->SetPoint(17,101.679,7974.45);
+   TIMING_SX3_kinematics->SetPoint(18,97.3225,9051.64);
+   TIMING_SX3_kinematics->SetPoint(19,93.731,9936.47);
+   TIMING_SX3_kinematics->SetPoint(20,93.0833,10128.8);
+
+   TCutG *TIMING_SX3_lic_HE = new TCutG("TIMING_SX3_lic_HE",6);
+   TIMING_SX3_lic_HE->SetPoint(0,129.705,6493.32);
+   TIMING_SX3_lic_HE->SetPoint(1,129.764,5723.9);
+   TIMING_SX3_lic_HE->SetPoint(2,112.572,6127.84);
+   TIMING_SX3_lic_HE->SetPoint(3,108.156,6954.97);
+   TIMING_SX3_lic_HE->SetPoint(4,129.41,6531.79);
+   TIMING_SX3_lic_HE->SetPoint(5,129.705,6493.32);
+
+
+   TCutG *TIMING_SX3_lic_LE = new TCutG("TIMING_SX3_lic_LE",6);
+   TIMING_SX3_lic_LE->SetPoint(0,102.386,2376.92);
+   TIMING_SX3_lic_LE->SetPoint(1,102.327,2011.44);
+   TIMING_SX3_lic_LE->SetPoint(2,109.216,1761.38);
+   TIMING_SX3_lic_LE->SetPoint(3,116.163,1569.03);
+   TIMING_SX3_lic_LE->SetPoint(4,125.407,1299.73);
+   TIMING_SX3_lic_LE->SetPoint(5,125.76,1549.79);
+   TIMING_SX3_lic_LE->SetPoint(6,121.403,1684.44);
+   TIMING_SX3_lic_LE->SetPoint(7,111.1,1953.74);
+   TIMING_SX3_lic_LE->SetPoint(8,104.152,2299.98);
+   TIMING_SX3_lic_LE->SetPoint(9,102.386,2376.92);
+
+
+
+
+
+
 	// Creating the Chain of runs to use
 	TChain* Chain = new TChain ( "data" );
 
@@ -109,11 +214,9 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run002_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run003_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run004_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run005_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run006_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run007_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run008_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run009_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run010_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run011_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run012_combined.root");
@@ -122,15 +225,8 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run015_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run016_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run017_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run018_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run019_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run020_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run021_combined.root");
-    
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run022_combined.root");
-    
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run018_combined.root");    
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run023_combined.root");
-    
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run024_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run025_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run026_combined.root");
@@ -140,15 +236,12 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run030_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run031_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run032_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run033_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run034_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run035_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run036_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run037_combined.root");
 	Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run038_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run039_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run040_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run041_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run042_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run043_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run044_combined.root");
@@ -157,7 +250,6 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run047_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run048_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run049_combined.root");
-    
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run050_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run051_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run052_combined.root");
@@ -173,7 +265,6 @@ void en_vs_z_generator()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run062_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run063_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run064_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run065_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run066_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run067_combined.root");
 
@@ -438,29 +529,29 @@ void en_vs_z_generator()
 	float icPositionWeightedY = 0;
 	//
 	// === TDC ===
-	int   tdcIC = 0;
+	int   tdcSilicon = 0;
 	int   tdcGRETINA = 0;
 	int   tdcRF = 0;
-	int   tdcSilicon = 0;
+	int   tdcIC = 0;
 	unsigned long long timeStamp = 0;
 	unsigned long long GRETINATimeStamp = 0;
 	//
 	// === GRETINA ===
-	const Int_t NMAX = 44;
-    bool  foundGRETINA = 0;
-    int   xtalsMul = 0;
+    const Int_t NMAX = 44;
+	bool  foundGRETINA = 0;
+	int   xtalsMul = 0;
     float xtals_xlab[NMAX] = {0};
-    float xtals_ylab[NMAX] = {0};
-    float xtals_zlab[NMAX] = {0};
-    float xtals_cc[NMAX] = {0};
-    float xtals_edop[NMAX] = {0};
-    float xtals_edopMaxInt[NMAX] = {0};
-    float xtals_edopSeg[NMAX] = {0};
-    float xtals_edopXtal[NMAX] = {0};
-    int   xtals_crystalNum[NMAX] = {0};
-    int   xtals_quadNum[NMAX] = {0};
-    float xtals_t0[NMAX] = {0};
-    long long  xtals_timestamp[NMAX] = {0};
+	float xtals_ylab[NMAX] = {0};
+	float xtals_zlab[NMAX] = {0};
+	float xtals_cc[NMAX] = {0};
+	float xtals_edop[NMAX] = {0};
+	float xtals_edopMaxInt[NMAX] = {0};
+	float xtals_edopSeg[NMAX] = {0};
+	float xtals_edopXtal[NMAX] = {0};
+	int   xtals_crystalNum[NMAX] = {0};
+	int   xtals_quadNum[NMAX] = {0};
+	float xtals_t0[NMAX] = {0};
+	long long  xtals_timestamp[NMAX] = {0};
     //
     // === Analysis parameters ===
     double qValue = 0.0;
@@ -557,10 +648,10 @@ void en_vs_z_generator()
 
 
     // =================== TDC Branch Address ==================
-    Chain->SetBranchAddress("tdcIC",&tdcIC);
+    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
     Chain->SetBranchAddress("tdcGRETINA",&tdcGRETINA);
     Chain->SetBranchAddress("tdcRF",&tdcRF);
-    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
+    Chain->SetBranchAddress("tdcIC",&tdcIC);
     Chain->SetBranchAddress("timeStamp",&timeStamp);
     Chain->SetBranchAddress("GRETINATimeStamp",&GRETINATimeStamp);
 
@@ -583,6 +674,8 @@ void en_vs_z_generator()
     Chain->SetBranchAddress("xtals_timestamp",xtals_timestamp);
 
 
+    //Output root file for histograms
+    TFile write("analysis_output/timing_structure_investigation.root", "recreate");
 
 	// ================ Histograms and Canvases ==================
     TH2D* DS_PID = new TH2D("DS_PID", "DS_PID", 1000, 0, 18000, 1000, 0, 3500 );
@@ -624,6 +717,36 @@ void en_vs_z_generator()
     TH1D* icTDC_hist = new TH1D("icTDC_hist", "icTDC_hist", 4048, 0, 4048);
     TH1D* grertinaTDC_hist = new TH1D("grertinaTDC_hist", "grertinaTDC_hist", 4048, 0, 4048);
 
+
+    TH2D* SX3_en_vs_z_hist = new TH2D("SX3_en_vs_z_hist", "SX3_en_vs_z_hist", 400, -10, 10, 500, 0, 20000);
+
+
+    // Timestamp and TDC histograms
+    TH2D* delta_timestamp_vs_Run_hist = new TH2D("delta_timestamp_vs_Run_hist", "delta_timestamp_vs_Run_hist", 120, 0, 120, 500, -100, 400);
+    TH2D* tdcGRETINA_vs_Run_hist = new TH2D("tdcGRETINA_vs_Run_hist", "tdcGRETINA_vs_Run_hist", 120, 0, 120, 4096, 0, 4096);
+
+    TH2D* si_ic_vs_Run_hist = new TH2D("si_ic_vs_Run_hist", "si_ic_vs_Run_hist", 120, 0, 120, 4000, -1000, 3000);
+    TH2D* Energy_vs_ic_si_hist_SX3 = new TH2D("Energy_vs_ic_si_hist_SX3", "Energy_vs_ic_si_hist_SX3", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* Energy_vs_ic_si_hist_QQQ5 = new TH2D("Energy_vs_ic_si_hist_QQQ5", "Energy_vs_ic_si_hist_QQQ5", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* Energy_vs_delta_timestamp_hist = new TH2D("Energy_vs_delta_timestamp_hist", "Energy_vs_delta_timestamp_hist", 500, -100, 400, 2000, 0, 20000);
+
+
+
+    TH2D* TIMING_QQQ5_alpha_hist = new TH2D("TIMING_QQQ5_alpha_hist", "TIMING_QQQ5_alpha_hist", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* TIMING_QQQ5_kinematics_hist = new TH2D("TIMING_QQQ5_kinematics_hist", "TIMING_QQQ5_kinematics_hist", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* TIMING_QQQ5_lic_HE_hist = new TH2D("TIMING_QQQ5_lic_HE_hist", "TIMING_QQQ5_lic_HE_hist", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* TIMING_QQQ5_lic_LE_hist = new TH2D("TIMING_QQQ5_lic_LE_hist", "TIMING_QQQ5_lic_LE_hist", 4000, -1000, 3000, 2000, 0, 20000);
+
+
+    TH2D* TIMING_SX3_alpha_hist = new TH2D("TIMING_SX3_alpha_hist", "TIMING_SX3_alpha_hist", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* TIMING_SX3_kinematics_hist = new TH2D("TIMING_SX3_kinematics_hist", "TIMING_SX3_kinematics_hist", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* TIMING_SX3_lic_HE_hist = new TH2D("TIMING_SX3_lic_HE_hist", "TIMING_SX3_lic_HE_hist", 4000, -1000, 3000, 2000, 0, 20000);
+    TH2D* TIMING_SX3_lic_LE_hist = new TH2D("TIMING_SX3_lic_LE_hist", "TIMING_SX3_lic_LE_hist", 4000, -1000, 3000, 2000, 0, 20000);
+
+
+
+
+
     //=============Constructing the bins for the Angular Distribution=============
     //============================================================================
 
@@ -652,21 +775,8 @@ void en_vs_z_generator()
 
     }
 
-
-    ofstream en_vs_z_file;
-    en_vs_z_file.open("en_vs_z_SX3.dat");
-
-
-
-
-
-
-
-
-
-
-
-
+    string runNumber_str;
+    int runNumber;
 
     
 	//Getting the number of entries to loop through
@@ -675,9 +785,12 @@ void en_vs_z_generator()
 
 
 	//Looping through each event:
-	for ( unsigned long long int i=0; i<nEntries/2.; i++ )
+	for ( unsigned long long int i=0; i<nEntries; i++ )
     {
     	Chain->GetEntry(i);
+
+        runNumber_str = Chain->GetFile()->GetName();
+        runNumber = stoi(runNumber_str.substr(31,3));
 
         // ===========================================================================
         // ===========================================================================
@@ -687,14 +800,22 @@ void en_vs_z_generator()
         // ===========================================================================
         // ===========================================================================
 
-        if(tdcSilicon != 0) siliconTDC_hist->Fill(tdcSilicon);
         if(tdcIC != 0) icTDC_hist->Fill(tdcIC);
-        if(tdcGRETINA != 0) grertinaTDC_hist->Fill(tdcGRETINA);
+        if(tdcSilicon != 0) siliconTDC_hist->Fill(tdcSilicon);
+        if(tdcGRETINA != 0) 
+        {
+            grertinaTDC_hist->Fill(tdcGRETINA);
+            tdcGRETINA_vs_Run_hist->Fill(runNumber, tdcGRETINA);
+        }
 
+        
 
+        si_ic_vs_Run_hist->Fill(runNumber, tdcIC - tdcSilicon);
 
-
-
+        if(xtalsMul >= 1 )
+        {
+            delta_timestamp_vs_Run_hist->Fill(runNumber, timeStamp - xtals_timestamp[0]);
+        }
 
 
 
@@ -714,7 +835,7 @@ void en_vs_z_generator()
         {
             for(int j=0; j<SX3Mul; j++)
             {
-                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcSilicon >= 900 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
+                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcIC >= 900 && tdcIC <= 1300) //No weird events with wrong channels make it through
                 //if(SX3Det[j] <= 11 && SX3Strip[j] <= 3) //No weird events with wrong channels make it through
                 {
                     //Calibrating SX3 Position
@@ -735,7 +856,7 @@ void en_vs_z_generator()
 
                     //cout << "ANGLE:  " << angle << "  " << angle_IC_corrected << endl;
 
-                    if( calPos >= 0 && calPos <= 10. && SX3Upstream[j]==1 ) en_vs_z_file << initial_energy << setw(10) << calPos << endl;
+                    if( SX3Upstream[j] == 1 ) SX3_en_vs_z_hist->Fill(calPos, initial_energy*1000.0);
 
                     qValue = rel_q_value (angle_IC_corrected, BSX3_En);
                     excitation = 3593.0 - qValue;
@@ -752,13 +873,32 @@ void en_vs_z_generator()
                     Ex_SX3->Fill(3593.0 - qValue);
 
                     // Figuring out the TDC stuff
-                    SX3_Si_TDC->Fill(tdcSilicon);
-                    SX3_IC_TDC->Fill(tdcIC);
+                    SX3_Si_TDC->Fill(tdcIC);
+                    SX3_IC_TDC->Fill(tdcSilicon);
 
                     // if(angle > 1) 
                     // {
                     //     hit_position_spectrum->Fill(hit_pos.at(0), hit_pos.at(2), hit_pos.at(1));
                     // }
+
+                    if( SX3Upstream[j]==1 )
+                    {
+                        Energy_vs_ic_si_hist_SX3->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                        
+
+                        // applying kinematic cuts
+                        if( TIMING_SX3_alpha->IsInside(angle_IC_corrected, initial_energy*1000.0) ) TIMING_SX3_alpha_hist->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                        if( TIMING_SX3_kinematics->IsInside(angle_IC_corrected, initial_energy*1000.0) ) TIMING_SX3_kinematics_hist->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                        if( TIMING_SX3_lic_HE->IsInside(angle_IC_corrected, initial_energy*1000.0) ) TIMING_SX3_lic_HE_hist->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                        if( TIMING_SX3_lic_LE->IsInside(angle_IC_corrected, initial_energy*1000.0) ) TIMING_SX3_lic_LE_hist->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+
+
+                        if(tdcGRETINA != 0) Energy_vs_delta_timestamp_hist->Fill(tdcSilicon - tdcGRETINA, initial_energy*1000.0 );
+                    }
+
+
+
+
 
 
 
@@ -853,8 +993,9 @@ void en_vs_z_generator()
 
 
 
-                            if(xtals_zlab[k] + isomer_z_offset >= 0) thetaGamma_test = (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] + isomer_z_offset));
-                            if(xtals_zlab[k] + isomer_z_offset < 0) thetaGamma_test = 180. + (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] + isomer_z_offset));
+
+                            if(xtals_zlab[k] - isomer_z_offset >= 0) thetaGamma_test = (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] - isomer_z_offset));
+                            if(xtals_zlab[k] - isomer_z_offset < 0) thetaGamma_test = 180. + (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] - isomer_z_offset));
 
                             gamma_correction_test = (1. - beta*cos(thetaGamma_test*(3.14159/180.))) / (sqrt( 1. - pow(beta,2) ));
 
@@ -908,7 +1049,7 @@ void en_vs_z_generator()
         {
             for(int j=0; j<QQQ5Mul; j++)
             {
-                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcSilicon >= 900 && tdcSilicon <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
+                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcIC >= 900 && tdcIC <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
                 //if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31) //Se82_locus_IC->IsInside(icE, icdE)
                 {
                     hit_pos = hit_position_3D("QQQ5", QQQ5Upstream[j], QQQ5Det[j], QQQ5Ring[j], QQQ5Sector[j]);
@@ -933,9 +1074,15 @@ void en_vs_z_generator()
                     Excitation_spec->Fill(3593.0 - qValue);
                     Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0));
 
-                    QQQ5_Si_TDC->Fill(tdcSilicon);
-                    QQQ5_IC_TDC->Fill(tdcIC);
+                    QQQ5_Si_TDC->Fill(tdcIC);
+                    QQQ5_IC_TDC->Fill(tdcSilicon);
 
+                    Energy_vs_ic_si_hist_QQQ5->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                    // applying kinematic cuts
+                    if( TIMING_QQQ5_alpha->IsInside(angle_IC_corrected, initial_energy*1000.0) ) TIMING_QQQ5_alpha_hist->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                    if( TIMING_QQQ5_kinematics->IsInside(angle_IC_corrected, initial_energy*1000.0) ) TIMING_QQQ5_kinematics_hist->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                    if( TIMING_QQQ5_lic_HE->IsInside(angle_IC_corrected, initial_energy*1000.0) ) TIMING_QQQ5_lic_HE_hist->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
+                    if( TIMING_QQQ5_lic_LE->IsInside(angle_IC_corrected, initial_energy*1000.0) ) TIMING_QQQ5_lic_LE_hist->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
 
 
 
@@ -1020,9 +1167,51 @@ void en_vs_z_generator()
 
     }
 
-    en_vs_z_file.close();
-
     
+    DS_PID->Write();
+    kinematics->Write();
+    kinematics_eloss_corrected->Write();
+    Excitation_spec->Write();
+    Excitation_spec_eloss_corrected->Write();
+    ic_dE_E->Write();
+    qValue_vs_angle->Write();
+    Excitation_vs_angle->Write();
+    gamEn_vs_gamAngle->Write();
+    gammaEx_matrix->Write();
+    gammaEx_matrixSX3->Write();
+    gammaEx_matrixQQQ5->Write();
+    gamma_no_offset->Write();
+    gamma_z_offset->Write();
+    kinematics_deuteron_PID->Write();
+    kinematics_proton_PID->Write();
+    SX3_en_vs_z_hist->Write();
+
+    QQQ5_Si_TDC->Write();
+    QQQ5_IC_TDC->Write();
+    SX3_Si_TDC->Write();
+    SX3_IC_TDC->Write();
+    gamma_aboveSn->Write();
+    gamma_belowSn->Write();
+    //hit_position_spectrum->Write();
+
+    siliconTDC_hist->Write();
+    icTDC_hist->Write();
+    grertinaTDC_hist->Write();
+    delta_timestamp_vs_Run_hist->Write();
+    tdcGRETINA_vs_Run_hist->Write();
+    si_ic_vs_Run_hist->Write();
+    Energy_vs_ic_si_hist_SX3->Write();
+    Energy_vs_ic_si_hist_QQQ5->Write();
+    Energy_vs_delta_timestamp_hist->Write();
+    TIMING_QQQ5_alpha_hist->Write();
+    TIMING_QQQ5_kinematics_hist->Write();
+    TIMING_QQQ5_lic_HE_hist->Write();
+    TIMING_QQQ5_lic_LE_hist->Write();
+    TIMING_SX3_alpha_hist->Write();
+    TIMING_SX3_kinematics_hist->Write();
+    TIMING_SX3_lic_HE_hist->Write();
+    TIMING_SX3_lic_LE_hist->Write();
+
 
     // for (int j=1; j<=number_of_SX3_bins; j++)
     // {

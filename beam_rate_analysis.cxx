@@ -456,28 +456,29 @@ void beam_rate_analysis()
 	float icPositionWeightedY = 0;
 	//
 	// === TDC ===
-	int   tdcIC = 0;
+	int   tdcSilicon = 0;
 	int   tdcGRETINA = 0;
 	int   tdcRF = 0;
-	int   tdcSilicon = 0;
+	int   tdcIC = 0;
 	unsigned long long timeStamp = 0;
 	unsigned long long GRETINATimeStamp = 0;
 	//
 	// === GRETINA ===
-	bool  foundGRETINA = 0;
-	int   xtalsMul = 0;
-    float xtals_xlab[10] = {0};
-	float xtals_ylab[10] = {0};
-	float xtals_zlab[10] = {0};
-	float xtals_cc[10] = {0};
-	float xtals_edop[10] = {0};
-	float xtals_edopMaxInt[10] = {0};
-	float xtals_edopSeg[10] = {0};
-	float xtals_edopXtal[10] = {0};
-	int   xtals_crystalNum[10] = {0};
-	int   xtals_quadNum[10] = {0};
-	float xtals_t0[10] = {0};
-	long long  xtals_timestamp[10] = {0};
+	const Int_t NMAX = 44;
+    bool  foundGRETINA = 0;
+    int   xtalsMul = 0;
+    float xtals_xlab[NMAX] = {0};
+    float xtals_ylab[NMAX] = {0};
+    float xtals_zlab[NMAX] = {0};
+    float xtals_cc[NMAX] = {0};
+    float xtals_edop[NMAX] = {0};
+    float xtals_edopMaxInt[NMAX] = {0};
+    float xtals_edopSeg[NMAX] = {0};
+    float xtals_edopXtal[NMAX] = {0};
+    int   xtals_crystalNum[NMAX] = {0};
+    int   xtals_quadNum[NMAX] = {0};
+    float xtals_t0[NMAX] = {0};
+    long long  xtals_timestamp[NMAX] = {0};
     //
     // === Analysis parameters ===
     double qValue = 0.0;
@@ -560,10 +561,10 @@ void beam_rate_analysis()
 
 
     // =================== TDC Branch Address ==================
-    Chain->SetBranchAddress("tdcIC",&tdcIC);
+    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
     Chain->SetBranchAddress("tdcGRETINA",&tdcGRETINA);
     Chain->SetBranchAddress("tdcRF",&tdcRF);
-    Chain->SetBranchAddress("tdcSilicon",&tdcSilicon);
+    Chain->SetBranchAddress("tdcIC",&tdcIC);
     Chain->SetBranchAddress("timeStamp",&timeStamp);
     Chain->SetBranchAddress("GRETINATimeStamp",&GRETINATimeStamp);
 
@@ -636,8 +637,8 @@ void beam_rate_analysis()
     string runNumber_str;
     int runNumber, prev_runNumber;
 
-    int tdcSilicon_rate_count[200] = {0};
     int tdcIC_rate_count[200] = {0};
+    int tdcSilicon_rate_count[200] = {0};
     int elastics_rate_count[200] = {0};
     int total_elastics_count = 0;
     int prev_timestamp = 0;
@@ -670,14 +671,14 @@ void beam_rate_analysis()
 
 
 
-        if(tdcSilicon != 0) siliconTDC_hist->Fill(tdcSilicon);
-        if(tdcIC != 0) icTDC_hist->Fill(tdcIC);
+        if(tdcIC != 0) siliconTDC_hist->Fill(tdcIC);
+        if(tdcSilicon != 0) icTDC_hist->Fill(tdcSilicon);
         if(tdcGRETINA != 0) grertinaTDC_hist->Fill(tdcGRETINA);
 
 
-        if(tdcSilicon >=690 && tdcSilicon <=704)
+        if(tdcIC >=690 && tdcIC <=704)
         {
-            tdcSilicon_rate_count[runNumber]++;
+            tdcIC_rate_count[runNumber]++;
 
         
             if(floor(timeStamp/10000000.0) < prev_timestamp)
@@ -708,9 +709,9 @@ void beam_rate_analysis()
 
 
 
-        if(tdcIC >=1590 && tdcIC <=1617)
+        if(tdcSilicon >=1590 && tdcSilicon <=1617)
         {
-            tdcIC_rate_count[runNumber]++;
+            tdcSilicon_rate_count[runNumber]++;
         }
 
 
@@ -726,7 +727,7 @@ void beam_rate_analysis()
         {
             for(int j=0; j<SX3Mul; j++)
             {
-                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcSilicon >= 900 && tdcSilicon <= 1300) //No weird events with wrong channels make it through
+                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcIC >= 900 && tdcIC <= 1300) //No weird events with wrong channels make it through
                 {
                     //Calibrating SX3 Position
                     rawPos = (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] - SX3StripLeftADC[j]) / (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] + SX3StripLeftADC[j]);
@@ -749,8 +750,8 @@ void beam_rate_analysis()
                     Ex_SX3->Fill(3593.0 - qValue);
 
                     // Figuring out the TDC stuff
-                    SX3_Si_TDC->Fill(tdcSilicon);
-                    SX3_IC_TDC->Fill(tdcIC);
+                    SX3_Si_TDC->Fill(tdcIC);
+                    SX3_IC_TDC->Fill(tdcSilicon);
 
 
 
@@ -844,7 +845,7 @@ void beam_rate_analysis()
         {
             for(int j=0; j<QQQ5Mul; j++)
             {
-                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcSilicon >= 900 && tdcSilicon <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
+                if(QQQ5Det[j] <= 4 && QQQ5Ring[j] <= 31 && tdcIC >= 900 && tdcIC <= 1300) //Se82_locus_IC->IsInside(icE, icdE)
                 {
 
                     //Calculating the event Q value
@@ -858,8 +859,8 @@ void beam_rate_analysis()
 
                     Ex_QQQ5->Fill(3593.0 - qValue);
 
-                    QQQ5_Si_TDC->Fill(tdcSilicon);
-                    QQQ5_IC_TDC->Fill(tdcIC);
+                    QQQ5_Si_TDC->Fill(tdcIC);
+                    QQQ5_IC_TDC->Fill(tdcSilicon);
 
 
                     if(xtalsMul >= 1 && xtalsMul <= 3 && QQQ5Upstream[j] == 1)
@@ -931,10 +932,10 @@ void beam_rate_analysis()
     double runNumber_array[200] = {0};
     for(int a=0; a<runNumber; a++)
     {
-        if(tdcSilicon_rate_count[a] != 0 && elastics_rate_count[a] != 0)
+        if(tdcIC_rate_count[a] != 0 && elastics_rate_count[a] != 0)
         {
-            elastics_IC_ratio[a] = (1.0*tdcSilicon_rate_count[a]) / (1.0*elastics_rate_count[a]);
-            // cout << (1.0*tdcSilicon_rate_count[a]) / (1.0*elastics_rate_count[a]) << "  " << a << endl;
+            elastics_IC_ratio[a] = (1.0*tdcIC_rate_count[a]) / (1.0*elastics_rate_count[a]);
+            // cout << (1.0*tdcIC_rate_count[a]) / (1.0*elastics_rate_count[a]) << "  " << a << endl;
         }
         runNumber_array[a] = a;
     }
@@ -944,8 +945,8 @@ void beam_rate_analysis()
     cout << endl;
 
 
-    TGraph* Si_rate_comparrison = new TGraph(runNumber, elastics_rate_count, tdcSilicon_rate_count);
-    TGraph* IC_rate_comparrison = new TGraph(runNumber, elastics_rate_count, tdcIC_rate_count);
+    TGraph* Si_rate_comparrison = new TGraph(runNumber, elastics_rate_count, tdcIC_rate_count);
+    TGraph* IC_rate_comparrison = new TGraph(runNumber, elastics_rate_count, tdcSilicon_rate_count);
 
     TGraph* elastics_IC_ratio_vs_RunNumber = new TGraph(runNumber, runNumber_array, elastics_IC_ratio);
 

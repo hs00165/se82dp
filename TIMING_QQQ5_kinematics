@@ -1,0 +1,25 @@
+{
+//========= Macro generated from object: CUTG/Graph
+//========= by ROOT version6.16/00
+   
+   cutg = new TCutG("CUTG",14);
+   cutg->SetVarX("kinematics_eloss_corrected");
+   cutg->SetVarY("");
+   cutg->SetTitle("Graph");
+   cutg->SetFillStyle(1000);
+   cutg->SetPoint(0,135.887,3723.4);
+   cutg->SetPoint(1,135.769,3165.57);
+   cutg->SetPoint(2,143.07,2857.81);
+   cutg->SetPoint(3,150.783,2569.27);
+   cutg->SetPoint(4,155.257,2453.86);
+   cutg->SetPoint(5,161.263,2338.45);
+   cutg->SetPoint(6,164.03,2338.45);
+   cutg->SetPoint(7,163.912,2684.69);
+   cutg->SetPoint(8,159.85,2742.39);
+   cutg->SetPoint(9,154.139,2838.57);
+   cutg->SetPoint(10,147.78,3088.63);
+   cutg->SetPoint(11,140.832,3396.4);
+   cutg->SetPoint(12,136.417,3665.7);
+   cutg->SetPoint(13,135.887,3723.4);
+   cutg->Draw("");
+}
