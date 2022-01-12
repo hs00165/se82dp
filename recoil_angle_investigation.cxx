@@ -29,7 +29,7 @@
 
 
 
-void prelim_analysis()
+void recoil_angle_investigation()
 {
 
     TCanvas *c1 = new TCanvas("c1", "c1", 700, 700);
@@ -130,6 +130,54 @@ void prelim_analysis()
     IC_timing_gate_QQQ5->SetPoint(11,110.242,3713.23);
 
 
+    TCutG *protons_PID_with_crap = new TCutG("protons_PID_with_crap",24);
+    protons_PID_with_crap->SetPoint(0,876.791,2038.67);
+    protons_PID_with_crap->SetPoint(1,393.266,1878.3);
+    protons_PID_with_crap->SetPoint(2,828.438,1557.55);
+    protons_PID_with_crap->SetPoint(3,1408.67,1262.46);
+    protons_PID_with_crap->SetPoint(4,2037.25,1108.5);
+    protons_PID_with_crap->SetPoint(5,2762.54,967.375);
+    protons_PID_with_crap->SetPoint(6,4100.29,794.172);
+    protons_PID_with_crap->SetPoint(7,5244.63,646.628);
+    protons_PID_with_crap->SetPoint(8,6517.91,608.138);
+    protons_PID_with_crap->SetPoint(9,7323.78,582.478);
+    protons_PID_with_crap->SetPoint(10,8645.42,505.499);
+    protons_PID_with_crap->SetPoint(11,10885.7,524.743);
+    protons_PID_with_crap->SetPoint(12,11514.3,710.777);
+    protons_PID_with_crap->SetPoint(13,9709.17,787.757);
+    protons_PID_with_crap->SetPoint(14,8242.48,839.076);
+    protons_PID_with_crap->SetPoint(15,6936.96,941.716);
+    protons_PID_with_crap->SetPoint(16,5518.62,1082.84);
+    protons_PID_with_crap->SetPoint(17,4213.11,1166.24);
+    protons_PID_with_crap->SetPoint(18,3874.64,1217.56);
+    protons_PID_with_crap->SetPoint(19,3407.23,1410.01);
+    protons_PID_with_crap->SetPoint(20,2601.36,1538.31);
+    protons_PID_with_crap->SetPoint(21,1763.25,1769.24);
+    protons_PID_with_crap->SetPoint(22,925.143,2019.43);
+    protons_PID_with_crap->SetPoint(23,876.791,2038.67);
+
+
+
+    TCutG *protons_PID_without_crap = new TCutG("protons_PID_without_crap",19);
+    protons_PID_without_crap->SetPoint(0,989.613,2000.18);
+    protons_PID_without_crap->SetPoint(1,522.206,1826.98);
+    protons_PID_without_crap->SetPoint(2,1005.73,1499.82);
+    protons_PID_without_crap->SetPoint(3,1811.6,1159.82);
+    protons_PID_without_crap->SetPoint(4,2843.12,993.035);
+    protons_PID_without_crap->SetPoint(5,4519.34,781.342);
+    protons_PID_without_crap->SetPoint(6,4954.51,1076.43);
+    protons_PID_without_crap->SetPoint(7,5889.33,1012.28);
+    protons_PID_without_crap->SetPoint(8,5792.62,653.043);
+    protons_PID_without_crap->SetPoint(9,7291.55,601.723);
+    protons_PID_without_crap->SetPoint(10,8822.71,781.342);
+    protons_PID_without_crap->SetPoint(11,4454.87,1140.58);
+    protons_PID_without_crap->SetPoint(12,3858.52,1153.41);
+    protons_PID_without_crap->SetPoint(13,3262.18,1050.77);
+    protons_PID_without_crap->SetPoint(14,2681.95,1146.99);
+    protons_PID_without_crap->SetPoint(15,2230.66,1519.06);
+    protons_PID_without_crap->SetPoint(16,1698.78,1685.85);
+    protons_PID_without_crap->SetPoint(17,1102.44,1980.94);
+    protons_PID_without_crap->SetPoint(18,989.613,2000.18);
 
 
 
@@ -503,6 +551,7 @@ void prelim_analysis()
     double angle_IC_corrected = 0;
 
     double isomer_z_offset = 142.5;
+    double X_mom, Y_mom;
 
 
     //QQQ5 Angle calculations
@@ -605,7 +654,7 @@ void prelim_analysis()
 
 
     //Output root file for histograms
-    TFile write("analysis_output/prelim_analysis.root", "recreate");
+    TFile write("analysis_output/recoil_angle_investigation.root", "recreate");
 
 	// ================ Histograms and Canvases ==================
     TH2D* DS_PID = new TH2D("DS_PID", "DS_PID", 1000, 0, 18000, 1000, 0, 3500 );
@@ -640,6 +689,8 @@ void prelim_analysis()
 
     TH2D* kinematics_proton_PID = new TH2D("kinematics_proton_PID", "kinematics_proton_PID", 360, 0, 180, 500, 0, 20000);
     TH2D* kinematics_deuteron_PID = new TH2D("kinematics_deuteron_PID", "kinematics_deuteron_PID", 360, 0, 180, 500, 0, 20000);
+    TH2D* DS_proton_kin_with_crap = new TH2D("DS_proton_kin_with_crap", "DS_proton_kin_with_crap", 360, 0, 180, 500, 0, 20000);
+    TH2D* DS_proton_kin_without_crap = new TH2D("DS_proton_kin_without_crap", "DS_proton_kin_without_crap", 360, 0, 180, 500, 0, 20000);
 
     TH3D* hit_position_spectrum = new TH3D("hit_position_spectrum", "hit_position_spectrum", 400, -200, 200, 400, -200, 200, 400, -200, 200);
 
@@ -654,8 +705,14 @@ void prelim_analysis()
 
     TH2D* SX3_en_vs_z_hist = new TH2D("SX3_en_vs_z_hist", "SX3_en_vs_z_hist", 400, -10, 10, 500, 0, 20000);
 
-
+    // Recoil investigation histograms
     TH2D* Ex_vs_recoilAngle = new TH2D("Ex_vs_recoilAngle", "Ex_vs_recoilAngle", 50, 0, 5, 500, -5000, 15000);
+    TH2D* transMom_vs_recoilAngle = new TH2D("transMom_vs_recoilAngle", "transMom_vs_recoilAngle", 25, 0, 50, 1000, 0, 300);
+    TH2D* transMom_vs_recoilAngle_X = new TH2D("transMom_vs_recoilAngle_X", "transMom_vs_recoilAngle_X", 240, -30, 30, 2000, -300, 300);
+    TH2D* transMom_vs_recoilAngle_Y = new TH2D("transMom_vs_recoilAngle_Y", "transMom_vs_recoilAngle_Y", 240, -30, 30, 2000, -300, 300);
+
+    TH2D* elasticsRecoilProtons = new TH2D("elasticsRecoilProtons", "elasticsRecoilProtons", 100, 0, 2, 500, 0, 20000 );
+    TH2D* elasticsRecoilDeuterons = new TH2D("elasticsRecoilDeuterons", "elasticsRecoilDeuterons", 100, 0, 2, 500, 0, 20000 );
 
     // Timestamp and TDC histograms
     TH2D* delta_timestamp_vs_Run_hist = new TH2D("delta_timestamp_vs_Run_hist", "delta_timestamp_vs_Run_hist", 120, 0, 120, 500, -100, 400);
@@ -670,6 +727,10 @@ void prelim_analysis()
     TH2D* back_vs_front_strip_SX3 = new TH2D("back_vs_front_strip_SX3", "back_vs_front_strip_SX3", 100, 0, 100, 100, 0, 100 );
     TH2D* pos_vs_strip_SX3 = new TH2D("pos_vs_strip_SX3", "pos_vs_strip_SX3", 100, 0, 100, 200, -1, 2 );
     TH2D* angle_vs_strip = new TH2D("angle_vs_strip", "angle_vs_strip", 200, -100, 100, 180, 90, 180 );
+
+
+    TH2D* IC_pos_hist = new TH2D("IC_pos_hist", "IC_pos_hist", 100, -50, 50, 100, -50, 50);
+    TH2D* IC_pos_weighted_hist = new TH2D("IC_pos_weighted_hist", "IC_pos_weighted_hist", 1000, -50, 50, 1000, -50, 50);
 
 
     string runNumber_str;
@@ -759,6 +820,24 @@ void prelim_analysis()
                     excitation = 3593.0 - qValue;
                     corrected_excitation = 3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000);
 
+
+                    //recording radius of recoil and transverse momentum
+                    //to determine in linear relationship.
+                    if( SX3Upstream[j] == 1 && corrected_excitation >= 400. && corrected_excitation <= 800.)
+                    {
+                    
+                        X_mom = ( hit_pos.at(0) / sqrt( pow(hit_pos.at(0),2) + pow(hit_pos.at(1),2) + pow(hit_pos.at(2),2) ) ) * sqrt ( 2.*1.*(initial_energy*1000) );
+                        Y_mom = ( hit_pos.at(1) / sqrt( pow(hit_pos.at(0),2) + pow(hit_pos.at(1),2) + pow(hit_pos.at(2),2) ) ) * sqrt ( 2.*1.*(initial_energy*1000) );
+                        
+                        transMom_vs_recoilAngle_X->Fill( icPositionX , X_mom );
+                        transMom_vs_recoilAngle_Y->Fill( icPositionY , Y_mom );
+
+
+                        transMom_vs_recoilAngle->Fill( sqrt(pow(icPositionX,2) + pow(icPositionY,2)) , get_transverse_momentum(angle_IC_corrected, initial_energy*1000.0) );
+                    }
+
+                    IC_pos_weighted_hist->Fill(icPositionWeightedX, icPositionWeightedY);
+                    IC_pos_hist->Fill(icPositionX, icPositionY);
                     
                     //Filling histograms
                     kinematics->Fill(angle_IC_corrected, BSX3_En);
@@ -880,6 +959,19 @@ void prelim_analysis()
 
                             DS_PID->Fill(BSX3_En, BB10_En);
 
+
+                            if(protons_PID_with_crap->IsInside(BSX3_En, BB10_En))
+                            {
+                                DS_proton_kin_with_crap->Fill(angle, BSX3_En+BB10_En);
+                            }
+                            if(protons_PID_without_crap->IsInside(BSX3_En, BB10_En))
+                            {
+                                DS_proton_kin_without_crap->Fill(angle, BSX3_En+BB10_En);
+                            }
+
+
+
+
                             if(DS_deuterons->IsInside(BSX3_En, BB10_En))
                             {
                                 kinematics_deuteron_PID->Fill(angle, BSX3_En+BB10_En);
@@ -888,6 +980,18 @@ void prelim_analysis()
                             if(DS_protons->IsInside(BSX3_En, BB10_En))
                             {
                                 kinematics_proton_PID->Fill(angle, BSX3_En+BB10_En);
+
+                                // // Calculating X_mom and Y_mom:
+                                // X_mom = ( hit_pos.at(0) / sqrt( pow(hit_pos.at(0),2) + pow(hit_pos.at(1),2) + pow(hit_pos.at(2),2) ) ) * sqrt ( 2.*1.*(BSX3_En+BB10_En) );
+                                // Y_mom = ( hit_pos.at(1) / sqrt( pow(hit_pos.at(0),2) + pow(hit_pos.at(1),2) + pow(hit_pos.at(2),2) ) ) * sqrt ( 2.*1.*(BSX3_En+BB10_En) );
+
+                                // transMom_vs_recoilAngle_X->Fill( icWireX , X_mom );
+                                // transMom_vs_recoilAngle_Y->Fill( icWireY , Y_mom );
+
+
+
+
+
                             }
 
 
@@ -928,6 +1032,8 @@ void prelim_analysis()
                     corrected_excitation = 3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0);
 
                     // cout << QQQ5Mul << setw(10) << corrected_excitation << endl;
+
+                    // if( corrected_excitation >= 0. && corrected_excitation <= 6000) transMom_vs_recoilAngle->Fill( sqrt(pow(icPositionX,2) + pow(icPositionY,2)) , get_transverse_momentum(angle_IC_corrected, initial_energy*1000.0) );
 
 
                     // if(IC_timing_gate_QQQ5->IsInside(tdcIC - tdcSilicon, initial_energy*1000.0))
@@ -1070,10 +1176,17 @@ void prelim_analysis()
     gamma_z_offset->Write();
     kinematics_deuteron_PID->Write();
     kinematics_proton_PID->Write();
+    DS_proton_kin_with_crap->Write();
+    DS_proton_kin_without_crap->Write();
     SX3_en_vs_z_hist->Write();
     back_vs_front_strip_SX3->Write();
     pos_vs_strip_SX3->Write();
     angle_vs_strip->Write();
+    transMom_vs_recoilAngle->Write();
+    transMom_vs_recoilAngle_X->Write();
+    transMom_vs_recoilAngle_Y->Write();
+    IC_pos_weighted_hist->Write();
+    IC_pos_hist->Write();
 
     QQQ5_Si_TDC->Write();
     QQQ5_IC_TDC->Write();

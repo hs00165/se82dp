@@ -380,7 +380,7 @@ void angular_distribution_analyzer_2500keV()
 
 
     // vector<int> ignored_bins{ 2, 13, 14};
-    vector<int> ignored_bins{};
+    vector<int> ignored_bins{0, 1, 2};
 
     int total_number_of_bins = number_of_SX3_bins + number_of_QQQ5_bins;
 
@@ -436,71 +436,12 @@ void angular_distribution_analyzer_2500keV()
     TGraphErrors* total_ang_dist_plot = new TGraphErrors(total_number_of_bins, total_angles, total_ang_dist, 0, total_ang_dist_err);
 
 
-    // Normalizing the Theoretical cross sections to the observed
-    // ==========================================================
-
-
-
-    //TWOFNR 3s1/2 kinematics
-    ifstream gState_kinematics ( "3s1h_FR-ADWA.txt" );
-
-    int u=0;
-    double xK0[200];
-    double yK0[200];
-
-    while ( getline ( gState_kinematics,line ) )
-    {
-        istringstream in ( line );
-        in >> xK0[u] >> yK0[u];
-        u++;
-    }
-    TGraph* kin_line_3s1h = new TGraph ( u,xK0,yK0 );
-
-    vector<double> angle_3s1h;
-    vector<double> xsec_3s1h;
-    for(int i = u-1; i > -1; i--) 
-    {
-        angle_3s1h.push_back(xK0[i]);
-        xsec_3s1h.push_back(yK0[i]);
-    }
-
-    CubicSpline spline_3s1h(angle_3s1h, xsec_3s1h);
-    double DWBA_3s1h_xsection[total_number_of_bins];
-    for(int i = 0; i < total_number_of_bins; i++) {
-        DWBA_3s1h_xsection[i] = spline_3s1h(total_angles[i]);
-        cout << total_angles[i] << "   " << DWBA_3s1h_xsection[i] << endl;
-    }
-
-    TGraphErrors* norm_3s1h = new TGraphErrors(total_number_of_bins, DWBA_3s1h_xsection, total_ang_dist, 0, total_ang_dist_err);
-
-    TF1 *linFit_3s1h = new TF1("linFit_3s1h", "normalizing_function", 0, 10, 1);
-    linFit_3s1h->SetParLimits(0, 0., 400.);
-    norm_3s1h->Fit("linFit_3s1h", "rq");
-
-    cout << "3s1h normalizing parameter:   " << linFit_3s1h->GetParameter(0) << endl;
-    double S_3s1h = linFit_3s1h->GetParameter(0);
-
-    double DWBA_3s1h_xsection_NORM[angle_3s1h.size()];
-    double DWBA_3s1h_angle[angle_3s1h.size()];
-    for(int i=0; i<angle_3s1h.size(); i++)
-    {
-        DWBA_3s1h_xsection_NORM[i] = (xsec_3s1h.at(i)*S_3s1h);
-        DWBA_3s1h_angle[i] = angle_3s1h.at(i);
-    }
-
-    TGraph* normalized_3s1h = new TGraph(u,DWBA_3s1h_angle,DWBA_3s1h_xsection_NORM );
 
 
 
 
-
-
-
-
-
-
-    //TWOFNR 2d5/2 kinematics
-    ifstream gState_kinematics2 ( "2d5h_FR-ADWA.txt" );
+    //TWOFNR 2d3/2 kinematics
+    ifstream gState_kinematics2 ( "2d3h_FR-ADWA.txt" );
 
     int u2=0;
     double xK02[200];
@@ -512,135 +453,93 @@ void angular_distribution_analyzer_2500keV()
         in >> xK02[u2] >> yK02[u2];
         u2++;
     }
-    TGraph* kin_line_2d5h = new TGraph ( u2,xK02,yK02 );
+    TGraph* kin_line_2d3h = new TGraph ( u2,xK02,yK02 );
 
-    vector<double> angle_2d5h;
-    vector<double> xsec_2d5h;
+    vector<double> angle_2d3h;
+    vector<double> xsec_2d3h;
     for(int i = u2-1; i > -1; i--) 
     {
-        angle_2d5h.push_back(xK02[i]);
-        xsec_2d5h.push_back(yK02[i]);
+        angle_2d3h.push_back(xK02[i]);
+        xsec_2d3h.push_back(yK02[i]);
     }
 
-    CubicSpline spline_2d5h(angle_2d5h, xsec_2d5h);
-    double DWBA_2d5h_xsection[total_number_of_bins];
+    CubicSpline spline_2d3h(angle_2d3h, xsec_2d3h);
+    double DWBA_2d3h_xsection[total_number_of_bins];
     for(int i = 0; i < total_number_of_bins; i++) {
-        DWBA_2d5h_xsection[i] = spline_2d5h(total_angles[i]);
-        cout << total_angles[i] << "   " << DWBA_2d5h_xsection[i] << "   " << total_ang_dist[i] << "  " << total_ang_dist_err[i] << endl;
+        DWBA_2d3h_xsection[i] = spline_2d3h(total_angles[i]);
+        cout << total_angles[i] << "   " << DWBA_2d3h_xsection[i] << "   " << total_ang_dist[i] << "  " << total_ang_dist_err[i] << endl;
     }
     
-    TGraphErrors* norm_2d5h = new TGraphErrors(total_number_of_bins, DWBA_2d5h_xsection, total_ang_dist, 0, total_ang_dist_err);
+    TGraphErrors* norm_2d3h = new TGraphErrors(total_number_of_bins, DWBA_2d3h_xsection, total_ang_dist, 0, total_ang_dist_err);
 
-    TF1 *linFit_2d5h = new TF1("linFit_2d5h", "normalizing_function", 1, 7, 1);
-    linFit_2d5h->SetParLimits(0, 0., 400.);
-    linFit_2d5h->SetParameter(0, 200);
-    norm_2d5h->Fit("linFit_2d5h", "rq");
+    TF1 *linFit_2d3h = new TF1("linFit_2d3h", "normalizing_function", 1, 7, 1);
+    linFit_2d3h->SetParLimits(0, 0., 400.);
+    linFit_2d3h->SetParameter(0, 200);
+    norm_2d3h->Fit("linFit_2d3h", "rq");
 
-    cout << "2d5h normalizing parameter:   " << linFit_2d5h->GetParameter(0) << endl;
-    double S_2d5h = linFit_2d5h->GetParameter(0);
+    cout << "2d3h normalizing parameter:   " << linFit_2d3h->GetParameter(0) << endl;
+    double S_2d3h = linFit_2d3h->GetParameter(0);
 
-    double DWBA_2d5h_xsection_NORM[angle_2d5h.size()];
-    double DWBA_2d5h_angle[angle_2d5h.size()];
-    for(int i=0; i<angle_2d5h.size(); i++)
+    double DWBA_2d3h_xsection_NORM[angle_2d3h.size()];
+    double DWBA_2d3h_angle[angle_2d3h.size()];
+    for(int i=0; i<angle_2d3h.size(); i++)
     {
-        DWBA_2d5h_xsection_NORM[i] = (xsec_2d5h.at(i)*S_2d5h);
-        DWBA_2d5h_angle[i] = angle_2d5h.at(i);
+        DWBA_2d3h_xsection_NORM[i] = (xsec_2d3h.at(i)*S_2d3h);
+        DWBA_2d3h_angle[i] = angle_2d3h.at(i);
     }
 
-    TGraph* normalized_2d5h = new TGraph(u2,DWBA_2d5h_angle,DWBA_2d5h_xsection_NORM );
+    TGraph* normalized_2d3h = new TGraph(u2,DWBA_2d3h_angle,DWBA_2d3h_xsection_NORM );
 
 
 
-    TCanvas* c0 = new TCanvas("c0", "c0", 400, 400);
+    //TWOFNR 1g7h kinematics
+    ifstream gState_kinematics3 ( "1g7h_FR-ADWA.txt" );
 
-    c0->cd();
-    norm_3s1h->Draw("A*");
-
-
+    int u3=0;
 
 
-
-    // ===================================================================================
-    //
-    //        Minimizing a linear combination of both the 3s1h and 2d5h states
-    //
-    // ===================================================================================
-
-    TGraph2DErrors *comb_fit_2D = new TGraph2DErrors(total_number_of_bins, DWBA_3s1h_xsection, DWBA_2d5h_xsection, total_ang_dist, 0, 0, total_ang_dist_err);
-    TF2 *f2 = new TF2("f2",fit2D,0,50,0,50, 2);
-    f2->SetParameters(0.5, 0.5);
-    f2->SetParLimits(0, 0.0, 100);
-    f2->SetParLimits(1, 0, 100);
-
-    comb_fit_2D->Fit("f2");
-    cout << "====================================================================" << endl;
-    cout << "                             RESULTS                                " << endl;
-    cout << endl;
-    cout << "  3s1/2 norm factor =" << setw(10) << f2->GetParameter(0) << endl;
-    cout << "  2d5/2 norm factor =" << setw(10) << f2->GetParameter(1) << endl;
-
-
-    // Normalizing the DWBA angular distributions
-    vector<double> abs_xsection_3s1h;
-    vector<double> abs_xsection_2d5h;
-
-    double DWBA_3s1h_xsection_LinCom[angle_3s1h.size()];
-    for(int i=0; i<angle_3s1h.size(); i++)
+    while ( getline ( gState_kinematics3,line ) )
     {
-        DWBA_3s1h_xsection_LinCom[i] = (xsec_3s1h.at(i)*f2->GetParameter(0));
-
-        //filling vector of absolute x section
-        abs_xsection_3s1h.push_back( xsec_3s1h.at(i)*f2->GetParameter(0) );
+        istringstream in ( line );
+        in >> xK02[u3] >> yK02[u3];
+        u3++;
     }
-    TGraph* LinCom_3s1h = new TGraph(u2,DWBA_3s1h_angle,DWBA_3s1h_xsection_LinCom );
+    TGraph* kin_line_1g7h = new TGraph ( u3,xK02,yK02 );
 
-
-    double DWBA_2d5h_xsection_LinCom[angle_2d5h.size()];
-    for(int i=0; i<angle_2d5h.size(); i++)
+    vector<double> angle_1g7h;
+    vector<double> xsec_1g7h;
+    for(int i = u3-1; i > -1; i--) 
     {
-        DWBA_2d5h_xsection_LinCom[i] = (xsec_2d5h.at(i)*f2->GetParameter(1));
-        
-        //filling vector of absolute x section
-        abs_xsection_2d5h.push_back( xsec_2d5h.at(i)*f2->GetParameter(1) );
-
+        angle_1g7h.push_back(xK02[i]);
+        xsec_1g7h.push_back(yK02[i]);
     }
-    TGraph* LinCom_2d5h = new TGraph(u2,DWBA_2d5h_angle,DWBA_2d5h_xsection_LinCom );
 
-    cout << "RATIO:  " << (1.0*f2->GetParameter(0)) / (1.0*f2->GetParameter(1)) << endl;
+    CubicSpline spline_1g7h(angle_1g7h, xsec_1g7h);
+    double DWBA_1g7h_xsection[total_number_of_bins];
+    for(int i = 0; i < total_number_of_bins; i++) {
+        DWBA_1g7h_xsection[i] = spline_1g7h(total_angles[i]);
+        cout << total_angles[i] << "   " << DWBA_1g7h_xsection[i] << "   " << total_ang_dist[i] << "  " << total_ang_dist_err[i] << endl;
+    }
+    
+    TGraphErrors* norm_1g7h = new TGraphErrors(total_number_of_bins, DWBA_1g7h_xsection, total_ang_dist, 0, total_ang_dist_err);
 
-    double DWBA_combined_LinCom[angle_2d5h.size()];
-    for(int i=0; i<angle_2d5h.size(); i++)
+    TF1 *linFit_1g7h = new TF1("linFit_1g7h", "normalizing_function", 1, 7, 1);
+    linFit_1g7h->SetParLimits(0, 0., 400.);
+    linFit_1g7h->SetParameter(0, 200);
+    norm_1g7h->Fit("linFit_1g7h", "rq");
+
+    cout << "1g7h normalizing parameter:   " << linFit_1g7h->GetParameter(0) << endl;
+    double S_1g7h = linFit_1g7h->GetParameter(0);
+
+    double DWBA_1g7h_xsection_NORM[angle_1g7h.size()];
+    double DWBA_1g7h_angle[angle_1g7h.size()];
+    for(int i=0; i<angle_1g7h.size(); i++)
     {
-        DWBA_combined_LinCom[i] = (xsec_2d5h.at(i)*f2->GetParameter(1)) + (spline_3s1h( angle_2d5h.at(i) )*f2->GetParameter(0));
+        DWBA_1g7h_xsection_NORM[i] = (xsec_1g7h.at(i)*S_1g7h);
+        DWBA_1g7h_angle[i] = angle_1g7h.at(i);
     }
-    TGraph* Total_LinCom = new TGraph(u2,DWBA_2d5h_angle,DWBA_combined_LinCom );
 
-
-    // Integrating the two xsections in the 500 keV peak across the angles in
-    // the QQQ5 detectors:
-
-    double integral_3s1h = integrate_func(angle_3s1h, abs_xsection_3s1h, 135.8, 163.4);
-    double integral_2d5h = integrate_func(angle_2d5h, abs_xsection_2d5h, 135.8, 163.4);
-    cout << "3s1h INTEGRAL in QQQ5:   " << integral_3s1h << endl;
-    cout << "2d5h INTEGRAL in QQQ5:   " << integral_2d5h << endl;
-    cout << "3s1h:2d5h INTEGRAL ratio:   " << integral_3s1h / integral_2d5h << endl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    TGraph* normalized_1g7h = new TGraph(u3,DWBA_1g7h_angle,DWBA_1g7h_xsection_NORM );
 
 
 
@@ -648,7 +547,7 @@ void angular_distribution_analyzer_2500keV()
 
 
 	//Output root file for histograms
-    TFile write("analysis_output/angular_distribution_result.root", "recreate");
+    TFile write("analysis_output/2d3h_angular_distribution_result.root", "recreate");
 
     Angular_Distribution_SX3->Write();
 
@@ -690,18 +589,17 @@ void angular_distribution_analyzer_2500keV()
     Angular_Distribution_QQQ5->SetMarkerColor(kBlue);
     Angular_Distribution_SX3->SetMarkerStyle(23);
     Angular_Distribution_QQQ5->SetMarkerStyle(23);
-    normalized_3s1h->SetLineColor(kRed);
-    normalized_2d5h->SetLineColor(kBlue);
+    normalized_2d3h->SetLineColor(kBlue);
 
     c2->cd();
     observed_anglular_distributions->Add(Angular_Distribution_SX3, "p");
     observed_anglular_distributions->Add(Angular_Distribution_QQQ5, "p");
-    observed_anglular_distributions->Add(normalized_3s1h, "l");
-    observed_anglular_distributions->Add(normalized_2d5h, "l");
+    observed_anglular_distributions->Add(normalized_2d3h, "l");
+    observed_anglular_distributions->Add(normalized_1g7h, "l");
     ang_dist_leg->AddEntry(Angular_Distribution_SX3, "SX3's");
     ang_dist_leg->AddEntry(Angular_Distribution_QQQ5, "QQQ5's");
-    ang_dist_leg->AddEntry(normalized_3s1h, "3s1h");
-    ang_dist_leg->AddEntry(normalized_2d5h, "2d5h");
+    ang_dist_leg->AddEntry(normalized_2d3h, "2d3h");
+    ang_dist_leg->AddEntry(normalized_1g7h, "1g7h");
     observed_anglular_distributions ->GetXaxis()->SetTitle("Lab angle [Degrees]");
     observed_anglular_distributions ->GetYaxis()->SetTitle("RELATIVE angular disribution [arb]");
     observed_anglular_distributions ->GetXaxis()->SetRangeUser(90, 180);
@@ -711,26 +609,6 @@ void angular_distribution_analyzer_2500keV()
     observed_anglular_distributions->Draw();
     c2->Update();
 
-    TMultiGraph *TWOFNR_plot = new TMultiGraph();
-    TWOFNR_plot->SetTitle("TWOFNR transfers to states at ~600 keV - unit Spectroscopic factors");
-    TLegend *TWOFNR_leg = new TLegend(0.1, 0.52, 0.45, 0.9);
-    kin_line_3s1h->SetLineColor(kRed);
-    kin_line_2d5h->SetLineColor(kBlue);
-
-    c3->cd();
-    TWOFNR_plot->Add(kin_line_3s1h, "l");
-    TWOFNR_leg->AddEntry(kin_line_3s1h, "3s1/2", "l");
-    TWOFNR_plot->Add(kin_line_2d5h, "l");
-    TWOFNR_leg->AddEntry(kin_line_2d5h, "2d5/2", "l");
-    TWOFNR_plot->Add(Angular_Distribution_SX3, "AC*");
-    TWOFNR_leg->AddEntry(Angular_Distribution_SX3, "500-600 keV peak", "AC*");
-    TWOFNR_plot ->GetXaxis()->SetTitle("Lab angle [Degrees]");
-    TWOFNR_plot ->GetYaxis()->SetTitle("d#sigma/d#Omega `[mb/sr]");
-    TWOFNR_plot->Draw("a");
-    TWOFNR_leg->SetBorderSize(0);
-    TWOFNR_leg->Draw();
-    TWOFNR_plot->Draw();
-    c3->Update();
 
     TMultiGraph *observed_anglular_distributions_LinCom = new TMultiGraph();
     observed_anglular_distributions_LinCom->SetTitle("Observed relative angular distribution for peak at 500-600 keV");
@@ -739,21 +617,14 @@ void angular_distribution_analyzer_2500keV()
     // Angular_Distribution_QQQ5->SetMarkerColor(kBlue);
     Angular_Distribution_SX3->SetMarkerStyle(23);
     Angular_Distribution_QQQ5->SetMarkerStyle(23);
-    LinCom_3s1h->SetLineColor(kRed);
-    LinCom_2d5h->SetLineColor(kBlue);
-    LinCom_3s1h->SetLineWidth(2);
-    LinCom_2d5h->SetLineWidth(2);
 
     c5->cd();
     observed_anglular_distributions_LinCom->Add(total_ang_dist_plot, "p");
-    observed_anglular_distributions_LinCom->Add(LinCom_3s1h, "l");
-    observed_anglular_distributions_LinCom->Add(LinCom_2d5h, "l");
-    observed_anglular_distributions_LinCom->Add(Total_LinCom, "l");
+    observed_anglular_distributions_LinCom->Add(normalized_2d3h, "l");
+    observed_anglular_distributions_LinCom->Add(normalized_1g7h, "l");
     ang_dist_leg_LinCom->AddEntry(total_ang_dist_plot, "This measurement");
-    //ang_dist_leg_LinCom->AddEntry(Angular_Distribution_QQQ5, "QQQ5's");
-    ang_dist_leg_LinCom->AddEntry(normalized_3s1h, "3s1h");
-    ang_dist_leg_LinCom->AddEntry(normalized_2d5h, "2d5h");
-    ang_dist_leg_LinCom->AddEntry(Total_LinCom, "Combined");
+    ang_dist_leg_LinCom->AddEntry(normalized_2d3h, "2d3h");
+    ang_dist_leg_LinCom->AddEntry(normalized_1g7h, "1g7h");
     observed_anglular_distributions_LinCom ->GetXaxis()->SetTitle("Lab angle [Degrees]");
     observed_anglular_distributions_LinCom ->GetYaxis()->SetTitle("RELATIVE angular disribution [arb]");
     observed_anglular_distributions_LinCom ->GetXaxis()->SetRangeUser(90, 180);
@@ -762,6 +633,7 @@ void angular_distribution_analyzer_2500keV()
     ang_dist_leg_LinCom->Draw();
     observed_anglular_distributions_LinCom->Draw();
     c5->Update();
+
 
 
 	return;

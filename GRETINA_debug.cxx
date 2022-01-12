@@ -29,12 +29,12 @@
 
 
 
-void prelim_analysis()
+void GRETINA_debug()
 {
 
     TCanvas *c1 = new TCanvas("c1", "c1", 700, 700);
     TCanvas *c2 = new TCanvas("c2", "c2", 700, 700);
-    c1->Divide(1,2);
+
 
     //TCUTS:
     //IC_Se82 locus
@@ -147,10 +147,10 @@ void prelim_analysis()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run007_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run008_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run010_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run011_combined.root"); // Attenuated runs
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run012_combined.root"); // Attenuated runs
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run013_combined.root"); // Attenuated runs
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run014_combined.root"); // Attenuated runs
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run011_combined.root");
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run012_combined.root");
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run013_combined.root");
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run014_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run015_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run016_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run017_combined.root");
@@ -605,7 +605,7 @@ void prelim_analysis()
 
 
     //Output root file for histograms
-    TFile write("analysis_output/prelim_analysis.root", "recreate");
+    TFile write("analysis_output/GRETINA_debug.root", "recreate");
 
 	// ================ Histograms and Canvases ==================
     TH2D* DS_PID = new TH2D("DS_PID", "DS_PID", 1000, 0, 18000, 1000, 0, 3500 );
@@ -655,8 +655,6 @@ void prelim_analysis()
     TH2D* SX3_en_vs_z_hist = new TH2D("SX3_en_vs_z_hist", "SX3_en_vs_z_hist", 400, -10, 10, 500, 0, 20000);
 
 
-    TH2D* Ex_vs_recoilAngle = new TH2D("Ex_vs_recoilAngle", "Ex_vs_recoilAngle", 50, 0, 5, 500, -5000, 15000);
-
     // Timestamp and TDC histograms
     TH2D* delta_timestamp_vs_Run_hist = new TH2D("delta_timestamp_vs_Run_hist", "delta_timestamp_vs_Run_hist", 120, 0, 120, 500, -100, 400);
     TH2D* tdcGRETINA_vs_Run_hist = new TH2D("tdcGRETINA_vs_Run_hist", "tdcGRETINA_vs_Run_hist", 120, 0, 120, 4096, 0, 4096);
@@ -666,10 +664,16 @@ void prelim_analysis()
     TH2D* Energy_vs_ic_si_hist_QQQ5 = new TH2D("Energy_vs_ic_si_hist_QQQ5", "Energy_vs_ic_si_hist_QQQ5", 4000, -1000, 3000, 2000, 0, 20000);
     TH2D* Energy_vs_delta_timestamp_hist = new TH2D("Energy_vs_delta_timestamp_hist", "Energy_vs_delta_timestamp_hist", 500, -100, 400, 2000, 0, 20000);
 
-
     TH2D* back_vs_front_strip_SX3 = new TH2D("back_vs_front_strip_SX3", "back_vs_front_strip_SX3", 100, 0, 100, 100, 0, 100 );
     TH2D* pos_vs_strip_SX3 = new TH2D("pos_vs_strip_SX3", "pos_vs_strip_SX3", 100, 0, 100, 200, -1, 2 );
     TH2D* angle_vs_strip = new TH2D("angle_vs_strip", "angle_vs_strip", 200, -100, 100, 180, 90, 180 );
+
+
+
+    TH2D* gamma_E_vs_theta = new TH2D("gamma_E_vs_theta", "gamma_E_vs_theta", 360,0,180,1000, 0, 1000);
+    vector<double> gammaTheta;
+    vector<double> gammaEnergy;
+
 
 
     string runNumber_str;
@@ -831,6 +835,18 @@ void prelim_analysis()
 
 
 
+                            //DEBUGGING GRETINA
+                            if(excitation <= 1000. && excitation >= 0.0)
+                            {
+                                gamma_E_vs_theta->Fill(thetaGamma, xtals_edop[k]);
+                                gammaTheta.push_back(thetaGamma);
+                                gammaEnergy.push_back(xtals_cc[k]);
+                            }
+                            
+
+
+
+
 
 
 
@@ -963,7 +979,8 @@ void prelim_analysis()
                             gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
                             gammaEx_matrixQQQ5->Fill(corrected_excitation, xtals_edop[k]);
 
-
+                            if(xtals_zlab[k] >= 0) thetaGamma = (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/xtals_zlab[k]);
+                            if(xtals_zlab[k] < 0) thetaGamma = 180. + (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/xtals_zlab[k]);
 
 
                             if(excitation >= 5818.0 && excitation <= 6818.0)
@@ -973,6 +990,15 @@ void prelim_analysis()
                             if(excitation <= 5818.0 && excitation >= 4818.0)
                             {
                                 gamma_belowSn->Fill(xtals_edop[k]);
+                            }
+
+
+                            //DEBUGGING GRETINA
+                            if(excitation <= 1000. && excitation >= 0.0)
+                            {
+                                gamma_E_vs_theta->Fill(thetaGamma, xtals_edop[k]);
+                                gammaTheta.push_back(thetaGamma);
+                                gammaEnergy.push_back(xtals_cc[k]);
                             }
 
 
@@ -1052,6 +1078,67 @@ void prelim_analysis()
 
     }
 
+
+
+    TH2D* gammaLoop = new TH2D("gammaLoop", "gammaLoop", 240,60,180,1000, 280, 350);
+    TH1D* gammaLoop1D = new TH1D("gammaLoop1D", "gammaLoop1D", 70, 280, 350);
+    gammaLoop->SetMarkerStyle(7);
+    
+    double beta_loop;
+
+    for(int inf_loop=0; inf_loop<50; inf_loop++)
+    {
+
+
+        cout << "Input beta choice: " << endl;
+        cin >> beta_loop;
+
+        gammaLoop->Reset("ICESM");
+        gammaLoop1D->Reset("ICESM");
+
+
+        for(int event = 0; event < gammaTheta.size(); event++)
+        {
+
+            gamma_correction = gammaEnergy.at(event) * (1. - beta_loop*cos(gammaTheta.at(event)*(3.14159/180.))) / (sqrt( 1. - pow(beta_loop,2) ));
+            
+
+            gammaLoop->Fill(gammaTheta.at(event), gamma_correction);
+            gammaLoop1D->Fill(gamma_correction);
+
+
+        }
+
+2
+
+        c1->cd();
+        c1->SetGridy();
+        gammaLoop->Draw();
+        c1->SaveAs("temp_pic.png");
+
+        c2->cd();
+        c2->SetGridx();
+        gammaLoop1D->Draw();
+        c2->SaveAs("temp_pic2.png");
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     DS_PID->Write();
     kinematics->Write();
@@ -1068,6 +1155,10 @@ void prelim_analysis()
     gamma_gamma_matrix->Write();
     gamma_no_offset->Write();
     gamma_z_offset->Write();
+    gamma_E_vs_theta->Write();
+
+
+
     kinematics_deuteron_PID->Write();
     kinematics_proton_PID->Write();
     SX3_en_vs_z_hist->Write();
@@ -1100,7 +1191,6 @@ void prelim_analysis()
     gamma_belowSn->SetLineColor(kBlack);
 
 
-    c2->cd();
     
 
     std::cout << endl;

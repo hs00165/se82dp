@@ -1,0 +1,16 @@
+{
+  "pathToFolders": "/mnt/se82dp_2/se82dp_RAW/",
+  "pathPrefix": "Run",
+  "ldfPrefix": "se82dp",
+  "outputPath": "/mnt/se82dp_2/se82dp_sorted/",
+  "copyCuts": false,
+  "cutPrefix": "cut_p30dp",
+  "useAllFolders": true,
+  "runs": ["0255"],
+  "BB10Threshold": 200,
+  "QQQThreshold": 200,
+  "SX3Threshold": 200,
+  "ICTrackingThreshold": 200,
+  "unpackGRETINA": true,
+  "mergeTrees": true
+}

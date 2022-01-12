@@ -29,12 +29,8 @@
 
 
 
-void prelim_analysis()
+void analysis_shell()
 {
-
-    TCanvas *c1 = new TCanvas("c1", "c1", 700, 700);
-    TCanvas *c2 = new TCanvas("c2", "c2", 700, 700);
-    c1->Divide(1,2);
 
     //TCUTS:
     //IC_Se82 locus
@@ -270,7 +266,7 @@ void prelim_analysis()
         return 1;
     }
 
-    //=====================READING IN THE CALIBRATION FILE=========================
+    //=====================READING IN THE USX3 GAIN CALIBRATION FILE=========================
     while ( getline ( uSX3_gain_params,line ) )
     {
         istringstream in ( line );
@@ -286,7 +282,7 @@ void prelim_analysis()
         return 1;
     }
 
-    //=====================READING IN THE CALIBRATION FILE=========================
+    //=====================READING IN THE DSX3 GAIN CALIBRATION FILE=========================
     while ( getline ( dSX3_gain_params,line ) )
     {
         istringstream in ( line );
@@ -307,7 +303,7 @@ void prelim_analysis()
         return 1;
     }
 
-    //=====================READING IN THE CALIBRATION FILE=========================
+    //=====================READING IN THE U-POSITION CALIBRATION FILE=========================
     while ( getline ( uSX3_posEdges_params,line ) )
     {
         istringstream in ( line );
@@ -326,7 +322,7 @@ void prelim_analysis()
         return 1;
     }
 
-    //=====================READING IN THE CALIBRATION FILE=========================
+    //=====================READING IN THE D-POSITION CALIBRATION FILE=========================
     while ( getline ( dSX3_posEdges_params,line ) )
     {
         istringstream in ( line );
@@ -350,7 +346,7 @@ void prelim_analysis()
         return 1;
     }
 
-    //=====================READING IN THE CALIBRATION FILE=========================
+    //=====================READING IN THE U-BSX3 CALIBRATION FILE=========================
     while ( getline ( BSX3_Encal_params,line ) )
     {
         istringstream in ( line );
@@ -368,7 +364,7 @@ void prelim_analysis()
         return 1;
     }
 
-    //=====================READING IN THE CALIBRATION FILE=========================
+    //=====================READING IN THE D-BSX3 CALIBRATION FILE=========================
     while ( getline ( BSX3Dn_Encal_params,line ) )
     {
         istringstream in ( line );
@@ -392,7 +388,7 @@ void prelim_analysis()
         return 1;
     }
 
-    //=====================READING IN THE CALIBRATION FILE=========================
+    //=====================READING IN THE BB10 CALIBRATION FILE=========================
     while ( getline ( BB10_Encal_params,line ) )
     {
         istringstream in ( line );
@@ -525,7 +521,11 @@ void prelim_analysis()
     
 
 
+    //============================================================
+    //   Allocating the branch addresses of the "raw" variables
+    //============================================================
 
+    // ================ BB10 Branch Addresses ===================
     Chain->SetBranchAddress("BB10Mul",&BB10Mul);
     Chain->SetBranchAddress("BB10Det",BB10Det);
     Chain->SetBranchAddress("BB10Strip",BB10Strip);
@@ -605,7 +605,7 @@ void prelim_analysis()
 
 
     //Output root file for histograms
-    TFile write("analysis_output/prelim_analysis.root", "recreate");
+    TFile write("analysis_output/analysis_shell_output.root", "recreate");
 
 	// ================ Histograms and Canvases ==================
     TH2D* DS_PID = new TH2D("DS_PID", "DS_PID", 1000, 0, 18000, 1000, 0, 3500 );
@@ -619,9 +619,6 @@ void prelim_analysis()
     TH2D* gammaEx_matrix = new TH2D("gammaEx_matrix", "gammaEx_matrix", 500,0,10000, 8000, 0, 10000);
     TH2D* gammaEx_matrixQQQ5 = new TH2D("gammaEx_matrixQQQ5", "gammaEx_matrixQQQ5", 500,0,10000, 8000, 0, 10000);
     TH2D* gammaEx_matrixSX3 = new TH2D("gammaEx_matrixSX3", "gammaEx_matrixSX3", 500,0,10000, 8000, 0, 10000);
-
-    TH2D* gamma_gamma_matrix = new TH2D("gamma_gamma_matrix", "gamma_gamma_matrix", 5000, 0, 10000, 5000, 0, 10000);
-
 
 
     TH2D* ic_dE_E = new TH2D("ic_dE_E", "ic_dE_E", 4000, 0, 4000, 2000, 0, 2000);
@@ -652,33 +649,25 @@ void prelim_analysis()
     TH1D* grertinaTDC_hist = new TH1D("grertinaTDC_hist", "grertinaTDC_hist", 4048, 0, 4048);
 
 
-    TH2D* SX3_en_vs_z_hist = new TH2D("SX3_en_vs_z_hist", "SX3_en_vs_z_hist", 400, -10, 10, 500, 0, 20000);
-
-
     TH2D* Ex_vs_recoilAngle = new TH2D("Ex_vs_recoilAngle", "Ex_vs_recoilAngle", 50, 0, 5, 500, -5000, 15000);
 
     // Timestamp and TDC histograms
     TH2D* delta_timestamp_vs_Run_hist = new TH2D("delta_timestamp_vs_Run_hist", "delta_timestamp_vs_Run_hist", 120, 0, 120, 500, -100, 400);
     TH2D* tdcGRETINA_vs_Run_hist = new TH2D("tdcGRETINA_vs_Run_hist", "tdcGRETINA_vs_Run_hist", 120, 0, 120, 4096, 0, 4096);
 
-    TH2D* si_ic_vs_Run_hist = new TH2D("si_ic_vs_Run_hist", "si_ic_vs_Run_hist", 120, 0, 120, 4000, -1000, 3000);
-    TH2D* Energy_vs_ic_si_hist_SX3 = new TH2D("Energy_vs_ic_si_hist_SX3", "Energy_vs_ic_si_hist_SX3", 4000, -1000, 3000, 2000, 0, 20000);
-    TH2D* Energy_vs_ic_si_hist_QQQ5 = new TH2D("Energy_vs_ic_si_hist_QQQ5", "Energy_vs_ic_si_hist_QQQ5", 4000, -1000, 3000, 2000, 0, 20000);
-    TH2D* Energy_vs_delta_timestamp_hist = new TH2D("Energy_vs_delta_timestamp_hist", "Energy_vs_delta_timestamp_hist", 500, -100, 400, 2000, 0, 20000);
-
-
     TH2D* back_vs_front_strip_SX3 = new TH2D("back_vs_front_strip_SX3", "back_vs_front_strip_SX3", 100, 0, 100, 100, 0, 100 );
     TH2D* pos_vs_strip_SX3 = new TH2D("pos_vs_strip_SX3", "pos_vs_strip_SX3", 100, 0, 100, 200, -1, 2 );
     TH2D* angle_vs_strip = new TH2D("angle_vs_strip", "angle_vs_strip", 200, -100, 100, 180, 90, 180 );
 
 
+
+
+
+
     string runNumber_str;
     int runNumber;
-
-    
 	//Getting the number of entries to loop through
 	unsigned long long int nEntries = Chain->GetEntries();
-
 
 
 	//Looping through each event:
@@ -686,6 +675,7 @@ void prelim_analysis()
     {
     	Chain->GetEntry(i);
 
+        // Pulling the run number
         runNumber_str = Chain->GetFile()->GetName();
         runNumber = stoi(runNumber_str.substr(31,3));
 
@@ -704,10 +694,6 @@ void prelim_analysis()
             grertinaTDC_hist->Fill(tdcGRETINA);
             tdcGRETINA_vs_Run_hist->Fill(runNumber, tdcGRETINA);
         }
-
-        
-
-        si_ic_vs_Run_hist->Fill(runNumber, tdcIC - tdcSilicon);
 
         if(xtalsMul >= 1 )
         {
@@ -732,8 +718,8 @@ void prelim_analysis()
         {
             for(int j=0; j<SX3Mul; j++)
             {
-                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcIC >= 900 && tdcIC <= 1300) //No weird events with wrong channels make it through
-                //if(SX3Det[j] <= 11 && SX3Strip[j] <= 3) //No weird events with wrong channels make it through
+                if(SX3Det[j] <= 11 && SX3Strip[j] <= 3 && tdcIC >= 900 && tdcIC <= 1300) //Condition that includes an IC coincidence
+                //if(SX3Det[j] <= 11 && SX3Strip[j] <= 3) //No IC coincidence required
                 {
                     //Calibrating SX3 Position
                     rawPos = (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] - SX3StripLeftADC[j]) / (SX3StripRightADC[j]*SX3_gains[SX3Upstream[j]][SX3Det[j]][SX3Strip[j]] + SX3StripLeftADC[j]);
@@ -746,15 +732,11 @@ void prelim_analysis()
                     initial_energy = initial_proton_energy((BSX3_En/1000.0), proton_distance_through_target(hit_pos));
                     
 
-                    //Calculating the event Q value
+                    //Calculating the ejectile angle
                     angle = getSX3Angle(SX3Upstream[j], calPos);
-
                     angle_IC_corrected = IC_corrected_angle(hit_pos.at(0),hit_pos.at(1),hit_pos.at(2), icPositionX, icPositionY);
 
-                    //cout << "ANGLE:  " << angle << "  " << angle_IC_corrected << endl;
-
-                    if( SX3Upstream[j] == 1 ) SX3_en_vs_z_hist->Fill(calPos, initial_energy*1000.0);
-
+                    // Calculating the Q-value
                     qValue = rel_q_value (angle_IC_corrected, BSX3_En);
                     excitation = 3593.0 - qValue;
                     corrected_excitation = 3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000);
@@ -774,9 +756,6 @@ void prelim_analysis()
                         //Testing function to calculate r, theta, phi
                         spherical_polar_coord = hit_position_r_theta_phi("SX3", SX3Upstream[j], SX3Det[j], SX3Strip[j], calPos);
 
-                        // cout << spherical_polar_coord.at(0) << "  " <<spherical_polar_coord.at(1)*(180./3.14159) << "  " << spherical_polar_coord.at(2)*(180./3.14159) << endl;
-                        // cout << endl;
-
                         back_vs_front_strip_SX3->Fill((6*SX3Det[j]+4) - SX3Strip[j], SX3Sector[j]);
                         pos_vs_strip_SX3->Fill((6*SX3Det[j]+4) - SX3Strip[j], calPos);
                         angle_vs_strip->Fill(spherical_polar_coord.at(2)*(180./3.14159), spherical_polar_coord.at(1)*(180./3.14159));
@@ -788,24 +767,9 @@ void prelim_analysis()
                     SX3_Si_TDC->Fill(tdcIC);
                     SX3_IC_TDC->Fill(tdcSilicon);
 
-                    // if(angle > 1) 
-                    // {
-                    //     hit_position_spectrum->Fill(hit_pos.at(0), hit_pos.at(2), hit_pos.at(1));
-                    // }
-
-                    if( SX3Upstream[j]==1 )
-                    {
-                        Energy_vs_ic_si_hist_SX3->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
-                        
-
-                        if(tdcGRETINA != 0) Energy_vs_delta_timestamp_hist->Fill(tdcSilicon - tdcGRETINA, initial_energy*1000.0 );
-                    }
 
 
-
-
-
-
+                    // Gamma-ray coincidences
                     if(xtalsMul >= 1 && xtalsMul <= 10 && SX3Upstream[j]==1)
                     {
                         for(int k=0; k<xtalsMul; k++)
@@ -815,10 +779,14 @@ void prelim_analysis()
 
                             gamma_correction = (1. - beta*cos(thetaGamma*(3.14159/180.))) / (sqrt( 1. - pow(beta,2) ));
 
-                            if(SX3Upstream[j] == 1) gamEn_vs_gamAngle->Fill(thetaGamma, xtals_edop[k]);
-                            if(SX3Upstream[j] == 1) gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
-                            if(SX3Upstream[j] == 1) gammaEx_matrixSX3->Fill(corrected_excitation, xtals_edop[k]);
+                            if(SX3Upstream[j] == 1) 
+                            {
+                                gamEn_vs_gamAngle->Fill(thetaGamma, xtals_edop[k]);
+                                gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
+                                gammaEx_matrixSX3->Fill(corrected_excitation, xtals_edop[k]);
+                            }
 
+                            // Looking at gammas above and below Sn
                             if(excitation >= 5818.0 && excitation <= 6818.0)
                             {
                                 gamma_aboveSn->Fill(xtals_edop[k]);
@@ -829,11 +797,7 @@ void prelim_analysis()
                             }
 
 
-
-
-
-
-
+                            // Investigating the delayed decay of the isomeric state
                             if(xtals_zlab[k] - isomer_z_offset >= 0) thetaGamma_test = (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] - isomer_z_offset));
                             if(xtals_zlab[k] - isomer_z_offset < 0) thetaGamma_test = 180. + (180./3.14159) * atan(sqrt(pow(xtals_xlab[k],2) + pow(xtals_ylab[k],2))/(xtals_zlab[k] - isomer_z_offset));
 
@@ -842,42 +806,22 @@ void prelim_analysis()
                             gamma_no_offset->Fill(gamma_correction*xtals_cc[k]);
                             gamma_z_offset->Fill(gamma_correction_test*xtals_cc[k]);
 
-
-
                         }
-
-
-                        if(xtalsMul >= 2)
-                        {
-                            for(int a=0; a<xtalsMul-1; a++)
-                            {
-                                for(int b=a+1; b<xtalsMul; b++)
-                                {
-                               
-                                    //Filling gamma-gamma matrix
-                                    gamma_gamma_matrix->Fill(xtals_edop[a], xtals_edop[b]);
-
-
-
-                                }
-                            }
-                        }
-
-
-
-
-
-
                     }
 
+
+
+
+                    // Coincidences with the dE layer (downstream barrel ONLY!)
                     if(BB10Mul >= 1)
                     {
                         for(int l=0; l<BB10Mul; l++)
                         {
 
+                            //Calibrating the BB10s
                             BB10_En = (BB10ADC[l] * BB10_Encal[BB10Det[l]][BB10Strip[l]][1]) + BB10_Encal[BB10Det[l]][BB10Strip[l]][0];
 
-
+                            // Filling diagnostic histograms 
                             DS_PID->Fill(BSX3_En, BB10_En);
 
                             if(DS_deuterons->IsInside(BSX3_En, BB10_En))
@@ -927,35 +871,22 @@ void prelim_analysis()
                     initial_energy = initial_proton_energy((QQQ5RingEnergy[j]/1000.0), proton_distance_through_target(hit_pos));
                     corrected_excitation = 3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0);
 
-                    // cout << QQQ5Mul << setw(10) << corrected_excitation << endl;
 
-
-                    // if(IC_timing_gate_QQQ5->IsInside(tdcIC - tdcSilicon, initial_energy*1000.0))
-                    // {
-                        //Filling histograms
-                        kinematics->Fill(angle_IC_corrected, QQQ5RingEnergy[j]);
-                        kinematics_eloss_corrected->Fill(angle_IC_corrected, initial_energy*1000.0);
-                        qValue_vs_angle->Fill(angle_IC_corrected, qValue);
-                        Excitation_vs_angle->Fill(angle_IC_corrected, corrected_excitation);
-                        Ex_QQQ5->Fill(3593.0 - qValue);
-                        Excitation_spec->Fill(3593.0 - qValue);
-                        Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0));
-                    // }
+                    //Filling histograms
+                    kinematics->Fill(angle_IC_corrected, QQQ5RingEnergy[j]);
+                    kinematics_eloss_corrected->Fill(angle_IC_corrected, initial_energy*1000.0);
+                    qValue_vs_angle->Fill(angle_IC_corrected, qValue);
+                    Excitation_vs_angle->Fill(angle_IC_corrected, corrected_excitation);
+                    Ex_QQQ5->Fill(3593.0 - qValue);
+                    Excitation_spec->Fill(3593.0 - qValue);
+                    Excitation_spec_eloss_corrected->Fill(3593.0 - rel_q_value (angle_IC_corrected, initial_energy*1000.0));
+                
 
                     QQQ5_Si_TDC->Fill(tdcIC);
                     QQQ5_IC_TDC->Fill(tdcSilicon);
 
-                    Energy_vs_ic_si_hist_QQQ5->Fill(tdcIC - tdcSilicon, initial_energy*1000.0);
 
-
-
-                    //Filling the 3-D hit spectrum
-                    // hit_position_spectrum->Fill(hit_pos.at(0), hit_pos.at(2), hit_pos.at(1));
-
-                    //cout << QQQ5_angle[QQQ5Ring[j]] << "   " << proton_distance_through_target(hit_pos) << endl;
-
-                    //cout << "QQQ5    " << hit_pos.at(0) << "  " <<hit_pos.at(1) << "  " <<hit_pos.at(2) << endl;
-
+                    // Gamma-ray coincidences
                     if(xtalsMul >= 1 && xtalsMul <= 10 && QQQ5Upstream[j] == 1)
                     {
                         for(int k=0; k<xtalsMul; k++)
@@ -963,9 +894,7 @@ void prelim_analysis()
                             gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
                             gammaEx_matrixQQQ5->Fill(corrected_excitation, xtals_edop[k]);
 
-
-
-
+                            // Looking at gammas above and below Sn
                             if(excitation >= 5818.0 && excitation <= 6818.0)
                             {
                                 gamma_aboveSn->Fill(xtals_edop[k]);
@@ -975,32 +904,13 @@ void prelim_analysis()
                                 gamma_belowSn->Fill(xtals_edop[k]);
                             }
 
-
-
                         }
-
-
-
-                        if(xtalsMul >= 2)
-                        {
-                            for(int a=0; a<xtalsMul-1; a++)
-                            {
-                                for(int b=a+1; b<xtalsMul; b++)
-                                {
-                               
-                                    //Filling gamma-gamma matrix
-                                    gamma_gamma_matrix->Fill(xtals_edop[a], xtals_edop[b]);
-
-
-
-                                }
-                            }
-                        }
-
-
-
 
                     }
+
+
+
+
 
 
                 }
@@ -1017,10 +927,7 @@ void prelim_analysis()
         // ===========================================================================
         if(icE > 0. && icdE > 0.)
         {
-
             ic_dE_E->Fill(icE, icdE);
-
-
 
         }
 
@@ -1065,12 +972,10 @@ void prelim_analysis()
     gammaEx_matrix->Write();
     gammaEx_matrixSX3->Write();
     gammaEx_matrixQQQ5->Write();
-    gamma_gamma_matrix->Write();
     gamma_no_offset->Write();
     gamma_z_offset->Write();
     kinematics_deuteron_PID->Write();
     kinematics_proton_PID->Write();
-    SX3_en_vs_z_hist->Write();
     back_vs_front_strip_SX3->Write();
     pos_vs_strip_SX3->Write();
     angle_vs_strip->Write();
@@ -1083,24 +988,13 @@ void prelim_analysis()
     gamma_belowSn->Write();
     //hit_position_spectrum->Write();
 
+    delta_timestamp_vs_Run_hist->Write();
     siliconTDC_hist->Write();
     icTDC_hist->Write();
     grertinaTDC_hist->Write();
-    delta_timestamp_vs_Run_hist->Write();
-    tdcGRETINA_vs_Run_hist->Write();
-    si_ic_vs_Run_hist->Write();
-    Energy_vs_ic_si_hist_SX3->Write();
-    Energy_vs_ic_si_hist_QQQ5->Write();
-    Energy_vs_delta_timestamp_hist->Write();
 
 
 
-
-    gamma_aboveSn->SetLineColor(kRed);
-    gamma_belowSn->SetLineColor(kBlack);
-
-
-    c2->cd();
     
 
     std::cout << endl;

@@ -629,5 +629,43 @@ double get_solid_angle_per_det(string det_group, double bin_center, double bin_w
 
 
 
+double get_transverse_momentum(double angle, double energy)
+{
+    // subtract 90 deg from the angle to get it relative to he transverse plane
+    double transverseAngle = abs(angle-90.);
+
+    double transverseMom =  cos( (3.14159/180.)*transverseAngle ) * sqrt(2. * 1. * energy );
+
+    return transverseMom;
+
+}
 
 
+
+
+
+double calculate_recoil_angle(double angle, double energy, string particle)
+{
+
+
+    // Here need to take the energy and angle of the proton/deuteron and 
+    // get the transverse momentum. Then need to use this to calculate the 
+    // recoil angle.
+    double recoilMom_Z = 10324.; //units are sqrt(AMU.keV) 
+
+
+    // subtract 90 deg from the angle to get it relative to he transverse plane
+    double transverseAngle = abs(angle-90.);
+    double transverseMom;
+
+    if(particle == "proton") transverseMom =  cos( (3.14159/180.)*transverseAngle ) * sqrt(2. * 1. * energy );
+    if(particle == "deuteron") transverseMom =  cos( (3.14159/180.)*transverseAngle ) * sqrt(2. * 2. * energy );
+
+
+    double recoilAngle = (180.0/3.14159) * atan(transverseMom / recoilMom_Z);
+
+
+    return recoilAngle;
+
+
+}

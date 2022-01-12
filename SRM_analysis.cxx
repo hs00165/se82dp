@@ -29,7 +29,7 @@
 
 
 
-void prelim_analysis()
+void SRM_analysis()
 {
 
     TCanvas *c1 = new TCanvas("c1", "c1", 700, 700);
@@ -147,10 +147,10 @@ void prelim_analysis()
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run007_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run008_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run010_combined.root");
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run011_combined.root"); // Attenuated runs
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run012_combined.root"); // Attenuated runs
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run013_combined.root"); // Attenuated runs
-    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run014_combined.root"); // Attenuated runs
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run011_combined.root");
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run012_combined.root");
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run013_combined.root");
+    Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run014_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run015_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run016_combined.root");
     Chain->Add("/mnt/se82dp_2/se82dp_sorted/Run017_combined.root");
@@ -605,7 +605,7 @@ void prelim_analysis()
 
 
     //Output root file for histograms
-    TFile write("analysis_output/prelim_analysis.root", "recreate");
+    TFile write("analysis_output/SRM_analysis.root", "recreate");
 
 	// ================ Histograms and Canvases ==================
     TH2D* DS_PID = new TH2D("DS_PID", "DS_PID", 1000, 0, 18000, 1000, 0, 3500 );
@@ -655,8 +655,6 @@ void prelim_analysis()
     TH2D* SX3_en_vs_z_hist = new TH2D("SX3_en_vs_z_hist", "SX3_en_vs_z_hist", 400, -10, 10, 500, 0, 20000);
 
 
-    TH2D* Ex_vs_recoilAngle = new TH2D("Ex_vs_recoilAngle", "Ex_vs_recoilAngle", 50, 0, 5, 500, -5000, 15000);
-
     // Timestamp and TDC histograms
     TH2D* delta_timestamp_vs_Run_hist = new TH2D("delta_timestamp_vs_Run_hist", "delta_timestamp_vs_Run_hist", 120, 0, 120, 500, -100, 400);
     TH2D* tdcGRETINA_vs_Run_hist = new TH2D("tdcGRETINA_vs_Run_hist", "tdcGRETINA_vs_Run_hist", 120, 0, 120, 4096, 0, 4096);
@@ -670,6 +668,36 @@ void prelim_analysis()
     TH2D* back_vs_front_strip_SX3 = new TH2D("back_vs_front_strip_SX3", "back_vs_front_strip_SX3", 100, 0, 100, 100, 0, 100 );
     TH2D* pos_vs_strip_SX3 = new TH2D("pos_vs_strip_SX3", "pos_vs_strip_SX3", 100, 0, 100, 200, -1, 2 );
     TH2D* angle_vs_strip = new TH2D("angle_vs_strip", "angle_vs_strip", 200, -100, 100, 180, 90, 180 );
+
+
+
+
+
+
+
+
+    // Defining surrogate reaction method excitation bins
+    // ==================================================
+
+    int number_of_ex_bins = 24;
+
+    double ex_bin_center[number_of_ex_bins];
+    int excitationBin;
+
+    TH1D* excitationBinHist[number_of_ex_bins];
+    char ex_bin_name[number_of_ex_bins];
+
+    int gamStart=0, gamStop=2000, gamNumBins = 500;
+    for(int i=0; i<number_of_ex_bins; i++)
+    {
+        sprintf(ex_bin_name,"excitationBinHist_%d",(i*300)+150);
+        excitationBinHist[i] = new TH1D(ex_bin_name,ex_bin_name,gamNumBins,gamStart,gamStop);
+    }
+
+
+
+
+
 
 
     string runNumber_str;
@@ -828,9 +856,8 @@ void prelim_analysis()
                                 gamma_belowSn->Fill(xtals_edop[k]);
                             }
 
-
-
-
+                            excitationBin = floor(corrected_excitation/300.0);
+                            if(excitationBin >= 0 && excitationBin < number_of_ex_bins) excitationBinHist[excitationBin]->Fill(xtals_edop[k]);
 
 
 
@@ -963,6 +990,8 @@ void prelim_analysis()
                             gammaEx_matrix->Fill(corrected_excitation, xtals_edop[k]);
                             gammaEx_matrixQQQ5->Fill(corrected_excitation, xtals_edop[k]);
 
+                            excitationBin = floor(corrected_excitation/300.0);
+                            if(excitationBin >= 0 && excitationBin < number_of_ex_bins) excitationBinHist[excitationBin]->Fill(xtals_edop[k]);
 
 
 
@@ -1051,6 +1080,13 @@ void prelim_analysis()
 
 
     }
+
+
+    for(int a=0; a< number_of_ex_bins; a++)
+    {
+        excitationBinHist[a]->Write();
+    }
+
 
     
     DS_PID->Write();

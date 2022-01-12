@@ -2,6 +2,25 @@
 
 list the codes and their functions here
 
+
+## Analysis Shell
+To start analyzing data straight-off-the-bat, the two files you need to use/adjust are analysis_shell.cxx and analysis_functions.cxx
+analysis_functions.cxx is a file full of useful functions such as calculating the 3D hit position of the 
+ejectile, or the energy loss of a proton through Silicon etc.
+
+analysis_shell.cxx loads the merged runs (ie, the _combined.root files), calibrates and performs operations on the data event-by-event, 
+filling useful histograms such as the kinematics, excitation spectra, particle-gamma matrices etc.
+
+NOTE: when adjusting this to use your own data, you will need to remember a few things:
+1) You need to use different calibration parameters. These can be adjusted in the cal/cal_params directory.
+	- There are a few useful programs in the root directory that can do some automated calibration (documentation to come)
+2) You need to change the directory of the data files being pulled to wherever you keep them.
+
+
+
+
+
+
 ## To analyze angular distributions:
 0) Edit angular_distribution_config.dat to your choosing
 
